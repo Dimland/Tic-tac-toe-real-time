@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{6B282408-7E7E-4E0B-86FB-E14172E83013}</ProjectGuid>
+    <RootNamespace>gameCat</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile />
+      <CompileAs>CompileAsC</CompileAs>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="Tic-tac-toe real time.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Tic-tac-toe real time.c" />
+    <ClCompile Include="CountPoint.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Tic-tac-toe real time.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="backround.bmp" />
+    <Image Include="Backround_v2.bmp" />
+    <Image Include="Backround_v3.bmp" />
+    <Image Include="Backround_v5.bmp" />
+    <Image Include="Backround_v6.bmp" />
+    <Image Include="Backround_v6_1.bmp" />
+    <Image Include="Backround_v6_2.bmp" />
+    <Image Include="Backround_v6_3.bmp" />
+    <Image Include="Backround_v7.bmp" />
+    <Image Include="Backround_v7_test.bmp" />
+    <Image Include="energyO_0.bmp" />
+    <Image Include="energyO_1.bmp" />
+    <Image Include="energyO_10.bmp" />
+    <Image Include="energyO_2.bmp" />
+    <Image Include="energyO_3.bmp" />
+    <Image Include="energyO_4.bmp" />
+    <Image Include="energyO_5.bmp" />
+    <Image Include="energyO_6.bmp" />
+    <Image Include="energyO_7.bmp" />
+    <Image Include="energyO_8.bmp" />
+    <Image Include="energyO_9.bmp" />
+    <Image Include="energyX_0.bmp" />
+    <Image Include="energyX_1.bmp" />
+    <Image Include="energyX_10.bmp" />
+    <Image Include="energyX_2.bmp" />
+    <Image Include="energyX_3.bmp" />
+    <Image Include="energyX_4.bmp" />
+    <Image Include="energyX_5.bmp" />
+    <Image Include="energyX_6.bmp" />
+    <Image Include="energyX_7.bmp" />
+    <Image Include="energyX_8.bmp" />
+    <Image Include="energyX_9.bmp" />
+    <Image Include="exit_0.bmp" />
+    <Image Include="exit_1.bmp" />
+    <Image Include="favicon.ico" />
+    <Image Include="Tic-tac-toe real time.ico" />
+    <Image Include="ikonka.ico" />
+    <Image Include="kletka_v2.bmp" />
+    <Image Include="O-0.bmp" />
+    <Image Include="O-1.bmp" />
+    <Image Include="O-2.bmp" />
+    <Image Include="O-3.bmp" />
+    <Image Include="O-4.bmp" />
+    <Image Include="O-5.bmp" />
+    <Image Include="O-6.bmp" />
+    <Image Include="O-7.bmp" />
+    <Image Include="O-8.bmp" />
+    <Image Include="O-9.bmp" />
+    <Image Include="O.bmp" />
+    <Image Include="O1.bmp" />
+    <Image Include="O2.bmp" />
+    <Image Include="O3.bmp" />
+    <Image Include="O4.bmp" />
+    <Image Include="O5.bmp" />
+    <Image Include="o_win.bmp" />
+    <Image Include="pancel — копия.bmp" />
+    <Image Include="pancel.bmp" />
+    <Image Include="Pole.bmp" />
+    <Image Include="pusto.bmp" />
+    <Image Include="rules_0.bmp" />
+    <Image Include="rules_1.bmp" />
+    <Image Include="small.ico" />
+    <Image Include="StartGame.bmp" />
+    <Image Include="StartGameV.bmp" />
+    <Image Include="win_mens_lO.bmp" />
+    <Image Include="win_mens_lX.bmp" />
+    <Image Include="win_mens_PO.bmp" />
+    <Image Include="win_mens_PX.bmp" />
+    <Image Include="X.bmp" />
+    <Image Include="X1.bmp" />
+    <Image Include="X2.bmp" />
+    <Image Include="X3.bmp" />
+    <Image Include="X4.bmp" />
+    <Image Include="X5.bmp" />
+    <Image Include="X6.bmp" />
+    <Image Include="x_win.bmp" />
+    <Image Include="Значок.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\..\..\ris.wav" />
+    <Media Include="..\..\..\..\..\..\StartSong.wav" />
+    <Media Include="..\..\..\..\Downloads\1.wav" />
+    <Media Include="O_Win.wav" />
+    <Media Include="ris.wav" />
+    <Media Include="ris2.wav" />
+    <Media Include="StartSong.wav" />
+    <Media Include="X_Win.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\..\Windows\Cursors\IDC_MYCURSOR.cur" />
+    <None Include="..\..\..\..\OneDrive\Документы\pen.cur" />
+    <None Include="pen.cur" />
+    <None Include="pen1.cur" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

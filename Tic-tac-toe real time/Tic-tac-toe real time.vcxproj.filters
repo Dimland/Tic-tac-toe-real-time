@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Tic-tac-toe real time.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CountPoint.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Tic-tac-toe real time.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Tic-tac-toe real time.rc">
+      <Filter>Файлы ресурсов</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\..\..\ris.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\..\StartSong.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="..\..\..\..\Downloads\1.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="O_Win.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="ris.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="ris2.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="StartSong.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="X_Win.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="backround.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Backround_v2.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Backround_v3.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Backround_v5.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Backround_v6.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Backround_v6_1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Backround_v6_2.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Backround_v6_3.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Backround_v7.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Backround_v7_test.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyO_0.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyO_1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyO_10.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyO_2.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyO_3.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyO_4.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyO_5.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyO_6.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyO_7.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyO_8.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyO_9.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyX_0.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyX_1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyX_10.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyX_2.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyX_3.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyX_4.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyX_5.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyX_6.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyX_7.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyX_8.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="energyX_9.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="exit_0.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="exit_1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="favicon.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Tic-tac-toe real time.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="ikonka.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="kletka_v2.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O-0.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O-1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O-2.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O-3.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O-4.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O-5.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O-6.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O-7.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O-8.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O-9.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O2.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O3.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O4.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="O5.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="o_win.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pancel — копия.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pancel.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Pole.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pusto.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="rules_0.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="rules_1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="StartGame.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="StartGameV.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="win_mens_lO.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="win_mens_lX.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="win_mens_PO.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="win_mens_PX.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="X.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="X1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="X2.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="X3.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="X4.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="X5.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="X6.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="x_win.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Значок.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\..\Windows\Cursors\IDC_MYCURSOR.cur">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="..\..\..\..\OneDrive\Документы\pen.cur">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="pen.cur">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="pen1.cur">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+  </ItemGroup>
+</Project>
