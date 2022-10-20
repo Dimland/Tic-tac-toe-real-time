@@ -2,7 +2,6 @@
 #pragma comment (lib, "winmm.lib")
 #pragma comment (lib, "shcore.lib")
 
-#define DPI_AWARENESS_CONTEXT_UNAWARE              ((DPI_AWARENESS_CONTEXT)-1)
 #include <windows.h>
 #include <windowsx.h>
 #include <new.h>
@@ -36,6 +35,10 @@
 #define ID_BEEP 101
 #define ID_QUIT 102
 
+struct botButton {
+    int Status, StasusModeGame, posX, posY, sizeX, sizeY;
+
+} botB;
 
 struct startButton {
     int Status, x, y;
@@ -93,14 +96,12 @@ typedef struct startButton Start_Button;
 wchar_t* arrayP[10000];
 int arrayCoordinataX[100];
 int arrayCoordinataY[100];
-
+int botGrade[100];
 BOOL arrayFlag[100];
 
-char id000[] = "X";
-char id01[] = "01";
 int countLine1_X = 0; //point x
 int countLine1_O = 0; // point O
-int WinPoint = 21; // Разница point при которой победит одна из сторон
+int WinPoint = 31; // Разница point при которой победит одна из сторон
 int changeLeftClic[100];
 wchar_t* pX = L"x";
 wchar_t* notSimvol = L"";
@@ -114,6 +115,8 @@ wchar_t line1[10];
 wchar_t buff[100];
 
 
+double strokeCounter = 0;
+
 // For Cool numbers
 int numberX_1 = 0;
 int numberX_2 = 0;
@@ -123,8 +126,8 @@ int numberO_2 = 0;
 int numberO_3 = 0;
 
 // energy
-double energyX = 30;
-double energyO = 30;
+double energyX = 2;
+double energyO = 2;
 
 double energyX1 = 1;
 double energyX2 = 1;
@@ -204,6 +207,8 @@ static HDC memBitPole;
 
 
 // button menu
+
+static HDC memBitBot;
 static HDC memBitStartGame;
 static HDC memBitStartGameV;
 
@@ -353,10 +358,71 @@ void update(HDC hdc) {
     if (StartGame == 4 || counter_start == -100) { BitBlt(memDC, 677, 173, 395, 565, memBitPole, 0, 0, SRCCOPY); }
 
 
-    // ButtonStartGame
 
-    if (StartB.Status == 1 && StartGame != -1) { BitBlt(memDC, 237, 355, 321, 71, memBitStartGame, 0, 0, SRCCOPY); }
-    if (StartB.Status == 2 && StartGame != -1) { BitBlt(memDC, 237, 355, 321, 71, memBitStartGameV, 0, 0, SRCCOPY); }
+
+    int posT1SecX = 905;
+    int posT1SecY = 18;
+    int posyTRight = 44;
+
+
+    // first zero
+    BitBlt(memDC, 835 - posyTRight, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY);
+
+
+    if (minutsLeft <= 0) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY); }
+    if (minutsLeft == 1) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT1, 0, 0, SRCCOPY); }
+    if (minutsLeft == 2) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT2, 0, 0, SRCCOPY); }
+    if (minutsLeft == 3) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT3, 0, 0, SRCCOPY); }
+    if (minutsLeft == 4) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT4, 0, 0, SRCCOPY); }
+    if (minutsLeft == 5) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT5, 0, 0, SRCCOPY); }
+    if (minutsLeft == 6) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT6, 0, 0, SRCCOPY); }
+    if (minutsLeft == 7) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT7, 0, 0, SRCCOPY); }
+    if (minutsLeft == 8) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT8, 0, 0, SRCCOPY); }
+    if (minutsLeft == 9) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT9, 0, 0, SRCCOPY); }
+
+    if (minutsLeft <= 0) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 1) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT1, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 2) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT2, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 3) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT3, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 4) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT4, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 5) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT5, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 6) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT6, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 7) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT7, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 8) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT8, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 9) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT9, 0, 0, SRCCOPY); }
+
+
+    if (secondsLeft1 <= 0) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 1) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT1, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 2) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT2, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 3) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT3, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 4) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT4, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 5) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT5, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 6) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT6, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 7) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT7, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 8) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT8, 0, 0, SRCCOPY); }
+    if (secondsLeft1 == 9) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT9, 0, 0, SRCCOPY); }
+
+    if (secondsLeft2 <= 0) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY); }
+    if (secondsLeft2 == 1) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT1, 0, 0, SRCCOPY); }
+    if (secondsLeft2 == 2) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT2, 0, 0, SRCCOPY); }
+    if (secondsLeft2 == 3) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT3, 0, 0, SRCCOPY); }
+    if (secondsLeft2 == 4) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT4, 0, 0, SRCCOPY); }
+    if (secondsLeft2 == 5) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT5, 0, 0, SRCCOPY); }
+    if (secondsLeft2 == 6) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT6, 0, 0, SRCCOPY); }
+    if (secondsLeft2 == 7) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT7, 0, 0, SRCCOPY); }
+    if (secondsLeft2 == 8) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT8, 0, 0, SRCCOPY); }
+    if (secondsLeft2 == 9) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT9, 0, 0, SRCCOPY); }
+
+
+
+    // ButtonBot
+    if (StartB.Status == 1 && StartGame != -1 && botB.Status ==1) { BitBlt(memDC, botB.posX, botB.posY, botB.sizeX, botB.sizeY, memBitBot, 0, 0, SRCCOPY); }
+    if (botB.StasusModeGame == 1 && StartGame != -1) { BitBlt(memDC, botB.posX + 10, botB.posY + 10, 28, 28, memBitX6, 0, 0, SRCCOPY); }
+
+    // ButtonStartGame
+    if (StartB.Status == 1 && StartGame != -1) { BitBlt(memDC, 237, 360, 321, 66, memBitStartGame, 0, 0, SRCCOPY); }
+    if (StartB.Status == 2 && StartGame != -1) { BitBlt(memDC, 237, 360, 321, 66, memBitStartGameV, 0, 0, SRCCOPY); }
 
 
 
@@ -400,6 +466,7 @@ void update(HDC hdc) {
     for (int i = 1; i <= 100; i++) {
         if (arrayP[i] == L"x" && StartGame != -1 && (StartGame ==2 || StartGame ==4)) {
             BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitX6, 0, 0, SRCCOPY); arrayFlag[i] = 1; 
+            compareArray();
         }
         if (arrayP[i] == L"x5") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitX5, 0, 0, SRCAND); arrayP[i] = L"x"; tik_tak = 10;
         }
@@ -410,6 +477,7 @@ void update(HDC hdc) {
 
         if (arrayP[i] == L"o" && StartGame != -1 && (StartGame == 2 || StartGame == 4)) {
             BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitO6, 0, 0, SRCCOPY); arrayFlag[i] = 1;
+            compareArrayO();
         }
         if (arrayP[i] == L"o5") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitO5, 0, 0, SRCAND); arrayP[i] = L"o"; }
         if (arrayP[i] == L"o4") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitO4, 0, 0, SRCAND); arrayP[i] = L"o5"; tik_tak = 10;
@@ -553,60 +621,6 @@ void update(HDC hdc) {
     if (numberO_2 == 9 && (counter_start == -100 || StartGame == 4)) { BitBlt(memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBitNumbO_9, 0, 0, SRCCOPY); }
 
 
-    int posT1SecX = 905;
-    int posT1SecY = 18;
-    int posyTRight = 44;
-
-
-    // first zero
-    BitBlt(memDC, 835 - posyTRight, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY);
-
-
-    if (minutsLeft <= 0) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY); }
-    if (minutsLeft == 1) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT1, 0, 0, SRCCOPY); }
-    if (minutsLeft == 2) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT2, 0, 0, SRCCOPY); }
-    if (minutsLeft == 3) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT3, 0, 0, SRCCOPY); }
-    if (minutsLeft == 4) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT4, 0, 0, SRCCOPY); }
-    if (minutsLeft == 5) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT5, 0, 0, SRCCOPY); }
-    if (minutsLeft == 6) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT6, 0, 0, SRCCOPY); }
-    if (minutsLeft == 7) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT7, 0, 0, SRCCOPY); }
-    if (minutsLeft == 8) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT8, 0, 0, SRCCOPY); }
-    if (minutsLeft == 9) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT9, 0, 0, SRCCOPY); }
-
-    if (minutsLeft <= 0) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 1) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT1, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 2) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT2, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 3) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT3, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 4) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT4, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 5) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT5, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 6) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT6, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 7) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT7, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 8) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT8, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 9) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT9, 0, 0, SRCCOPY); }
-
-
-    if (secondsLeft1 <= 0) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 1) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT1, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 2) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT2, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 3) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT3, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 4) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT4, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 5) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT5, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 6) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT6, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 7) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT7, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 8) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT8, 0, 0, SRCCOPY); }
-    if (secondsLeft1 == 9) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT9, 0, 0, SRCCOPY); }
-
-    if (secondsLeft2 <= 0) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY); }
-    if (secondsLeft2 == 1) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT1, 0, 0, SRCCOPY); }
-    if (secondsLeft2 == 2) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT2, 0, 0, SRCCOPY); }
-    if (secondsLeft2 == 3) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT3, 0, 0, SRCCOPY); }
-    if (secondsLeft2 == 4) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT4, 0, 0, SRCCOPY); }
-    if (secondsLeft2 == 5) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT5, 0, 0, SRCCOPY); }
-    if (secondsLeft2 == 6) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT6, 0, 0, SRCCOPY); }
-    if (secondsLeft2 == 7) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT7, 0, 0, SRCCOPY); }
-    if (secondsLeft2 == 8) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT8, 0, 0, SRCCOPY); }
-    if (secondsLeft2 == 9) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT9, 0, 0, SRCCOPY); }
-
 
 
     if (StartGame == 4 && countLine1_X > countLine1_O && FinishGame == 0) {
@@ -650,45 +664,33 @@ void update(HDC hdc) {
         tempm = tempm + 1;
     }
 
+    // redPancel
 
-
-    if (counter_start == -100) {
+    if (counter_start == -100 && botB.StasusModeGame == 1) {
         { BitBlt(memDC, arrayCoordinataX[posPancel] + 10, arrayCoordinataY[posPancel] - 2, 9, 23, memBitPancel, 0, 0, SRCCOPY); }
     }
 
 
 
     //Point X
-    if (counter_start == -100 || StartGame == 4) {
-        compareArray();
-        /*    int c = wsprintf(buferForInt, TEXT("%i"), countLine1_X);
-            TextOut(memDC, 700, 600, buferForInt, c);*/
 
-    }
 
 
     //int energX = _swprintf(buferForInt, TEXT("Энергия X: %f"), energyX);
     //TextOut(memDC, 800, 950, buferForInt, energX );
 
-    if (counter_start == -100 || StartGame == 4) {
-        compareArrayO();
 
-        //Point O
-     /*   int c = wsprintf(buferForInt, TEXT("%i "), countLine1_O);
-        TextOut(memDC, 900, 600, buferForInt, c);*/
+    if (counter_start == -100) {
+
+        int c = wsprintf(buferForInt, TEXT("%i "), minutsLeft);
+        TextOut(memDC, 800, 50, buferForInt, c);
     }
 
-    //if (counter_start == -100) {
+    if (counter_start == -100) {
 
-    //    int c = wsprintf(buferForInt, TEXT("%i "), minutsLeft);
-    //    TextOut(memDC, 800, 50, buferForInt, c);
-    //}
-
-    //if (counter_start == -100) {
-
-    //    int c = wsprintf(buferForInt, TEXT(" : %i"), secondsLeft);
-    //    TextOut(memDC, 808, 50, buferForInt, c);
-    //}
+        int c = wsprintf(buferForInt, TEXT(" : %i"), secondsLeft);
+        TextOut(memDC, 808, 50, buferForInt, c);
+    }
 
     /* int energO = _swprintf(buferForInt, TEXT("Энергия O: %f"), energyO);
      TextOut(memDC, 1000, 950, buferForInt, energO-5 );*/
@@ -744,18 +746,9 @@ static BITMAP bm;
 static RECT rc;
 
 
-
-
-
-
-
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
     PWSTR lpCmdLine, int nCmdShow
-
-
-
-
 
 ) {
     SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
@@ -774,11 +767,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LONG)LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON2)));
 
 
-    /*  wc.hCursor = LoadCursor(hInstance, MAKEINTRESOURCE(IDC_FUNKY));
-      LoadCursorFromFile(TEXT("pen.cur"));*/
-
-
-
 
 
     HBITMAP hBitmap = LoadBitmap(hInstance, szImageName);
@@ -788,14 +776,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     pPnt = malloc(sizeof(*pPnt));
     LPRECT rctt; // указатель на размер экрана
     rctt = malloc(sizeof(*pPnt));
-
-
-
-
-
- 
-
-
 
 
 
@@ -827,6 +807,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
     // назначаю структурам позиции
 
+
+
+    botB.Status = 0;
+    botB.StasusModeGame = 0;
+    botB.posX = 232;
+    botB.posY = 314;
+    botB.sizeX = 51;
+    botB.sizeY = 48;
+    
+
     RulesB.Status = 0;
     RulesB.posX = 233;
     RulesB.posY = 459;
@@ -857,8 +847,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     AuthorB.posY = 561;
     AuthorB.sizeX = 223;
     AuthorB.sizeY = 78;
-
-
 
     AuthorI.Status = 0;
     AuthorI.posX = 628;
@@ -905,15 +893,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
             ScreenToClient(hwnd, pPnt);
             mouse_x = pPnt[0].x;
             mouse_y = pPnt[0].y;
-
-            VvodO_K(hwnd);
-            VvodO_s(hwnd);
+            if(counter_start == - 100) gameDuration = gameDuration - 0.063;
             Watch(hwnd);
+            VvodO_K(hwnd);
             convertPointInCoolO(hwnd);
             convertWatch(hwnd);
             changeMenu(hwnd);
+           if (botB.StasusModeGame ==1) VvodO_s(hwnd);
+           else { VvodO_bot(hwnd); };
+           
 
-            //  твои функции для главного цикла
             Sleep(50);
         }
     }
@@ -944,7 +933,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
         memBitBlack = CreateCompatibleDC(hdc);
         SelectObject(memBitBlack, hBitmap);
 
-        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Backround_v0.9_whate.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Backround_v0.10_whate.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
         GetObject(hBitmap, sizeof(bm), &bm);
        
         memBit3 = CreateCompatibleDC(hdc);
@@ -1027,6 +1016,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
         GetObject(hBitmap, sizeof(bm), &bm);
         memBitO6 = CreateCompatibleDC(hdc);
         SelectObject(memBitO6, hBitmap);
+
+
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\bot_1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        GetObject(hBitmap, sizeof(bm), &bm);
+        memBitBot = CreateCompatibleDC(hdc);
+        SelectObject(memBitBot, hBitmap);
+
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\startGame.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
         GetObject(hBitmap, sizeof(bm), &bm);
@@ -1536,7 +1532,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
 
 
 
-
 int VvodO_s(HWND hwnd) {
     if (counter_start == -100) {
         if (GetKeyState('A') < 0 || GetKeyState(VK_LEFT) < 0) {
@@ -1561,10 +1556,6 @@ int VvodO_s(HWND hwnd) {
             }
         }
 
-
-        /*   if (GetKeyState(VK_RETURN) < 0) {
-               SetFocus(hed);
-           }*/
         if ((GetKeyState(VK_RETURN) < 0 || GetKeyState(VK_SPACE) < 0) && energyO > 1) {
             /*  len = GetWindowTextLength(hed) + 1;
               GetWindowText(hed, buff, len);*/
@@ -1580,7 +1571,7 @@ int VvodO_s(HWND hwnd) {
                 arrayP[posPancel] = L"o1"; energyO = energyO - 1;
                 // DestroyWindow(arrayHWND[VVVod]); 
 
-
+                
                 //DestroyWindow(hed);
                 //hed = CreateWindowW(L"Edit", notSimvol,
                 //    WS_VISIBLE | WS_CHILD | WS_BORDER | ES_RIGHT | ES_NUMBER | WS_TABSTOP,
@@ -1620,6 +1611,7 @@ int VvodO_K(HWND hwnd) {
                     {
                         arrayP[lp] = L"x1"; energyX = energyX - 1;
                         changeLeftClic[lp] = 0;
+                        
                         
                     }
                 }
@@ -2103,7 +2095,7 @@ int Watch(HWND hwnd) {
     }
     // Тиканье времени
     if (counter_start == -100) {
-        gameDuration = gameDuration - 0.063;
+       
         if (tik_tak == 0) {
             PlaySoundW(TEXT(".\\sounds\\tik-tak2.wav"), NULL, SND_FILENAME | SND_ASYNC); 
             tik_tak = 350;
@@ -2154,12 +2146,47 @@ int Watch(HWND hwnd) {
 
 int changeMenu(HWND hwnd) {
 
+
+    // botButton
+    if (GetKeyState(VK_LBUTTON) < 0
+        && mouse_x >= botB.posX
+        && mouse_y >= botB.posY
+        && mouse_x <= botB.posX + botB.sizeX
+        && mouse_y <= botB.posY + botB.sizeY
+        && StartGame >= 0 && StartGame != 2 && StartGame != 5)
+    {
+        
+
+        if (botB.StasusModeGame == 0) {
+            PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            botB.StasusModeGame = 1;
+            Sleep(300);
+        }
+        else {
+            PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            botB.StasusModeGame = 0;
+            Sleep(300);
+        }
+    }
+
+    if (mouse_x >= botB.posX
+        && mouse_y >= botB.posY
+        && mouse_x <= botB.posX + botB.sizeX
+        && mouse_y <= botB.posY + botB.sizeY
+        && (StartGame == 0 || StartGame == 4 || StartGame == 6) && StartGame != 5)
+    {
+        botB.Status = 1;
+
+    }
+    else { botB.Status = 0; }
+
+
     // Start Game
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= 271
-        && mouse_y >= 355
-        && mouse_x <= 271 + 321
-        && mouse_y <= 355 + 71
+        && mouse_x >= 237
+        && mouse_y >= 360
+        && mouse_x <= 237 + 321
+        && mouse_y <= 360 + 66
         && (StartGame == 0 || StartGame == 4|| StartGame == 5 || StartGame == 6))
     {
 
@@ -2175,13 +2202,15 @@ int changeMenu(HWND hwnd) {
         energyX = 2;
         energyO = 2;
         gameDuration = gameDurationBuf;
+        countLine1_X = 0;
+        countLine1_O = 0;
 
     }
 
-    if (mouse_x >= 271
-        && mouse_y >= 355
-        && mouse_x <= 271 + 321
-        && mouse_y <= 355 + 71
+    if (mouse_x >= 237
+        && mouse_y >= 360
+        && mouse_x <= 237 + 321
+        && mouse_y <= 360 + 66
         && (StartGame !=2) && StartGame >=0 ) {
         StartB.Status = 2;
     }
@@ -2349,6 +2378,7 @@ int changeMenu(HWND hwnd) {
         energyX = 2;
         energyO = 2;
         gameDuration = gameDurationBuf;
+        strokeCounter = 0;
 
 
     }
@@ -2427,3 +2457,287 @@ int changeMenu(HWND hwnd) {
 }
 
 
+int VvodO_bot(HWND hwnd) {
+
+    if (counter_start == -100 && botB.StasusModeGame == 0 && energyO >= 3)
+    {
+        strokeCounter = 0;
+        if (arrayP[55] == L"" && energyO >= 1) {
+            arrayP[55] = L"o1";
+            energyO = energyO - 0.9;
+        }
+
+        else {
+            if (arrayP[56] == L"" && energyO >= 1) {
+                arrayP[56] = L"o1";
+                energyO = energyO - 0.9;
+            }
+            else {
+                if (arrayP[46] == L"" && energyO >= 1) {
+                    arrayP[46] = L"o1";
+                    energyO = energyO - 0.9;
+                }
+                else  if (arrayP[45] == L"" && energyO >= 1) {
+                    arrayP[45] = L"o1";
+                    energyO = energyO - 0.9;
+                }
+                // AI
+
+                else {
+                    int resultR = 1;
+                    struct arrayGradeBot {
+                        int right[101], left[101], up[101], down[101], rightX[101], leftX[101], upX[101], downX[101], result[101];
+                    } arrayGB;
+                    for (int i = 0; i < 101; i++) {
+                        arrayGB.rightX[i] = 0;
+                        arrayGB.right[i] = 0;
+                        arrayGB.left[i] = 0;
+                        arrayGB.leftX[i] = 0;
+                        arrayGB.upX[i] = 0;
+                        arrayGB.up[i] = 0;
+                        arrayGB.downX[i] = 0;
+                        arrayGB.down[i] = 0;
+
+
+
+
+                    }
+                    for (int i = 1; i <= 100; i++) {
+                        if (arrayP[i] == L"") {
+
+
+                            // right
+                            int tempRX = 0;
+                            for (int iOR = 1; iOR < 10; iOR++) {
+                                if((i + iOR * 10)<101){
+                                if (arrayP[i + iOR * 10] == L"x" 
+                                    && tempRX < 5) {
+                                    tempRX = tempRX + 1;
+                                    arrayGB.rightX[i] = tempRX;
+                                }
+                                else {
+                                    arrayGB.rightX[i] = tempRX;
+                                    tempRX = 0;
+                                    iOR = 10;
+                                }
+                                }
+                            }
+                            //left
+                            int tempLX = 0;
+                            for (int iOL = 1; iOL < 10; iOL++) {
+                                if ((i - iOL * 10) > 0) {
+                                    if (arrayP[i - iOL * 10] == L"x"
+                                        && tempLX < 5) {
+                                        tempLX = tempLX + 1;
+                                        arrayGB.leftX[i] = tempLX;
+                                    }
+                                    else {
+                                        arrayGB.leftX[i] = tempLX;
+                                        tempLX = 0;
+                                        iOL = 10;
+                                    }
+                                }
+                            }
+                            //up
+                            int tempUX = 0;
+                            for (int iOU = 1; iOU < 10; iOU++) {
+                                if (i - iOU == 10 || i - iOU == 0 || i - iOU == 20 || i - iOU == 30 || i - iOU == 40 ||
+                                    i - iOU == 50 || i - iOU == 60 || i - iOU == 70 || i - iOU == 80 || i - iOU == 90) {
+                                    iOU = 10;
+                                   
+                                }
+                                else {
+                                    if (arrayP[i - iOU] == L"x" && tempUX < 5) {
+                                        tempUX = tempUX + 1;
+                                        arrayGB.upX[i] = tempUX;
+                                    }
+                                    else {
+                                        arrayGB.upX[i] = tempUX;
+                                        tempUX = 0;
+                                        iOU = 10;
+                                    }
+                                }
+                            }
+                            //down
+                            int tempDX = 0;
+                            for (int iOD = 1; iOD < 10; iOD++) {
+                                if (i + iOD == 11 || i + iOD == 101 || i + iOD == 21 || i + iOD == 31 || i + iOD == 41 ||
+                                    i + iOD == 51 || i + iOD == 61 || i + iOD == 71 || i + iOD == 81 || i + iOD == 91) {
+                                    iOD = 10;
+                                    
+                                }
+                                else {
+                                    if (arrayP[i + iOD] == L"x" && tempDX < 5) {
+                                        tempDX = tempDX + 1;
+                                        arrayGB.downX[i] = tempDX;
+                                    }
+                                    else {
+                                        arrayGB.downX[i] = tempDX;
+                                        tempDX = 0;
+                                        iOD = 10;
+                                    }
+
+
+
+
+
+                                }
+                            }
+
+                            // right
+                            int tempR = 0;
+                            for (int iOR = 1; iOR < 10; iOR++) {
+                                if ((i + iOR * 10) < 101) {
+                                    if (arrayP[i + iOR * 10] == L"o" && tempR < 5) {
+                                        tempR = tempR + 1;
+                                        arrayGB.right[i] = tempR;
+                                    }
+                                    else {
+                                        arrayGB.right[i] = tempR;
+                                        tempR = 0;
+                                        iOR = 10;
+                                    }
+                                }
+                            }
+                                //left
+                                int tempL = 0;
+                                for (int iOL = 1; iOL < 10; iOL++) {
+                                    if ((i - iOL * 10) >= 1) {
+                                        if (arrayP[i - iOL * 10] == L"o" && tempL < 5) {
+                                            tempL = tempL + 1;
+                                            arrayGB.left[i] = tempL;
+                                        }
+                                        else {
+                                            arrayGB.left[i] = tempL;
+                                            tempL = 0;
+                                            iOL = 10;
+                                        }
+                                    }
+                                }
+                                    //up
+                                    int tempU = 0;
+                                    for (int iOU = 1; iOU < 10; iOU++) {
+                                        if (i - iOU == 10 || i - iOU == 0 || i - iOU == 20 || i - iOU == 30 || i - iOU == 40 ||
+                                            i - iOU == 50 || i - iOU == 60 || i - iOU == 70 || i - iOU == 80 || i - iOU == 90) {
+                                            iOU = 11;
+                                          
+                                        }
+                                        else {
+                                            if (arrayP[i - iOU] == L"o" && tempU < 5) {
+                                                tempU = tempU + 1;
+                                                arrayGB.up[i] = tempU;
+                                            }
+                                            else {
+                                                arrayGB.up[i] = tempU;
+                                                tempU = 0;
+                                                iOU = 10;
+                                            }
+                                        }
+                                    }
+                                            //down
+                                            int tempD = 0;
+                                            for (int iOD = 1; iOD < 10; iOD++) {
+                                                if (i + iOD == 11 || i + iOD == 101 || i + iOD == 21 || i + iOD == 31 || i + iOD == 41 ||
+                                                    i + iOD == 51 || i + iOD == 61 || i + iOD == 71 || i + iOD == 81 || i + iOD == 91) {
+                                                    iOD = 11;
+                                                 
+                                                }
+                                                else {
+                                                    if (arrayP[i + iOD] == L"o" && tempD < 5) {
+                                                        tempD = tempD + 1;
+                                                        arrayGB.down[i] = tempD;
+                                                    }
+                                                    else {
+                                                        arrayGB.down[i] = tempD;
+                                                        tempD = 0;
+                                                        iOD = 10;
+                                                    }
+
+
+
+
+
+                                                }
+                                            }
+                                        
+
+
+
+
+                          
+                        arrayGB.result[i] = 0;
+                        int tempArray[8];
+
+                      /*  if (secondsLeft1 == 1 || secondsLeft1 == 4 ||  secondsLeft1 == 3 ) {*/
+
+                        
+
+
+                        tempArray[0] = arrayGB.rightX[i];
+                        tempArray[1] = arrayGB.leftX[i];
+                        tempArray[2] = arrayGB.upX[i];
+                        tempArray[3] = arrayGB.downX[i];
+                        tempArray[4] = arrayGB.right[i];
+                        tempArray[5] = arrayGB.left[i];
+                        tempArray[6] = arrayGB.up[i];
+                        tempArray[7] = arrayGB.down[i];
+                      /*}*/
+                      /*  else {
+                            tempArray[0] = arrayGB.right[i];
+                            tempArray[1] = arrayGB.left[i];
+                            tempArray[2] = arrayGB.up[i];
+                            tempArray[3] = arrayGB.down[i];
+                            tempArray[4] = arrayGB.rightX[i];
+                            tempArray[5] = arrayGB.leftX[i];
+                            tempArray[6] = arrayGB.upX[i];
+                            tempArray[7] = arrayGB.downX[i];
+
+
+
+                        }*/
+                        int maxP = 0;
+                        for (int ii = 0; ii <= 7; ii++) {
+                            if (tempArray[ii] > arrayGB.result[i]) {
+                                if (tempArray[ii] > maxP) {
+                                    maxP = tempArray[ii];
+                                    arrayGB.result[i] = tempArray[ii];
+                                }
+                            }
+
+
+                        }
+                    }
+                    }
+
+
+
+                    int max = 0;
+                    for (int iRes = 2; iRes < 100; iRes++) {
+                        if(arrayP[iRes] == L"") {
+                        if (arrayGB.result[iRes] > arrayGB.result[iRes-1])
+                        {
+                            if (arrayGB.result[iRes] > max) {
+                                max = arrayGB.result[iRes];
+                                resultR = iRes;
+                            }
+                        }
+                        }
+                    }
+                    if (energyO >= 1 && arrayP[resultR] == L"") {
+                        arrayP[resultR] = L"o1";
+                        energyO = energyO -0.8;
+                       
+                       
+                        
+                    }
+
+
+
+
+                }
+        
+
+            }
+        }
+    }
+}
