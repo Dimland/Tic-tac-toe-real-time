@@ -790,9 +790,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     rctt = malloc(sizeof(*pPnt));
 
 
-
-
-
  
 
 
@@ -857,8 +854,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     AuthorB.posY = 561;
     AuthorB.sizeX = 223;
     AuthorB.sizeY = 78;
-
-
 
     AuthorI.Status = 0;
     AuthorI.posX = 628;
