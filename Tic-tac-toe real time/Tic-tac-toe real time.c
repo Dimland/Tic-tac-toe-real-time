@@ -672,7 +672,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
     SetCursor(LoadCursorFromFile(TEXT(".\\image\\pen1.cur")));
 
     RegisterClassW(&wc);
-    hwnd = CreateWindow(wc.lpszClassName, L"TIC_",
+    hwnd = CreateWindow(wc.lpszClassName, L"TIK-TAK SOVLANUT",
         WS_OVERLAPPEDWINDOW | WS_VISIBLE | WS_EX_TOPMOST,
         0, 0, 1280, 1024, 0, 0, hInstance, 0);
 
