@@ -803,7 +803,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
         memBitBlack = CreateCompatibleDC(hdc);
         SelectObject(memBitBlack, hBitmap);
 
-        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Backround_v0.10_whate.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Backround_v0.11_whate.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
         memBit3 = CreateCompatibleDC(hdc);
         SelectObject(memBit3, hBitmap);
 
@@ -2185,21 +2185,21 @@ int VvodO_bot(HWND hwnd) {
        
         if (arrayP[55] == L"" && energyO >= 1) {
             arrayP[55] = L"o1";
-            energyO = energyO - 1;
+            energyO = energyO - 0.9;
         }
         else {
             if (arrayP[56] == L"" && energyO >= 1) {
                 arrayP[56] = L"o1";
-                energyO = energyO - 1;
+                energyO = energyO - 0.9;
             }
             else {
                 if (arrayP[46] == L"" && energyO >= 1) {
                     arrayP[46] = L"o1";
-                    energyO = energyO - 1;
+                    energyO = energyO - 0.9;
                 }
                 else  if (arrayP[45] == L"" && energyO >= 1) {
                     arrayP[45] = L"o1";
-                    energyO = energyO - 1;
+                    energyO = energyO - 0.9;
                 }
                 // AI
 
@@ -2405,7 +2405,7 @@ int VvodO_bot(HWND hwnd) {
                     }
                     if (energyO >= 1 && arrayP[resultR] == L"") {
                         arrayP[resultR] = L"o1";
-                        energyO = energyO -0.95;
+                        energyO = energyO -0.85;
     
                     }
                 }
