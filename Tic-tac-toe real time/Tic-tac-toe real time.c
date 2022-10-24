@@ -96,7 +96,7 @@ int arrayFlag[100];
 int sumArrayFlagField = 0;
 int countLine1_X = 0; //point x
 int countLine1_O = 0; // point O
-int WinPoint = 1030; // Разница point при которой победит одна из сторон
+int WinPoint = 30; // Разница point при которой победит одна из сторон
 int changeLeftClic[100]; 
 wchar_t* pX = L"x";
 wchar_t* pO = L"o";
@@ -571,16 +571,14 @@ void update(HDC hdc) {
     if (numberO_2 == 8 && (counter_start == -100 || StartGame == 4)) { BitBlt(memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBitNumbO_8, 0, 0, SRCCOPY); }
     if (numberO_2 == 9 && (counter_start == -100 || StartGame == 4)) { BitBlt(memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBitNumbO_9, 0, 0, SRCCOPY); }
 
-    if (StartGame == 4 && countLine1_X > countLine1_O) {
-        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\X_Win2.wav"), NULL, SND_FILENAME | SND_ASYNC);
-    }
+
+
+
     if (StartGame == 4 && countLine1_X > countLine1_O) {
         BitBlt(memDC, 686, 541, 328, 59, memBitX_Win, 0, 0, SRCCOPY);
     }
-
-
-    if (StartGame == 4 && countLine1_O > countLine1_X) {
-        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\O_Win.wav"), NULL, SND_FILENAME | SND_ASYNC);
+    if (StartGame == 4 && countLine1_X > countLine1_O) {
+        BitBlt(memDC, 686, 541, 328, 59, memBitO_Win, 0, 0, SRCCOPY);
     }
 
     // dance men red
@@ -1786,9 +1784,23 @@ int Watch(HWND hwnd) {
     //Проверка конца игры по времени
     if (counter_start < -1 && (gameDuration <= 0 || WinPoint <= countLine1_X - countLine1_O || WinPoint <= countLine1_O - countLine1_X || sumArrayFlagField >=100)) {
         StartGame = 4;
+
         counter_start = 1;
+
+        if (StartGame == 4 && countLine1_X > countLine1_O) {
+            if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\X_Win2.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        }
+        if (StartGame == 4 && countLine1_O > countLine1_X) {
+            if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\O_Win.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        }
+
         sumArrayFlagField = 0;
         gameDuration = gameDurationBuf;
+
+
+
+
+
     }
 
     // drow eneggy
@@ -1998,7 +2010,6 @@ int changeMenu(HWND hwnd) {
     {
         if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\onLamp.wav"), NULL, SND_FILENAME | SND_ASYNC);
         Sleep(350);
-        /*CreateGameField(hdc);*/
         StartGame = -2;
         OnOffLeight = 1;
     }
@@ -2032,6 +2043,7 @@ int changeMenu(HWND hwnd) {
         counter_start = 1;
         energyX = 2;
         energyO = 2;
+        sumArrayFlagField = 0;
         gameDuration = gameDurationBuf;
       
 
