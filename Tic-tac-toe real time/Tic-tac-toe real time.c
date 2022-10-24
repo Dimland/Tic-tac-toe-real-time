@@ -1,7 +1,6 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #pragma comment (lib, "winmm.lib")
 #pragma comment (lib, "shcore.lib")
-
 #include <windows.h>
 #include <windowsx.h>
 #include <new.h>
@@ -10,25 +9,18 @@
 #include <conio.h> 
 #include <winuser.h>
 #include <locale.h>
-
 #include <wchar.h>
 #include <time.h>
 #include <math.h>
 #include <mmsystem.h>
 #include "resource.h"
-
-
 #include <shellscalingapi.h>
-
-
-//First1.rc
 
 #define Start00 105
 #define EDIT_ID 1001
 #define BUTTON_ID 1002
 #define STATIC_ID 1003
 #define ID_BEEP 101
-
 #define ID_TIMER_BEFORE_START -1
 #define ID_TIMER_START 1
 #define ID_TIMER_energy1 2
@@ -90,32 +82,25 @@ struct RightButton {
 
 } RightB;
 
+struct buttonSound {
+    int Status, posX, posY, sizeX, sizeY;
 
-typedef struct startButton Start_Button;
+} SoundB;
 
-wchar_t* arrayP[10000];
+
+wchar_t* arrayP[100];
 int arrayCoordinataX[100];
 int arrayCoordinataY[100];
-int botGrade[100];
-BOOL arrayFlag[100];
 
+int arrayFlag[100];
+int sumArrayFlagField = 0;
 int countLine1_X = 0; //point x
 int countLine1_O = 0; // point O
-int WinPoint = 31; // Разница point при которой победит одна из сторон
-int changeLeftClic[100];
+int WinPoint = 1030; // Разница point при которой победит одна из сторон
+int changeLeftClic[100]; 
 wchar_t* pX = L"x";
-wchar_t* notSimvol = L"";
 wchar_t* pO = L"o";
 int StartGame = -1;
-int countX = 0;
-int VVVod;
-int FinishGame = 0;
-
-wchar_t line1[10];
-wchar_t buff[100];
-
-
-double strokeCounter = 0;
 
 // For Cool numbers
 int numberX_1 = 0;
@@ -143,10 +128,6 @@ double speed = 0.24; // speed return energy
 
 int counter_start = 1;
 
-HWND hed;
-HWND hBtn;
-HWND hStatic;
-int len;
 int mouse_x;
 int mouse_y;
 int posPancel = 45;
@@ -154,10 +135,7 @@ int winMensOpVarible = 1;
 
 int tempm = 0;
 
-
 RECT rct;
-
-
 char szImageName[] = "BMImage";
 
 // for watch
@@ -172,7 +150,6 @@ int tik_tak=0;
 
 int OnOffLeight = 0;
 
-
 static HDC memBitT1;   
 static HDC memBitT2;   
 static HDC memBitT3;   
@@ -184,8 +161,6 @@ static HDC memBitT7;
 static HDC memBitT8;   
 static HDC memBitT9;   
 static HDC memBitT0;   
-
-
 
 static HDC memBitX1;   
 static HDC memBitX2;   
@@ -201,19 +176,13 @@ static HDC memBitO4;
 static HDC memBitO5;   
 static HDC memBitO6;   
 
-
-
 static HDC memBitPole;
-
 
 // button menu
 
 static HDC memBitBot;
 static HDC memBitStartGame;
 static HDC memBitStartGameV;
-
-
-
 
 // button Exit
 static HDC memBitExit0;
@@ -226,11 +195,9 @@ static HDC memBitRules1;
 // Image rules
 static HDC memBitRuls;
 
-
 // button author
 static HDC memBitAuthor0;
 static HDC memBitAuthor1;
-
 static HDC memBitAuthorPeople;
 
 // button arroy
@@ -243,7 +210,6 @@ static HDC memBitTerp3;
 static HDC memBitTerp4;
 static HDC memBitTerp5;
 
-
 static HDC memBitTerp1;
 static HDC memBitTerp2;
 static HDC memBitTerp3;
@@ -254,6 +220,11 @@ static HDC memBitTerp5;
 static HDC memBitStop0;
 static HDC memBitStop1;
 
+// button stop
+static HDC memBitSound0;
+static HDC memBitSound1;
+static HDC memBitSound2;
+static HDC memBitSound3;
 
 //  energy
 static HDC memBitEnergyX0;
@@ -302,8 +273,6 @@ static HDC memBitNumbX_7;
 static HDC memBitNumbX_8;
 static HDC memBitNumbX_9;
 
-
-
 static HDC memBitPancel;
 
 static HDC memBitO_Win;
@@ -314,15 +283,12 @@ static HDC memBitO_WinMensPO;
 static HDC memBitO_WinMensLX;
 static HDC memBitO_WinMensPX;
 
-
 static HDC memBit1;   
 static HDC memBit2;   
 static HDC memBit3;   
 static HDC memBitBlack;   
 wchar_t buferForInt[128];
 
-
-HWND TimerStart;
 HWND hwnd;
 
 int CreateGameField(HWND hdc) {
@@ -334,40 +300,31 @@ int CreateGameField(HWND hdc) {
             arrayCoordinataX[iii * 10 + jjj] = 699 + iii * 35;
             arrayCoordinataY[iii * 10 + jjj] = 155 + jjj * 34;
             arrayFlag[iii * 10 + jjj] = 0;
-
         }
     }
-        FinishGame = 0;
+        
 }
 
-
 void update(HDC hdc) {
-
-    HDC memDC = CreateCompatibleDC(hdc);
+        HDC memDC = CreateCompatibleDC(hdc);
     HBITMAP memBM = CreateCompatibleBitmap(hdc, rct.right - rct.left, rct.bottom - rct.top);
     SelectObject(memDC, memBM);
 
-
-
     if (StartGame == -1) BitBlt(memDC, 0, 0, 1280, 1024, memBitBlack, 0, 0, SRCCOPY);
-
     if (StartGame != -1) BitBlt(memDC, 0, 0, 1280, 1024, memBit3, 0, 0, SRCCOPY);
 
 
+
+ 
     // drowField
     if (StartGame == 4 || counter_start == -100) { BitBlt(memDC, 677, 173, 395, 565, memBitPole, 0, 0, SRCCOPY); }
-
-
-
 
     int posT1SecX = 905;
     int posT1SecY = 18;
     int posyTRight = 44;
 
-
     // first zero
     BitBlt(memDC, 835 - posyTRight, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY);
-
 
     if (minutsLeft <= 0) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY); }
     if (minutsLeft == 1) { BitBlt(memDC, 835, posT1SecY, 37, 73, memBitT1, 0, 0, SRCCOPY); }
@@ -391,7 +348,6 @@ void update(HDC hdc) {
     if (secondsLeft1 == 8) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT8, 0, 0, SRCCOPY); }
     if (secondsLeft1 == 9) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT9, 0, 0, SRCCOPY); }
 
-
     if (secondsLeft1 <= 0) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT0, 0, 0, SRCCOPY); }
     if (secondsLeft1 == 1) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT1, 0, 0, SRCCOPY); }
     if (secondsLeft1 == 2) { BitBlt(memDC, posT1SecX, posT1SecY, 37, 73, memBitT2, 0, 0, SRCCOPY); }
@@ -414,8 +370,6 @@ void update(HDC hdc) {
     if (secondsLeft2 == 8) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT8, 0, 0, SRCCOPY); }
     if (secondsLeft2 == 9) { BitBlt(memDC, posT1SecX + posyTRight, posT1SecY, 37, 73, memBitT9, 0, 0, SRCCOPY); }
 
-
-
     // ButtonBot
     if (StartB.Status == 1 && StartGame != -1 && botB.Status ==1) { BitBlt(memDC, botB.posX, botB.posY, botB.sizeX, botB.sizeY, memBitBot, 0, 0, SRCCOPY); }
     if (botB.StasusModeGame == 1 && StartGame != -1) { BitBlt(memDC, botB.posX + 10, botB.posY + 10, 28, 28, memBitX6, 0, 0, SRCCOPY); }
@@ -423,8 +377,6 @@ void update(HDC hdc) {
     // ButtonStartGame
     if (StartB.Status == 1 && StartGame != -1) { BitBlt(memDC, 237, 360, 321, 66, memBitStartGame, 0, 0, SRCCOPY); }
     if (StartB.Status == 2 && StartGame != -1) { BitBlt(memDC, 237, 360, 321, 66, memBitStartGameV, 0, 0, SRCCOPY); }
-
-
 
     // ButtonRules 
     if (RulesB.Status == 0 && StartGame != -1) { BitBlt(memDC, RulesB.posX, RulesB.posY, RulesB.sizeX, RulesB.sizeY, memBitRules0, 0, 0, SRCCOPY); }
@@ -450,42 +402,45 @@ void update(HDC hdc) {
     if (TerpB.Status == 4 && StartGame != -1) { BitBlt(memDC, TerpB.posX, TerpB.posY, TerpB.sizeX, TerpB.sizeY, memBitTerp4, 0, 0, SRCCOPY); }
     if (TerpB.Status == 5 && StartGame != -1) { BitBlt(memDC, TerpB.posX, TerpB.posY, TerpB.sizeX, TerpB.sizeY, memBitTerp5, 0, 0, SRCCOPY); }
    
+      // ButtonSound
+    if (SoundB.Status == 0 && StartGame != -1) { BitBlt(memDC, SoundB.posX, SoundB.posY, SoundB.sizeX, SoundB.sizeY, memBitSound0, 0, 0, SRCCOPY); }
+    if (SoundB.Status == 1 && StartGame != -1) { BitBlt(memDC, SoundB.posX, SoundB.posY, SoundB.sizeX, SoundB.sizeY, memBitSound1, 0, 0, SRCCOPY); }
+    if (SoundB.Status == 2 && StartGame != -1) { BitBlt(memDC, SoundB.posX, SoundB.posY, SoundB.sizeX, SoundB.sizeY, memBitSound2, 0, 0, SRCCOPY); }
+    if (SoundB.Status == 3 && StartGame != -1) { BitBlt(memDC, SoundB.posX, SoundB.posY, SoundB.sizeX, SoundB.sizeY, memBitSound3, 0, 0, SRCCOPY); }
 
     // ButtonExit
     if (ExitB.Status == 0 && StartGame != -1) { BitBlt(memDC, ExitB.posX, ExitB.posY, ExitB.sizeX, ExitB.sizeY, memBitExit0, 0, 0, SRCCOPY); }
     if (ExitB.Status == 1 && StartGame != -1) { BitBlt(memDC, ExitB.posX, ExitB.posY, ExitB.sizeX, ExitB.sizeY, memBitExit1, 0, 0, SRCCOPY); }
 
-
-    // ButtonStop
+        // ButtonStop
     if (StopB.Status == 0 && counter_start == -100)  BitBlt(memDC, StopB.posX, StopB.posY, StopB.sizeX, StopB.sizeY, memBitStop0, 0, 0, SRCCOPY);
     if (StopB.Status == 1 && counter_start == -100) BitBlt(memDC, StopB.posX, StopB.posY, StopB.sizeX, StopB.sizeY, memBitStop1, 0, 0, SRCCOPY);
 
-
-    // Rectangle(memDC, 0, 0, 300, 300);
-
+     // Rectangle(memDC, 0, 0, 300, 300);
     for (int i = 1; i <= 100; i++) {
-        if (arrayP[i] == L"x" && StartGame != -1 && (StartGame ==2 || StartGame ==4)) {
-            BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitX6, 0, 0, SRCCOPY); arrayFlag[i] = 1; 
-            compareArray();
+        if (arrayP[i] == L"x" && StartGame != -1 &&  (StartGame ==2 || StartGame ==4)) {
+            BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitX6, 0, 0, SRCCOPY);  
+           
         }
-        if (arrayP[i] == L"x5") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitX5, 0, 0, SRCAND); arrayP[i] = L"x"; tik_tak = 10;
+        if (arrayP[i] == L"x5") {
+            BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitX5, 0, 0, SRCAND); arrayP[i] = L"x"; tik_tak = 10; arrayFlag[i] = 1; sumFlagField();  compareArray();
         }
         if (arrayP[i] == L"x4") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitX4, 0, 0, SRCAND); arrayP[i] = L"x5"; }
         if (arrayP[i] == L"x3") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitX3, 0, 0, SRCAND); arrayP[i] = L"x4"; }
         if (arrayP[i] == L"x2") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitX2, 0, 0, SRCAND); arrayP[i] = L"x3"; }
-        if (arrayP[i] == L"x1") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitX1, 0, 0, SRCAND); arrayP[i] = L"x2";  PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC); }
+        if (arrayP[i] == L"x1") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitX1, 0, 0, SRCAND); arrayP[i] = L"x2";     if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC); }
 
         if (arrayP[i] == L"o" && StartGame != -1 && (StartGame == 2 || StartGame == 4)) {
-            BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitO6, 0, 0, SRCCOPY); arrayFlag[i] = 1;
-            compareArrayO();
+            BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitO6, 0, 0, SRCCOPY); 
+            
         }
-        if (arrayP[i] == L"o5") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitO5, 0, 0, SRCAND); arrayP[i] = L"o"; }
+        if (arrayP[i] == L"o5") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitO5, 0, 0, SRCAND); arrayP[i] = L"o"; arrayFlag[i] = 1; sumFlagField(); compareArrayO();
+        }
         if (arrayP[i] == L"o4") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitO4, 0, 0, SRCAND); arrayP[i] = L"o5"; tik_tak = 10;
         }
         if (arrayP[i] == L"o3") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitO3, 0, 0, SRCAND); arrayP[i] = L"o4"; }
         if (arrayP[i] == L"o2") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitO2, 0, 0, SRCAND); arrayP[i] = L"o3"; }
-        if (arrayP[i] == L"o1") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitO1, 0, 0, SRCAND); arrayP[i] = L"o2";  PlaySoundW(TEXT(".\\sounds\\ris2.wav"), NULL, SND_FILENAME | SND_ASYNC); }
-
+        if (arrayP[i] == L"o1") { BitBlt(memDC, arrayCoordinataX[i], arrayCoordinataY[i], 28, 28, memBitO1, 0, 0, SRCAND); arrayP[i] = L"o2";    if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris2.wav"), NULL, SND_FILENAME | SND_ASYNC); }
     }
 
     int addENX = 698;
@@ -493,7 +448,6 @@ void update(HDC hdc) {
     int addENNX = 35;
     int addENO = 909;
     int addENNO = 35;
-
 
     // energy x1 
     if (counter_start == -100 && energyX1 <= 0) { BitBlt(memDC, 698, 667, 30, 64, memBitEnergyX0, 0, 0, SRCCOPY); }
@@ -507,7 +461,6 @@ void update(HDC hdc) {
     if (counter_start == -100 && energyX1 == 8) { BitBlt(memDC, addENX, addENY, 30, 64, memBitEnergyX8, 0, 0, SRCCOPY); }
     if (counter_start == -100 && energyX1 == 9) { BitBlt(memDC, addENX, addENY, 30, 64, memBitEnergyX9, 0, 0, SRCCOPY); }
     if (counter_start == -100 && energyX1 == 10) { BitBlt(memDC, addENX, addENY, 30, 64, memBitEnergyX10, 0, 0, SRCCOPY); }
-
 
     if (counter_start == -100 && energyX2 <= 0) { BitBlt(memDC, addENX + addENNX, addENY, 30, 64, memBitEnergyX0, 0, 0, SRCCOPY); }
     if (counter_start == -100 && energyX2 == 1) { BitBlt(memDC, addENX + addENNX, addENY, 30, 64, memBitEnergyX1, 0, 0, SRCCOPY); }
@@ -544,7 +497,6 @@ void update(HDC hdc) {
     if (counter_start == -100 && energyO3 == 8) { BitBlt(memDC, addENO, addENY, 30, 64, memBitEnergyO8, 0, 0, SRCCOPY); }
     if (counter_start == -100 && energyO3 == 9) { BitBlt(memDC, addENO, addENY, 30, 64, memBitEnergyO9, 0, 0, SRCCOPY); }
     if (counter_start == -100 && energyO3 == 10) { BitBlt(memDC, addENO, addENY, 30, 64, memBitEnergyO10, 0, 0, SRCCOPY); }
-
 
     if (counter_start == -100 && energyO2 <= 0) { BitBlt(memDC, addENO + addENNO, addENY, 30, 64, memBitEnergyO0, 0, 0, SRCCOPY); }
     if (counter_start == -100 && energyO2 == 1) { BitBlt(memDC, addENO + addENNO, addENY, 30, 64, memBitEnergyO1, 0, 0, SRCCOPY); }
@@ -597,7 +549,6 @@ void update(HDC hdc) {
 
     int posNumber1_O = 980;
 
-
     if (numberO_1 == 0 && (counter_start == -100 || StartGame == 4)) { BitBlt(memDC, posNumber1_O, 598, 28, 64, memBitNumbO_0, 0, 0, SRCCOPY); }
     if (numberO_1 == 1 && (counter_start == -100 || StartGame == 4)) { BitBlt(memDC, posNumber1_O, 598, 28, 64, memBitNumbO_1, 0, 0, SRCCOPY); }
     if (numberO_1 == 2 && (counter_start == -100 || StartGame == 4)) { BitBlt(memDC, posNumber1_O, 598, 28, 64, memBitNumbO_2, 0, 0, SRCCOPY); }
@@ -620,19 +571,16 @@ void update(HDC hdc) {
     if (numberO_2 == 8 && (counter_start == -100 || StartGame == 4)) { BitBlt(memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBitNumbO_8, 0, 0, SRCCOPY); }
     if (numberO_2 == 9 && (counter_start == -100 || StartGame == 4)) { BitBlt(memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBitNumbO_9, 0, 0, SRCCOPY); }
 
-
-
-
-    if (StartGame == 4 && countLine1_X > countLine1_O && FinishGame == 0) {
-        PlaySoundW(TEXT(".\\sounds\\X_Win2.wav"), NULL, SND_FILENAME | SND_ASYNC); FinishGame = 1;
+    if (StartGame == 4 && countLine1_X > countLine1_O) {
+        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\X_Win2.wav"), NULL, SND_FILENAME | SND_ASYNC);
     }
     if (StartGame == 4 && countLine1_X > countLine1_O) {
         BitBlt(memDC, 686, 541, 328, 59, memBitX_Win, 0, 0, SRCCOPY);
     }
 
 
-    if (StartGame == 4 && countLine1_O > countLine1_X && FinishGame == 0) {
-        PlaySoundW(TEXT(".\\sounds\\O_Win.wav"), NULL, SND_FILENAME | SND_ASYNC); FinishGame = 1;
+    if (StartGame == 4 && countLine1_O > countLine1_X) {
+        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\O_Win.wav"), NULL, SND_FILENAME | SND_ASYNC);
     }
 
     // dance men red
@@ -671,86 +619,34 @@ void update(HDC hdc) {
     }
 
 
-
-    //Point X
-
-
-
-    //int energX = _swprintf(buferForInt, TEXT("Энергия X: %f"), energyX);
-    //TextOut(memDC, 800, 950, buferForInt, energX );
-
-
-    if (counter_start == -100) {
-
-        int c = wsprintf(buferForInt, TEXT("%i "), minutsLeft);
-        TextOut(memDC, 800, 50, buferForInt, c);
-    }
-
-    if (counter_start == -100) {
-
-        int c = wsprintf(buferForInt, TEXT(" : %i"), secondsLeft);
-        TextOut(memDC, 808, 50, buferForInt, c);
-    }
-
-    /* int energO = _swprintf(buferForInt, TEXT("Энергия O: %f"), energyO);
-     TextOut(memDC, 1000, 950, buferForInt, energO-5 );*/
-
-    //int cTime = wsprintf(buferForInt, TEXT("До начала игры:%i"), counter_start);
-    //TimerStart = TextOut(memDC, 25, 10, buferForInt, cTime);
-
-
-
     if (StartGame == -2) {
         StartGame = 0;
         SetTimer(hdc, ID_TIMER_BEFORE_START, 100, NULL);
     }
-
 
     if (counter_start == -100) {
 
         SetTimer(hdc, ID_TIMER_energy1, 100, NULL);
     }
 
-
-
-
-
-
-
     BitBlt(hdc, 0, 0, rct.right - rct.left, rct.bottom - rct.top, memDC, 0, 0, SRCCOPY);
-
     DeleteDC(memDC);
     DeleteObject(memBM);
-
 }
 
-
 LRESULT WINAPI WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
-
-
-HWND vvod;
-
-HWND ButtonStart;
-
-
-HWND arrayHWND[100];
-
 
 static HBITMAP hBitmap;
 HDC hdc, hmdc, hdcMem;
 PAINTSTRUCT ps;
 BITMAP bitmap;
-
 HGDIOBJ oldBitmap;
 static BITMAP bm;
 static RECT rc;
 
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-
-    PWSTR lpCmdLine, int nCmdShow
-
-) {
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLine, int nCmdShow )
+{
     SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
 
     MSG  msg;
@@ -766,25 +662,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     SendMessage(hwnd, WM_SETICON, ICON_BIG, (LONG)LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON2)));
     SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LONG)LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON2)));
 
-
-
-
     HBITMAP hBitmap = LoadBitmap(hInstance, szImageName);
-
 
     LPPOINT pPnt;
     pPnt = malloc(sizeof(*pPnt));
     LPRECT rctt; // указатель на размер экрана
     rctt = malloc(sizeof(*pPnt));
 
-
-
     gameDuration = gameDurationBuf;
 
-    SetCursor(LoadCursorFromFile(TEXT("pen1.cur")));
-
-
-
+    SetCursor(LoadCursorFromFile(TEXT(".\\image\\pen1.cur")));
 
     RegisterClassW(&wc);
     hwnd = CreateWindow(wc.lpszClassName, L"TIC_",
@@ -794,21 +681,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     SetWindowLongPtr(hwnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
     SetWindowPos(hwnd, HWND_TOP, 0, 0, 1280, 1024, SWP_SHOWWINDOW);
 
-
-
-
     ShowWindow(hwnd,
         SW_SHOWMAXIMIZED
     );
     changeDisplay();
 
-
     HDC hdc = GetDC(hwnd);
 
     // назначаю структурам позиции
-
-
-
     botB.Status = 0;
     botB.StasusModeGame = 0;
     botB.posX = 232;
@@ -816,7 +696,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     botB.sizeX = 51;
     botB.sizeY = 48;
     
-
     RulesB.Status = 0;
     RulesB.posX = 233;
     RulesB.posY = 459;
@@ -841,7 +720,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     StopB.sizeX = 72;
     StopB.sizeY = 69;
 
-
     AuthorB.Status = 0;
     AuthorB.posX = 236;
     AuthorB.posY = 561;
@@ -854,15 +732,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     AuthorI.sizeX = 441;
     AuthorI.sizeY = 748;
 
-
-
     LeftB.Status = 0;
     LeftB.posX = 178;
     LeftB.posY = 734;
     LeftB.sizeX = 59;
     LeftB.sizeY = 64;
-
-
 
     RightB.Status = 0;
     RightB.posX = 489;
@@ -870,13 +744,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     RightB.sizeX = 61;
     RightB.sizeY = 52;
 
-
-
     TerpB.Status = 4;  // start speed
     TerpB.posX = 238;
     TerpB.posY = 733;
     TerpB.sizeX = 249;
     TerpB.sizeY = 69;
+
+    SoundB.Status = 0;  
+    SoundB.posX = 472;
+    SoundB.posY = 835;
+    SoundB.sizeX = 73;
+    SoundB.sizeY = 69; 
 
     while (1) {
         if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE)) { // check the messages queue
@@ -914,18 +792,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
     WPARAM wParam, LPARAM lParam) {
-
-
-
-
-
     switch (msg) {
     case WM_SIZE:
         GetClientRect(hwnd, &rct); // размер экрана
     case WM_CREATE:
 
         PlaySoundW(TEXT(".\\sounds\\startSong.wav"), NULL, SND_FILENAME | SND_ASYNC);
-
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Backround_v0.7_black.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
         GetObject(hBitmap, sizeof(bm), &bm);
@@ -934,523 +806,406 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
         SelectObject(memBitBlack, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Backround_v0.10_whate.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
-       
         memBit3 = CreateCompatibleDC(hdc);
         SelectObject(memBit3, hBitmap);
 
-        /* ButtonStart = CreateWindowW(L"Button", L"Start game",
-             WS_VISIBLE | WS_CHILD,
-             160, 10, 120, 20, hwnd, (HMENU)105, NULL, NULL);*/
-
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\pole1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitPole = CreateCompatibleDC(hdc);
         SelectObject(memBitPole, hBitmap);
 
-
-
-
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitX1 = CreateCompatibleDC(hdc);
         SelectObject(memBitX1, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X2.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitX2 = CreateCompatibleDC(hdc);
         SelectObject(memBitX2, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X3.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitX3 = CreateCompatibleDC(hdc);
         SelectObject(memBitX3, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X4.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitX4 = CreateCompatibleDC(hdc);
         SelectObject(memBitX4, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X5.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitX5 = CreateCompatibleDC(hdc);
         SelectObject(memBitX5, hBitmap);
 
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X6.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitX6 = CreateCompatibleDC(hdc);
         SelectObject(memBitX6, hBitmap);
 
-
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitO1 = CreateCompatibleDC(hdc);
         SelectObject(memBitO1, hBitmap);
 
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O2.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitO2 = CreateCompatibleDC(hdc);
         SelectObject(memBitO2, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O3.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitO3 = CreateCompatibleDC(hdc);
         SelectObject(memBitO3, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O4.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitO4 = CreateCompatibleDC(hdc);
         SelectObject(memBitO4, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O5.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitO5 = CreateCompatibleDC(hdc);
         SelectObject(memBitO5, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitO6 = CreateCompatibleDC(hdc);
         SelectObject(memBitO6, hBitmap);
 
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\bot_1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitBot = CreateCompatibleDC(hdc);
         SelectObject(memBitBot, hBitmap);
 
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\startGame.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitStartGame = CreateCompatibleDC(hdc);
         SelectObject(memBitStartGame, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\startGameV.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitStartGameV = CreateCompatibleDC(hdc);
         SelectObject(memBitStartGameV, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Rules_0.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitRules0 = CreateCompatibleDC(hdc);
         SelectObject(memBitRules0, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Rules_1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitRules1 = CreateCompatibleDC(hdc);
         SelectObject(memBitRules1, hBitmap);
 
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Ruls.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitRuls = CreateCompatibleDC(hdc);
         SelectObject(memBitRuls, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Author0.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitAuthor0 = CreateCompatibleDC(hdc);
         SelectObject(memBitAuthor0, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Author1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitAuthor1 = CreateCompatibleDC(hdc);
         SelectObject(memBitAuthor1, hBitmap);
 
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\AuthorPeople.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitAuthorPeople = CreateCompatibleDC(hdc);
         SelectObject(memBitAuthorPeople, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\LeftChange.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitLeft = CreateCompatibleDC(hdc);
         SelectObject(memBitLeft, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\RightChange.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitRight = CreateCompatibleDC(hdc);
         SelectObject(memBitRight, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Terp1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitTerp1 = CreateCompatibleDC(hdc);
         SelectObject(memBitTerp1, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Terp2.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitTerp2 = CreateCompatibleDC(hdc);
         SelectObject(memBitTerp2, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Terp3.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitTerp3 = CreateCompatibleDC(hdc);
         SelectObject(memBitTerp3, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Terp4.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitTerp4 = CreateCompatibleDC(hdc);
         SelectObject(memBitTerp4, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Terp5.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitTerp5 = CreateCompatibleDC(hdc);
         SelectObject(memBitTerp5, hBitmap);
 
-       
+
 
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\exit_0.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitExit0 = CreateCompatibleDC(hdc);
         SelectObject(memBitExit0, hBitmap);
 
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\exit_1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitExit1 = CreateCompatibleDC(hdc);
         SelectObject(memBitExit1, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\pancel.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitPancel = CreateCompatibleDC(hdc);
         SelectObject(memBitPancel, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_0.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitEnergyX0 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyX0, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitEnergyX1 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyX1, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_2.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitEnergyX2 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyX2, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_3.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitEnergyX3 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyX3, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_4.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitEnergyX4 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyX4, hBitmap);
 
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_5.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
-
         memBitEnergyX5 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyX5, hBitmap);
 
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_6.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitEnergyX6 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyX6, hBitmap);
+
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_7.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitEnergyX7 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyX7, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_8.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
-
         memBitEnergyX8 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyX8, hBitmap);
-        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_9.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
 
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_9.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
         memBitEnergyX9 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyX9, hBitmap);
-        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_10.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
 
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyX_10.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
         memBitEnergyX10 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyX10, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyO_0.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
-
         memBitEnergyO0 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyO0, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyO_1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
-
         memBitEnergyO1 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyO1, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyO_2.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
-
         memBitEnergyO2 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyO2, hBitmap);
 
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyO_3.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
-
         memBitEnergyO3 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyO3, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyO_4.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
-
         memBitEnergyO4 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyO4, hBitmap);
 
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyO_5.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
-
         memBitEnergyO5 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyO5, hBitmap);
 
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyO_6.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
-
         memBitEnergyO6 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyO6, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyO_7.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitEnergyO7 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyO7, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyO_8.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitEnergyO8 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyO8, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyO_9.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitEnergyO9 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyO9, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\EnergyO_10.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitEnergyO10 = CreateCompatibleDC(hdc);
         SelectObject(memBitEnergyO10, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O_win.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitO_Win = CreateCompatibleDC(hdc);
         SelectObject(memBitO_Win, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\x_win.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitX_Win = CreateCompatibleDC(hdc);
         SelectObject(memBitX_Win, hBitmap);
 
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O-0.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbO_0 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbO_0, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O-1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbO_1 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbO_1, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O-2.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbO_2 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbO_2, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O-3.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbO_3 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbO_3, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O-4.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbO_4 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbO_4, hBitmap);
 
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O-5.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbO_5 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbO_5, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O-6.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbO_6 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbO_6, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O-7.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbO_7 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbO_7, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O-8.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbO_8 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbO_8, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\O-9.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbO_9 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbO_9, hBitmap);
 
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X-0.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbX_0 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbX_0, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X-1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbX_1 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbX_1, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X-2.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbX_2 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbX_2, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X-3.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbX_3 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbX_3, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X-4.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbX_4 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbX_4, hBitmap);
 
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X-5.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbX_5 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbX_5, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X-6.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbX_6 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbX_6, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X-7.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbX_7 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbX_7, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X-8.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbX_8 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbX_8, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\X-9.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitNumbX_9 = CreateCompatibleDC(hdc);
         SelectObject(memBitNumbX_9, hBitmap);
 
-
-
         // Whatch Number
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Time0.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitT0 = CreateCompatibleDC(hdc);
         SelectObject(memBitT0, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Time1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitT1 = CreateCompatibleDC(hdc);
         SelectObject(memBitT1, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Time2.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitT2 = CreateCompatibleDC(hdc);
         SelectObject(memBitT2, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Time3.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitT3 = CreateCompatibleDC(hdc);
         SelectObject(memBitT3, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Time4.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitT4 = CreateCompatibleDC(hdc);
         SelectObject(memBitT4, hBitmap);
 
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Time5.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitT5 = CreateCompatibleDC(hdc);
         SelectObject(memBitT5, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Time6.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitT6 = CreateCompatibleDC(hdc);
         SelectObject(memBitT6, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Time7.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitT7 = CreateCompatibleDC(hdc);
         SelectObject(memBitT7, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Time8.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitT8 = CreateCompatibleDC(hdc);
         SelectObject(memBitT8, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\Time9.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitT9 = CreateCompatibleDC(hdc);
         SelectObject(memBitT9, hBitmap);
 
-
-
-
-
-
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\win_mens_lO.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitO_WinMensLO = CreateCompatibleDC(hdc);
         SelectObject(memBitO_WinMensLO, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\win_mens_PO.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitO_WinMensPO = CreateCompatibleDC(hdc);
         SelectObject(memBitO_WinMensPO, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\win_mens_lX.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitO_WinMensLX = CreateCompatibleDC(hdc);
         SelectObject(memBitO_WinMensLX, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\win_mens_PX.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitO_WinMensPX = CreateCompatibleDC(hdc);
         SelectObject(memBitO_WinMensPX, hBitmap);
 
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\sound0.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        memBitSound0 = CreateCompatibleDC(hdc);
+        SelectObject(memBitSound0, hBitmap);
+
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\sound1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        memBitSound1 = CreateCompatibleDC(hdc);
+        SelectObject(memBitSound1, hBitmap);
+
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\sound2.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        memBitSound2 = CreateCompatibleDC(hdc);
+        SelectObject(memBitSound2, hBitmap);
+
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\sound3.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        memBitSound3 = CreateCompatibleDC(hdc);
+        SelectObject(memBitSound3, hBitmap);
+
+
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\stop0.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitStop0 = CreateCompatibleDC(hdc);
         SelectObject(memBitStop0, hBitmap);
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\stop1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-        GetObject(hBitmap, sizeof(bm), &bm);
         memBitStop1 = CreateCompatibleDC(hdc);
         SelectObject(memBitStop1, hBitmap);
-
-
-
-
-
 
 
         if (hBitmap == NULL) {
@@ -1474,7 +1229,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
 
     case WM_TIMER:
 
-
         if (counter_start != -100 && (StartGame == 2)) counter_start = counter_start - 1;
 
         if (counter_start == 0) {
@@ -1491,7 +1245,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
             numberO_2 = 0;
             numberO_3 = 0;
 
-
         }
 
         if (StartGame == 4) {
@@ -1501,14 +1254,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
             energyO = 2;
             gameDuration = gameDurationBuf;
         }
-        //ControlFocus("EDIT", "", hwnd);
-
-
-
-       /* InvalidateRect(hwnd, 0, 0);*/
-     /*   RECT rc;
-        SetRect(&rc, 600, 100, 1100, 1000);*/
-        //InvalidateRect(hwnd, 0, FALSE);
 
         break;
 
@@ -1520,17 +1265,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
     }
     return DefWindowProcW(hwnd, msg, wParam, lParam);
 }
-
-
-
-//HWND CreateButton(wchar_t* title, int x, int y, HWND hwnd, int id) {
-//    HWND hwndX = CreateWindow(L"Button", title,
-//        WS_VISIBLE | WS_CHILD,
-//        x, y, 28, 28, hwnd, (HMENU)id, NULL, NULL);
-//    return hwndX;
-//}
-
-
 
 int VvodO_s(HWND hwnd) {
     if (counter_start == -100) {
@@ -1557,46 +1291,25 @@ int VvodO_s(HWND hwnd) {
         }
 
         if ((GetKeyState(VK_RETURN) < 0 || GetKeyState(VK_SPACE) < 0) && energyO > 1) {
-            /*  len = GetWindowTextLength(hed) + 1;
-              GetWindowText(hed, buff, len);*/
 
-              //VVVod = 1000;
-
-              //VVVod = wcstol(buff, 0, 10);
-
-                  //if (i == 1 && p01 = L"") {
 
 
             if (arrayP[posPancel] == L"") {
                 arrayP[posPancel] = L"o1"; energyO = energyO - 1;
-                // DestroyWindow(arrayHWND[VVVod]); 
-
-                
-                //DestroyWindow(hed);
-                //hed = CreateWindowW(L"Edit", notSimvol,
-                //    WS_VISIBLE | WS_CHILD | WS_BORDER | ES_RIGHT | ES_NUMBER | WS_TABSTOP,
-                //    400, 50, 120, 20, hwnd, (HMENU)EDIT_ID, NULL, NULL);
-
             }
-
         }
-
-
     }
 }
 
 int VvodO_K(HWND hwnd) {
     if (counter_start == -100)
     {
-
-
         for (int lp = 0; lp <= 100; lp++) {
             if (GetKeyState(VK_LBUTTON) < 0 && energyX > 1 && arrayP[lp] == L""
                 && mouse_x >= arrayCoordinataX[lp] + 2
                 && mouse_y >= arrayCoordinataY[lp] + 2
                 && mouse_x <= arrayCoordinataX[lp] + 28
                 && mouse_y <= arrayCoordinataY[lp] + 27
-
                 ) {
                 changeLeftClic[lp] = 1;
             }
@@ -1611,25 +1324,17 @@ int VvodO_K(HWND hwnd) {
                     {
                         arrayP[lp] = L"x1"; energyX = energyX - 1;
                         changeLeftClic[lp] = 0;
-                        
-                        
                     }
                 }
             }
         }
-
-
     }
 }
-
-
 
 
 int compareArray() {
     int  X5 = 0;
     int tempX = 0;
-    /*  wchar_t* line1[10];*/
-
     //Считаем очки по линиям слева направо  
     for (int p = 0; p < 10; p++) {
         for (int i = 0; i < 10; i++) {
@@ -1681,7 +1386,6 @@ int compareArray() {
         }
         tempX = 0;
     }
-
     // Косые вот такие \\ вправо
     int m1 = 10;
     for (int p = 0; p < 80; p = p + 10) {
@@ -1856,7 +1560,6 @@ int compareArrayO() {
         }
         tempX = 0;
     }
-
     // Косые вот такие \\ вправо
     int m1 = 10;
     for (int p = 0; p < 80; p = p + 10) {
@@ -1884,7 +1587,6 @@ int compareArrayO() {
         } m1 = m1 - 1;
         tempX = 0;
     }
-
     // Косые вот такие \\ вниз
     int m2 = 8;
     for (int p = 1; p < 8; p = p + 1) {
@@ -1913,7 +1615,6 @@ int compareArrayO() {
         m2 = m2 - 1;
         tempX = 0;
     }
-
     // Косые вот такие // Вверх
     int m3 = 10;
     for (int p = 9; p > 1; p = p - 1) {
@@ -1941,7 +1642,6 @@ int compareArrayO() {
         } m3 = m3 - 1;
         tempX = 0;
     }
-
     //// Косые вот такие // Вправо
     int m4 = 8;
     for (int p = 20; p < 90; p = p + 10) {
@@ -1986,8 +1686,6 @@ int convertPointInCoolO(HWND hwnd) {
             numberO_1 = countLine1_O - numberO_2 * 10;
         }
     }
-
-
     if (countLine1_X < 10) {
         numberX_1 = countLine1_X;
     }
@@ -2014,7 +1712,6 @@ int convertWatch(HWND hwnd) {
         }
     }
 
-
     if (countLine1_X < 10) {
         numberX_1 = countLine1_X;
     }
@@ -2028,34 +1725,22 @@ int convertWatch(HWND hwnd) {
 
 }
 
-
-
-
-
-
 int changeDisplay() {
-
 
     DEVMODE dm;
     {
-
         dm.dmSize = sizeof(DEVMODE);
         dm.dmPelsWidth = 1280;
         dm.dmPelsHeight = 1024;
         dm.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT;
     }
-
     ChangeDisplaySettings(&dm, CDS_FULLSCREEN);
-
 }
 
 
 int Watch(HWND hwnd) {
-
-
     minutsLeft = floor(gameDuration / 60);
     secondsLeft = gameDuration - (minutsLeft * 60);
-
 
     if (counter_start == -100 && energyX < 3 && energyX >= 2) {
         energeXadd = 0.1 * speed;
@@ -2063,15 +1748,10 @@ int Watch(HWND hwnd) {
 
     }
 
-
     if (counter_start == -100 && energyO < 3 && energyO >= 2) {
         energeOadd = 0.1 * speed;
         energyO = energyO + energeOadd;
-
-
     }
-
-
 
     if (counter_start == -100 && energyX < 2 && energyX >= 1) {
         energeXadd = 0.066 * speed;
@@ -2097,20 +1777,19 @@ int Watch(HWND hwnd) {
     if (counter_start == -100) {
        
         if (tik_tak == 0) {
-            PlaySoundW(TEXT(".\\sounds\\tik-tak2.wav"), NULL, SND_FILENAME | SND_ASYNC); 
+            if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\tik-tak2.wav"), NULL, SND_FILENAME | SND_ASYNC);
             tik_tak = 350;
         }
         else { tik_tak--; }
     }
 
     //Проверка конца игры по времени
-    if (counter_start < -1 && (gameDuration <= 0 || WinPoint <= countLine1_X - countLine1_O || WinPoint <= countLine1_O - countLine1_X)) {
+    if (counter_start < -1 && (gameDuration <= 0 || WinPoint <= countLine1_X - countLine1_O || WinPoint <= countLine1_O - countLine1_X || sumArrayFlagField >=100)) {
         StartGame = 4;
         counter_start = 1;
-        FinishGame == 0;
+        sumArrayFlagField = 0;
         gameDuration = gameDurationBuf;
     }
-
 
     // drow eneggy
     if (energyX >= 1) { energyX1 = 10; }
@@ -2145,25 +1824,21 @@ int Watch(HWND hwnd) {
 }
 
 int changeMenu(HWND hwnd) {
-
-
     // botButton
     if (GetKeyState(VK_LBUTTON) < 0
         && mouse_x >= botB.posX
         && mouse_y >= botB.posY
         && mouse_x <= botB.posX + botB.sizeX
         && mouse_y <= botB.posY + botB.sizeY
-        && StartGame >= 0 && StartGame != 2 && StartGame != 5)
+        && StartGame >= 0 && StartGame != 2)
     {
-        
-
         if (botB.StasusModeGame == 0) {
-            PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            if (SoundB.Status == 0 || SoundB.Status == 1)   PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
             botB.StasusModeGame = 1;
             Sleep(300);
         }
         else {
-            PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            if (SoundB.Status == 0 || SoundB.Status == 1)    PlaySoundW(TEXT(".\\sounds\\delete.wav"), NULL, SND_FILENAME | SND_ASYNC);
             botB.StasusModeGame = 0;
             Sleep(300);
         }
@@ -2173,13 +1848,11 @@ int changeMenu(HWND hwnd) {
         && mouse_y >= botB.posY
         && mouse_x <= botB.posX + botB.sizeX
         && mouse_y <= botB.posY + botB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 6) && StartGame != 5)
+        && (StartGame == 0 || StartGame == 4 || StartGame == 6 || StartGame == 5))
     {
         botB.Status = 1;
-
     }
     else { botB.Status = 0; }
-
 
     // Start Game
     if (GetKeyState(VK_LBUTTON) < 0
@@ -2189,12 +1862,8 @@ int changeMenu(HWND hwnd) {
         && mouse_y <= 360 + 66
         && (StartGame == 0 || StartGame == 4|| StartGame == 5 || StartGame == 6))
     {
-
-
-        PlaySoundW(TEXT(".\\sounds\\perelist.wav"), NULL, SND_FILENAME | SND_ASYNC);
-
+        if (SoundB.Status == 0 || SoundB.Status == 1)  PlaySoundW(TEXT(".\\sounds\\perelist.wav"), NULL, SND_FILENAME | SND_ASYNC);
         StartGame = 2;
-        
         SetTimer(hwnd, ID_TIMER_START, 1000, NULL);
         KillTimer(hwnd, ID_TIMER_BEFORE_START);
         CreateGameField(hwnd);
@@ -2204,8 +1873,7 @@ int changeMenu(HWND hwnd) {
         gameDuration = gameDurationBuf;
         countLine1_X = 0;
         countLine1_O = 0;
-
-    }
+         }
 
     if (mouse_x >= 237
         && mouse_y >= 360
@@ -2224,16 +1892,16 @@ int changeMenu(HWND hwnd) {
         && mouse_y <= RulesB.posY + RulesB.sizeY
         && StartGame >=0 && StartGame !=2 && StartGame != 5)
     {
-        PlaySoundW(TEXT(".\\sounds\\perelist.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        if (SoundB.Status == 0 || SoundB.Status == 1)  PlaySoundW(TEXT(".\\sounds\\perelist.wav"), NULL, SND_FILENAME | SND_ASYNC);
         StartGame = 5;
 
     }
 
-    if (mouse_x >= RulesB.posX
+    if ((mouse_x >= RulesB.posX
         && mouse_y >= RulesB.posY
         && mouse_x <= RulesB.posX + RulesB.sizeX
         && mouse_y <= RulesB.posY + RulesB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 6) && StartGame != 5)
+        && (StartGame == 0 || StartGame == 4 || StartGame == 6)) || StartGame == 5  )
     {
         RulesB.Status = 1;
 
@@ -2249,16 +1917,16 @@ int changeMenu(HWND hwnd) {
         && mouse_y <= AuthorB.posY + AuthorB.sizeY
         && StartGame >= 0 && StartGame != 2 && StartGame != 6)
     {
-        PlaySoundW(TEXT(".\\sounds\\perelist.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\perelist.wav"), NULL, SND_FILENAME | SND_ASYNC);
         StartGame = 6;
 
     }
 
-    if (mouse_x >= AuthorB.posX
+    if ((mouse_x >= AuthorB.posX
         && mouse_y >= AuthorB.posY
         && mouse_x <= AuthorB.posX + AuthorB.sizeX
         && mouse_y <= AuthorB.posY + AuthorB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5) && StartGame != 6)
+        && (StartGame == 0 || StartGame == 4 || StartGame == 5)) || StartGame == 6)
     {
         AuthorB.Status = 1;
 
@@ -2273,7 +1941,7 @@ int changeMenu(HWND hwnd) {
         && mouse_y <= LeftB.posY + LeftB.sizeY
         && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed > 0.06 && TerpB.Status >1)
     {
-        PlaySoundW(TEXT(".\\sounds\\ris2.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris2.wav"), NULL, SND_FILENAME | SND_ASYNC);
         speed = speed - 0.06;
         TerpB.Status = TerpB.Status - 1;
         Sleep(400);
@@ -2300,12 +1968,12 @@ int changeMenu(HWND hwnd) {
         && mouse_y <= RightB.posY + RightB.sizeY
         && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed != 0.30 && TerpB.Status !=5) {
 
-        PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
             
 
         speed = speed + 0.06;
         TerpB.Status = TerpB.Status +1;
-        Sleep(400);
+        Sleep(300);
     }
 
     if (mouse_x >= RightB.posX
@@ -2319,9 +1987,6 @@ int changeMenu(HWND hwnd) {
     }
     else { RightB.Status = 0; }
 
-
-
-
     //Button Lamp
     if (GetKeyState(VK_LBUTTON) < 0
         && mouse_x >= 90
@@ -2331,15 +1996,12 @@ int changeMenu(HWND hwnd) {
         && (StartGame == -1 || StartGame == 5 || StartGame == 6) && OnOffLeight == 0
         )
     {
-        PlaySoundW(TEXT(".\\sounds\\onLamp.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\onLamp.wav"), NULL, SND_FILENAME | SND_ASYNC);
         Sleep(350);
         /*CreateGameField(hdc);*/
         StartGame = -2;
         OnOffLeight = 1;
-
-
     }
-
 
     if (GetKeyState(VK_LBUTTON) < 0
         && mouse_x >= 90
@@ -2349,18 +2011,11 @@ int changeMenu(HWND hwnd) {
         && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && OnOffLeight == 1
         )
     {
-        PlaySoundW(TEXT(".\\sounds\\onLamp.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\onLamp.wav"), NULL, SND_FILENAME | SND_ASYNC);
         Sleep(350);
         StartGame = -1;
-
         OnOffLeight = 0;
-
     }
-
-
-
-
-
 
     // Button Stop
     if (GetKeyState(VK_LBUTTON) < 0
@@ -2371,15 +2026,14 @@ int changeMenu(HWND hwnd) {
         && (counter_start == -100)
         )
     {
-        PlaySoundW(TEXT(".\\sounds\\otriv.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        if (SoundB.Status == 0 || SoundB.Status == 1)  PlaySoundW(TEXT(".\\sounds\\otriv.wav"), NULL, SND_FILENAME | SND_ASYNC);
         CreateGameField(hdc);
         StartGame = 0;
         counter_start = 1;
         energyX = 2;
         energyO = 2;
         gameDuration = gameDurationBuf;
-        strokeCounter = 0;
-
+      
 
     }
 
@@ -2395,8 +2049,56 @@ int changeMenu(HWND hwnd) {
     else { StopB.Status = 0; }
 
 
+    // button Sound
+    if (GetKeyState(VK_LBUTTON) < 0
+        && mouse_x >= SoundB.posX
+        && mouse_y >= SoundB.posY
+        && mouse_x <= SoundB.posX + SoundB.sizeX
+        && mouse_y <= SoundB.posY + SoundB.sizeY
+        )
+    {
+        if (SoundB.Status == 0 || SoundB.Status == 1)
+        {
+            PlaySoundW(TEXT(".\\sounds\\onOffSound.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            SoundB.Status = 3;
+            Sleep(300);
+        }
+
+        else {
+            if (SoundB.Status == 2 || SoundB.Status == 3) {
+                PlaySoundW(TEXT(".\\sounds\\onOffSound.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                SoundB.Status = 1;
+                Sleep(300);
+            }
+        }
+    }
 
 
+
+    if (mouse_x >= SoundB.posX
+        && mouse_y >= SoundB.posY
+        && mouse_x <= SoundB.posX + SoundB.sizeX
+        && mouse_y <= SoundB.posY + SoundB.sizeY
+        ) 
+    {
+        if(SoundB.Status == 0)
+        SoundB.Status = 1;
+        else {
+        if (SoundB.Status == 2) {
+            SoundB.Status = 3;
+    }
+    }
+
+    }
+    else {
+        if (SoundB.Status == 1) {
+            SoundB.Status = 0;
+        }
+        else  if (SoundB.Status == 3) {
+            SoundB.Status = 2;
+        }
+        
+         }
 
     // button Exit
     if (GetKeyState(VK_LBUTTON) < 0
@@ -2406,7 +2108,6 @@ int changeMenu(HWND hwnd) {
         && mouse_y <= ExitB.posY + ExitB.sizeY
         )
     {
-
         PostQuitMessage(0);
     }
 
@@ -2440,10 +2141,8 @@ int changeMenu(HWND hwnd) {
         && mouse_x <= 1000
         && mouse_y <= 100
         && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && changeLeftClic[0] == 1)
-
-
     {
-        PlaySoundW(TEXT(".\\sounds\\zavod.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        if (SoundB.Status == 0 || SoundB.Status == 1)  PlaySoundW(TEXT(".\\sounds\\zavod.wav"), NULL, SND_FILENAME | SND_ASYNC);
         changeLeftClic[0] = 0;
     
         if (gameDurationBuf == 540) {
@@ -2456,30 +2155,39 @@ int changeMenu(HWND hwnd) {
  
 }
 
+int sumFlagField() {
+    int tempV =0;
+    for (int i = 1; i <= 100; i++) {
+        if (arrayFlag[i] == 1) {
+            tempV = tempV + 1; 
+        }
+    }
+    sumArrayFlagField = tempV;
+    tempV = 0;
+}
 
 int VvodO_bot(HWND hwnd) {
 
     if (counter_start == -100 && botB.StasusModeGame == 0 && energyO >= 3)
     {
-        strokeCounter = 0;
+       
         if (arrayP[55] == L"" && energyO >= 1) {
             arrayP[55] = L"o1";
-            energyO = energyO - 0.9;
+            energyO = energyO - 1;
         }
-
         else {
             if (arrayP[56] == L"" && energyO >= 1) {
                 arrayP[56] = L"o1";
-                energyO = energyO - 0.9;
+                energyO = energyO - 1;
             }
             else {
                 if (arrayP[46] == L"" && energyO >= 1) {
                     arrayP[46] = L"o1";
-                    energyO = energyO - 0.9;
+                    energyO = energyO - 1;
                 }
                 else  if (arrayP[45] == L"" && energyO >= 1) {
                     arrayP[45] = L"o1";
-                    energyO = energyO - 0.9;
+                    energyO = energyO - 1;
                 }
                 // AI
 
@@ -2497,14 +2205,9 @@ int VvodO_bot(HWND hwnd) {
                         arrayGB.up[i] = 0;
                         arrayGB.downX[i] = 0;
                         arrayGB.down[i] = 0;
-
-
-
-
                     }
                     for (int i = 1; i <= 100; i++) {
                         if (arrayP[i] == L"") {
-
 
                             // right
                             int tempRX = 0;
@@ -2576,11 +2279,6 @@ int VvodO_bot(HWND hwnd) {
                                         tempDX = 0;
                                         iOD = 10;
                                     }
-
-
-
-
-
                                 }
                             }
 
@@ -2652,26 +2350,11 @@ int VvodO_bot(HWND hwnd) {
                                                         tempD = 0;
                                                         iOD = 10;
                                                     }
-
-
-
-
-
                                                 }
                                             }
                                         
-
-
-
-
-                          
                         arrayGB.result[i] = 0;
                         int tempArray[8];
-
-                      /*  if (secondsLeft1 == 1 || secondsLeft1 == 4 ||  secondsLeft1 == 3 ) {*/
-
-                        
-
 
                         tempArray[0] = arrayGB.rightX[i];
                         tempArray[1] = arrayGB.leftX[i];
@@ -2681,20 +2364,7 @@ int VvodO_bot(HWND hwnd) {
                         tempArray[5] = arrayGB.left[i];
                         tempArray[6] = arrayGB.up[i];
                         tempArray[7] = arrayGB.down[i];
-                      /*}*/
-                      /*  else {
-                            tempArray[0] = arrayGB.right[i];
-                            tempArray[1] = arrayGB.left[i];
-                            tempArray[2] = arrayGB.up[i];
-                            tempArray[3] = arrayGB.down[i];
-                            tempArray[4] = arrayGB.rightX[i];
-                            tempArray[5] = arrayGB.leftX[i];
-                            tempArray[6] = arrayGB.upX[i];
-                            tempArray[7] = arrayGB.downX[i];
 
-
-
-                        }*/
                         int maxP = 0;
                         for (int ii = 0; ii <= 7; ii++) {
                             if (tempArray[ii] > arrayGB.result[i]) {
@@ -2708,8 +2378,6 @@ int VvodO_bot(HWND hwnd) {
                         }
                     }
                     }
-
-
 
                     int max = 0;
                     for (int iRes = 2; iRes < 100; iRes++) {
@@ -2725,18 +2393,10 @@ int VvodO_bot(HWND hwnd) {
                     }
                     if (energyO >= 1 && arrayP[resultR] == L"") {
                         arrayP[resultR] = L"o1";
-                        energyO = energyO -0.8;
-                       
-                       
-                        
+                        energyO = energyO -0.95;
+    
                     }
-
-
-
-
                 }
-        
-
             }
         }
     }
