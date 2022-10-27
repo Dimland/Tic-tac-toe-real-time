@@ -136,8 +136,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="functions.c" />
+    <ClCompile Include="DrawFunction.c" />
     <ClCompile Include="Tic-tac-toe real time.c" />
-    <ClCompile Include="CountPoint.c" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Tic-tac-toe real time.rc" />

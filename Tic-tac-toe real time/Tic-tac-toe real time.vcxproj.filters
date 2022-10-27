@@ -18,7 +18,10 @@
     <ClCompile Include="Tic-tac-toe real time.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="CountPoint.c">
+    <ClCompile Include="functions.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawFunction.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
