@@ -32,6 +32,14 @@ struct botButton {
 
 } botB;
 
+
+
+struct podskazka {
+    int Status, posX, posY, sizeX, sizeY;
+
+} podskazkaB;
+
+
 struct startButton {
     int Status, x, y;
 
@@ -116,11 +124,15 @@ int arrayFlag[100];
 int sumArrayFlagField = 0;
 int countLine1_X = 0; //point x
 int countLine1_O = 0; // point O
-int WinPoint = 30; // Разница point при которой победит одна из сторон
+int WinPoint = 40; // Разница point при которой победит одна из сторон
 int changeLeftClic[100]; 
 wchar_t* pX = L"x";
 wchar_t* pO = L"o";
 int StartGame = -1;
+int ForPodskazka = 0;
+
+
+
 
 // For Cool numbers
 int numberX_1 = 0;
@@ -199,6 +211,7 @@ static HDC memBitO5;
 static HDC memBitO6;   
 
 static HDC memBitPole;
+static HDC memBitPodskazka;
 
 // button menu
 
@@ -346,7 +359,12 @@ void update(HDC hdc) {
 
 
 
- 
+
+    
+        if (StartGame != -1) { BitBlt(memDC, podskazkaB.posX, podskazkaB.posY, podskazkaB.sizeX, podskazkaB.sizeY, memBitPodskazka, 0, 0, SRCCOPY); }
+     
+
+
     // drowField
     if (StartGame == 4 || counter_start == -100) { BitBlt(memDC, 677, 173, 395, 565, memBitPole, 0, 0, SRCCOPY); }
 
@@ -739,6 +757,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
     botB.sizeX = 51;
     botB.sizeY = 48;
     
+    podskazkaB.Status = 0;
+    podskazkaB.posX = 1280;
+    podskazkaB.posY = 550;
+    podskazkaB.sizeX = 204;
+    podskazkaB.sizeY = 511;
+
     RulesB.Status = 0;
     RulesB.posX = 233;
     RulesB.posY = 459;
@@ -1299,6 +1323,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
         memBitStop1 = CreateCompatibleDC(hdc);
         SelectObject(memBitStop1, hBitmap);
 
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\podskazka.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        memBitPodskazka = CreateCompatibleDC(hdc);
+        SelectObject(memBitPodskazka, hBitmap);
+        
+
 
         if (hBitmap == NULL) {
             MessageBoxW(hwnd, L"Failed to load image", L"Error", MB_OK);
@@ -1345,6 +1374,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
             energyX = 2;
             energyO = 2;
             gameDuration = gameDurationBuf;
+            ForPodskazka = 1;
         }
 
         break;
@@ -1878,23 +1908,16 @@ int Watch(HWND hwnd) {
     //Проверка конца игры по времени
     if (counter_start < -1 && (gameDuration <= 0 || WinPoint <= countLine1_X - countLine1_O || WinPoint <= countLine1_O - countLine1_X || sumArrayFlagField >=100)) {
         StartGame = 4;
-
         counter_start = 1;
-
         if (StartGame == 4 && countLine1_X > countLine1_O) {
             if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\X_Win2.wav"), NULL, SND_FILENAME | SND_ASYNC);
         }
         if (StartGame == 4 && countLine1_O > countLine1_X) {
             if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\O_Win.wav"), NULL, SND_FILENAME | SND_ASYNC);
         }
-
         sumArrayFlagField = 0;
         gameDuration = gameDurationBuf;
-
-
-
-
-
+        podskazkaB.Status == 0;
     }
 
     // drow eneggy
@@ -1959,7 +1982,52 @@ int changeMenu(HWND hwnd) {
         botB.Status = 1;
     }
     else { botB.Status = 0; }
+    // Podskazka
+    if (ForPodskazka == 1) {
+        if (podskazkaB.Status == 0 && podskazkaB.posX > 1080) {
 
+            podskazkaB.posX = podskazkaB.posX - 5;
+        }
+        if (podskazkaB.Status == 1 && podskazkaB.posX < 1260) {
+
+            podskazkaB.posX = podskazkaB.posX + 5;
+        }
+    }
+
+    if (GetKeyState(VK_LBUTTON) < 0
+        && mouse_x >= podskazkaB.posX
+        && mouse_y >= podskazkaB.posY
+        && mouse_x <= podskazkaB.posX + podskazkaB.sizeX
+        && mouse_y <= podskazkaB.posY + podskazkaB.sizeY
+        && podskazkaB.Status == 1 && ForPodskazka == 1)
+    {
+        podskazkaB.Status = 0;
+        Sleep(200);
+        if (podskazkaB.posX > 1080) {
+
+            podskazkaB.posX = podskazkaB.posX - 5;
+        }
+
+
+    } else {
+
+    if (GetKeyState(VK_LBUTTON) < 0
+        && mouse_x >= podskazkaB.posX
+        && mouse_y >= podskazkaB.posY
+        && mouse_x <= podskazkaB.posX + podskazkaB.sizeX
+        && mouse_y <= podskazkaB.posY + podskazkaB.sizeY
+        && podskazkaB.Status == 0 && ForPodskazka == 1)
+    {
+        podskazkaB.Status = 1;
+        Sleep(200);
+        if (counter_start == -100 && podskazkaB.posX > 1260) {
+
+            podskazkaB.posX = podskazkaB.posX + 5;
+        }
+
+
+    }
+    }
     // Start Game
     if (GetKeyState(VK_LBUTTON) < 0
         && mouse_x >= 237
@@ -1979,6 +2047,7 @@ int changeMenu(HWND hwnd) {
         gameDuration = gameDurationBuf;
         countLine1_X = 0;
         countLine1_O = 0;
+        ForPodskazka = 1;
          }
 
     if (mouse_x >= 237
@@ -1987,6 +2056,7 @@ int changeMenu(HWND hwnd) {
         && mouse_y <= 360 + 66
         && (StartGame !=2) && StartGame >=0 ) {
         StartB.Status = 2;
+
     }
     else { StartB.Status = 1; }
 
@@ -2040,14 +2110,12 @@ int changeMenu(HWND hwnd) {
     else { AuthorB.Status = 0; }
 
     // Button Level opponent Left
-
-
     if (GetKeyState(VK_LBUTTON) < 0
         && mouse_x >= LeftOpB.posX
         && mouse_y >= LeftOpB.posY
         && mouse_x <= LeftOpB.posX + LeftOpB.sizeX
         && mouse_y <= LeftOpB.posY + LeftOpB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed > 0.06 && opponenLevelNumberB.Status > 1)
+        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && opponenLevelNumberB.Status > 1)
     {
         if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris2.wav"), NULL, SND_FILENAME | SND_ASYNC);
         speedBot = speedBot - 0.6;
@@ -2060,7 +2128,7 @@ int changeMenu(HWND hwnd) {
         && mouse_y >= LeftOpB.posY
         && mouse_x <= LeftOpB.posX + LeftOpB.sizeX
         && mouse_y <= LeftOpB.posY + LeftOpB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed > 0.06 && opponenLevelNumberB.Status > 1)
+        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && opponenLevelNumberB.Status > 1)
     {
        
         LeftOpB.Status = 1;
@@ -2075,7 +2143,7 @@ int changeMenu(HWND hwnd) {
         && mouse_y >= RightOpB.posY
         && mouse_x <= RightOpB.posX + RightB.sizeX
         && mouse_y <= RightOpB.posY + RightB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed != 0.30 && opponenLevelNumberB.Status <3) {
+        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6)  && opponenLevelNumberB.Status <3) {
 
         if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
@@ -2089,19 +2157,12 @@ int changeMenu(HWND hwnd) {
         && mouse_y >= RightOpB.posY
         && mouse_x <= RightOpB.posX + RightOpB.sizeX
         && mouse_y <= RightOpB.posY + RightOpB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed != 0.30 && opponenLevelNumberB.Status < 3)
+        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && opponenLevelNumberB.Status < 3)
     {
         RightOpB.Status = 1;
 
     }
     else { RightOpB.Status = 0; }
-
-
-
-
-
-
-
 
 
     // button Arrey Left
