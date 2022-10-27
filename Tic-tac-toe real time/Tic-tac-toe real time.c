@@ -67,6 +67,26 @@ struct StopButton {
 
 } StopB;
 
+struct opponenLevel {
+    int Status, posX, posY, sizeX, sizeY;
+
+} opponenLevelB;
+
+struct opponenLevelNumber {
+    int Status, posX, posY, sizeX, sizeY;
+
+} opponenLevelNumberB;
+
+struct LeftButtonOp {
+    int Status, posX, posY, sizeX, sizeY;
+
+} LeftOpB;
+
+struct RightButtonOp {
+    int Status, posX, posY, sizeX, sizeY;
+
+} RightOpB;
+
 struct LeftButton {
     int Status, posX, posY, sizeX, sizeY;
 
@@ -125,6 +145,8 @@ double energeOadd = 0;
 double energeXadd = 0;
 
 double speed = 0.24; // speed return energy
+double speedBot = 1.8;
+
 
 int counter_start = 1;
 
@@ -199,6 +221,15 @@ static HDC memBitRuls;
 static HDC memBitAuthor0;
 static HDC memBitAuthor1;
 static HDC memBitAuthorPeople;
+
+
+static HDC memBitOpponentLevel;
+
+static HDC memBitLeftOpB_0;
+static HDC memBitRightOpB_0;
+
+static HDC memBitLeftOpB_1;
+static HDC memBitRightOpB_1;
 
 // button arroy
 static HDC memBitLeft;
@@ -390,6 +421,20 @@ void update(HDC hdc) {
     if (AuthorB.Status == 1 && StartGame != -1) { BitBlt(memDC, AuthorB.posX, AuthorB.posY, AuthorB.sizeX, AuthorB.sizeY, memBitAuthor1, 0, 0, SRCCOPY); }
 
     if (StartGame == 6) { BitBlt(memDC, AuthorI.posX, AuthorI.posY, AuthorI.sizeX, AuthorI.sizeY, memBitAuthorPeople, 0, 0, SRCCOPY); }
+
+    //opponent Level
+    if (opponenLevelB.Status == 0 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(memDC, opponenLevelB.posX, opponenLevelB.posY, opponenLevelB.sizeX, opponenLevelB.sizeY, memBitOpponentLevel, 0, 0, SRCCOPY); }
+
+
+    if (LeftOpB.Status == 0 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(memDC, LeftOpB.posX, LeftOpB.posY, LeftOpB.sizeX, LeftOpB.sizeY, memBitLeftOpB_0, 0, 0, SRCCOPY); }
+    if (LeftOpB.Status == 1 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(memDC, LeftOpB.posX, LeftOpB.posY, LeftOpB.sizeX, LeftOpB.sizeY, memBitLeftOpB_1, 0, 0, SRCCOPY); }
+
+    if (RightOpB.Status == 0 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(memDC, RightOpB.posX, RightOpB.posY, RightOpB.sizeX, RightOpB.sizeY, memBitRightOpB_0, 0, 0, SRCCOPY); }
+    if (RightOpB.Status == 1 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(memDC, RightOpB.posX, RightOpB.posY, RightOpB.sizeX, RightOpB.sizeY, memBitRightOpB_1, 0, 0, SRCCOPY); }
+
+    if (opponenLevelNumberB.Status == 1 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(memDC, 452, 632, 28, 64, memBitNumbO_1, 0, 0, SRCCOPY); }
+    if (opponenLevelNumberB.Status == 2 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(memDC, 452, 632, 28, 64, memBitNumbO_2, 0, 0, SRCCOPY); }
+    if (opponenLevelNumberB.Status == 3 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(memDC, 452, 632, 28, 64, memBitNumbO_3, 0, 0, SRCCOPY); }
 
 
     // Button Arrey
@@ -730,6 +775,34 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
     AuthorI.sizeX = 441;
     AuthorI.sizeY = 748;
 
+    opponenLevelB.Status = 0;
+    opponenLevelB.posX = 198;
+    opponenLevelB.posY = 663;
+    opponenLevelB.sizeX = 180;
+    opponenLevelB.sizeY = 45;
+
+    
+
+    opponenLevelNumberB.Status = 1;
+    opponenLevelNumberB.posX = 450;
+    opponenLevelNumberB.posY = 628;
+    opponenLevelNumberB.sizeX = 28;
+    opponenLevelNumberB.sizeY = 64;
+
+
+    LeftOpB.Status = 0;
+    LeftOpB.posX = 416;
+    LeftOpB.posY = 667;
+    LeftOpB.sizeX = 31;
+    LeftOpB.sizeY = 28;
+
+    RightOpB.Status = 0;
+    RightOpB.posX = 486;
+    RightOpB.posY = 667;
+    RightOpB.sizeX = 31;
+    RightOpB.sizeY = 28;
+
+
     LeftB.Status = 0;
     LeftB.posX = 178;
     LeftB.posY = 734;
@@ -898,6 +971,27 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\AuthorPeople.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
         memBitAuthorPeople = CreateCompatibleDC(hdc);
         SelectObject(memBitAuthorPeople, hBitmap);
+
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\opponentLevel.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        memBitOpponentLevel = CreateCompatibleDC(hdc);
+        SelectObject(memBitOpponentLevel, hBitmap);
+
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\leftOpB_0.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        memBitLeftOpB_0 = CreateCompatibleDC(hdc);
+        SelectObject(memBitLeftOpB_0, hBitmap);
+
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\RightOpB_0.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        memBitRightOpB_0 = CreateCompatibleDC(hdc);
+        SelectObject(memBitRightOpB_0, hBitmap);
+
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\leftOpB_1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        memBitLeftOpB_1 = CreateCompatibleDC(hdc);
+        SelectObject(memBitLeftOpB_1, hBitmap);
+
+        hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\RightOpB_1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        memBitRightOpB_1 = CreateCompatibleDC(hdc);
+        SelectObject(memBitRightOpB_1, hBitmap);
+
 
         hBitmap = (HBITMAP)LoadImage(NULL, TEXT(".\\image\\LeftChange.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
         memBitLeft = CreateCompatibleDC(hdc);
@@ -1945,6 +2039,71 @@ int changeMenu(HWND hwnd) {
     }
     else { AuthorB.Status = 0; }
 
+    // Button Level opponent Left
+
+
+    if (GetKeyState(VK_LBUTTON) < 0
+        && mouse_x >= LeftOpB.posX
+        && mouse_y >= LeftOpB.posY
+        && mouse_x <= LeftOpB.posX + LeftOpB.sizeX
+        && mouse_y <= LeftOpB.posY + LeftOpB.sizeY
+        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed > 0.06 && opponenLevelNumberB.Status > 1)
+    {
+        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris2.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        speedBot = speedBot - 0.6;
+        opponenLevelNumberB.Status = opponenLevelNumberB.Status - 1;
+        Sleep(400);
+    }
+
+
+    if (mouse_x >= LeftOpB.posX
+        && mouse_y >= LeftOpB.posY
+        && mouse_x <= LeftOpB.posX + LeftOpB.sizeX
+        && mouse_y <= LeftOpB.posY + LeftOpB.sizeY
+        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed > 0.06 && opponenLevelNumberB.Status > 1)
+    {
+       
+        LeftOpB.Status = 1;
+
+    }
+    else { LeftOpB.Status = 0; }
+
+
+    // Button Level opponent Right
+    if (GetKeyState(VK_LBUTTON) < 0
+        && mouse_x >= RightOpB.posX
+        && mouse_y >= RightOpB.posY
+        && mouse_x <= RightOpB.posX + RightB.sizeX
+        && mouse_y <= RightOpB.posY + RightB.sizeY
+        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed != 0.30 && opponenLevelNumberB.Status <3) {
+
+        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+
+        speedBot = speedBot + 0.6;
+        opponenLevelNumberB.Status = opponenLevelNumberB.Status + 1;
+        Sleep(300);
+    }
+
+    if (mouse_x >= RightOpB.posX
+        && mouse_y >= RightOpB.posY
+        && mouse_x <= RightOpB.posX + RightOpB.sizeX
+        && mouse_y <= RightOpB.posY + RightOpB.sizeY
+        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed != 0.30 && opponenLevelNumberB.Status < 3)
+    {
+        RightOpB.Status = 1;
+
+    }
+    else { RightOpB.Status = 0; }
+
+
+
+
+
+
+
+
+
     // button Arrey Left
     if (GetKeyState(VK_LBUTTON) < 0
         && mouse_x >= LeftB.posX
@@ -2180,7 +2339,7 @@ int sumFlagField() {
 
 int VvodO_bot(HWND hwnd) {
 
-    if (counter_start == -100 && botB.StasusModeGame == 0 && energyO >= 3)
+    if (counter_start == -100 && botB.StasusModeGame == 0 && energyO >= speedBot)
     {
        
         if (arrayP[55] == L"" && energyO >= 1) {
@@ -2405,7 +2564,7 @@ int VvodO_bot(HWND hwnd) {
                     }
                     if (energyO >= 1 && arrayP[resultR] == L"") {
                         arrayP[resultR] = L"o1";
-                        energyO = energyO -0.85;
+                        energyO = energyO -0.87;
     
                     }
                 }
