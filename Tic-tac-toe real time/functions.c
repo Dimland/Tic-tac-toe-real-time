@@ -1,7 +1,6 @@
 #include "Tic-tac-toe real time.h";
 
-
-wchar_t* path[] = { L".\\image\\Backround_v0.7_black.bmp", L".\\image\\Backround_v0.11_whate.bmp", L".\\image\\pole1.bmp",	L".\\image\\X1.bmp",	L".\\image\\X2.bmp",	L".\\image\\X3.bmp",	L".\\image\\X4.bmp",	L".\\image\\X5.bmp",	L".\\image\\X6.bmp",	L".\\image\\O1.bmp",	L".\\image\\O2.bmp",	L".\\image\\O3.bmp",	L".\\image\\O4.bmp",	L".\\image\\O5.bmp",	L".\\image\\O.bmp",	L".\\image\\bot_1.bmp",	L".\\image\\startGame.bmp",	L".\\image\\startGameV.bmp",	L".\\image\\Rules_0.bmp",	L".\\image\\Rules_1.bmp",	L".\\image\\Ruls.bmp",	L".\\image\\Author0.bmp",	L".\\image\\Author1.bmp",	L".\\image\\AuthorPeople.bmp",	L".\\image\\opponentLevel.bmp",	L".\\image\\leftOpB_0.bmp",	L".\\image\\RightOpB_0.bmp",	L".\\image\\leftOpB_1.bmp",	L".\\image\\RightOpB_1.bmp",	L".\\image\\LeftChange.bmp",	L".\\image\\RightChange.bmp",	L".\\image\\Terp1_1.bmp",	L".\\image\\Terp2.bmp",	L".\\image\\Terp3.bmp",	L".\\image\\Terp4.bmp",	L".\\image\\Terp5.bmp",	L".\\image\\exit_0.bmp",	L".\\image\\exit_1.bmp",	L".\\image\\pancel.bmp",	L".\\image\\EnergyX_0.bmp",	L".\\image\\EnergyX_1.bmp",	L".\\image\\EnergyX_2.bmp",	L".\\image\\EnergyX_3.bmp",	L".\\image\\EnergyX_4.bmp",	L".\\image\\EnergyX_5.bmp",	L".\\image\\EnergyX_6.bmp",	L".\\image\\EnergyX_7.bmp",	L".\\image\\EnergyX_8.bmp",	L".\\image\\EnergyX_9.bmp",	L".\\image\\EnergyX_10.bmp",	L".\\image\\EnergyO_0.bmp",	L".\\image\\EnergyO_1.bmp",	L".\\image\\EnergyO_2.bmp",	L".\\image\\EnergyO_3.bmp",	L".\\image\\EnergyO_4.bmp",	L".\\image\\EnergyO_5.bmp",	L".\\image\\EnergyO_6.bmp",	L".\\image\\EnergyO_7.bmp",	L".\\image\\EnergyO_8.bmp",	L".\\image\\EnergyO_9.bmp",	L".\\image\\EnergyO_10.bmp",	L".\\image\\O_win.bmp",	L".\\image\\x_win.bmp",	L".\\image\\O-0.bmp",	L".\\image\\O-1.bmp",	L".\\image\\O-2.bmp",	L".\\image\\O-3.bmp",	L".\\image\\O-4.bmp",	L".\\image\\O-5.bmp",	L".\\image\\O-6.bmp",	L".\\image\\O-7.bmp",	L".\\image\\O-8.bmp",	L".\\image\\O-9.bmp",	L".\\image\\X-0.bmp",	L".\\image\\X-1.bmp",	L".\\image\\X-2.bmp",	L".\\image\\X-3.bmp",	L".\\image\\X-4.bmp",	L".\\image\\X-5.bmp",	L".\\image\\X-6.bmp",	L".\\image\\X-7.bmp",	L".\\image\\X-8.bmp",	L".\\image\\X-9.bmp",	L".\\image\\Time0.bmp",	L".\\image\\Time1.bmp",	L".\\image\\Time2.bmp",	L".\\image\\Time3.bmp",	L".\\image\\Time4.bmp",	L".\\image\\Time5.bmp",	L".\\image\\Time6.bmp",	L".\\image\\Time7.bmp",	L".\\image\\Time8.bmp",	L".\\image\\Time9.bmp",	L".\\image\\win_mens_lO.bmp",	L".\\image\\win_mens_PO.bmp",	L".\\image\\win_mens_lX.bmp",	L".\\image\\win_mens_PX.bmp",	L".\\image\\sound0.bmp",	L".\\image\\sound1.bmp",	L".\\image\\sound2.bmp",	L".\\image\\sound3.bmp",	L".\\image\\stop0.bmp",	L".\\image\\stop1.bmp",	L".\\image\\podskazka.bmp"};
+wchar_t* path[] = { L".\\image\\Backround_v0.7_black.bmp", L".\\image\\Backround_v0.11_whate.bmp", L".\\image\\pole1.bmp",	L".\\image\\X1.bmp",	L".\\image\\X2.bmp",	L".\\image\\X3.bmp",	L".\\image\\X4.bmp",	L".\\image\\X5.bmp",	L".\\image\\X6.bmp",	L".\\image\\O1.bmp",	L".\\image\\O2.bmp",	L".\\image\\O3.bmp",	L".\\image\\O4.bmp",	L".\\image\\O5.bmp",	L".\\image\\O.bmp",	L".\\image\\bot_1.bmp",	L".\\image\\startGame.bmp",	L".\\image\\StartGameV.bmp",	L".\\image\\Rules_0.bmp",	L".\\image\\Rules_1.bmp",	L".\\image\\Ruls.bmp",	L".\\image\\Author0.bmp",	L".\\image\\Author1.bmp",	L".\\image\\AuthorPeople.bmp",	L".\\image\\opponentLevel.bmp",	L".\\image\\leftOpB_0.bmp",	L".\\image\\RightOpB_0.bmp",	L".\\image\\leftOpB_1.bmp",	L".\\image\\RightOpB_1.bmp",	L".\\image\\LeftChange.bmp",	L".\\image\\RightChange.bmp",	L".\\image\\Terp1_1.bmp",	L".\\image\\Terp2.bmp",	L".\\image\\Terp3.bmp",	L".\\image\\Terp4.bmp",	L".\\image\\Terp5.bmp",	L".\\image\\exit_0.bmp",	L".\\image\\exit_1.bmp",	L".\\image\\pancel.bmp",	L".\\image\\EnergyX_0.bmp",	L".\\image\\EnergyX_1.bmp",	L".\\image\\EnergyX_2.bmp",	L".\\image\\EnergyX_3.bmp",	L".\\image\\EnergyX_4.bmp",	L".\\image\\EnergyX_5.bmp",	L".\\image\\EnergyX_6.bmp",	L".\\image\\EnergyX_7.bmp",	L".\\image\\EnergyX_8.bmp",	L".\\image\\EnergyX_9.bmp",	L".\\image\\EnergyX_10.bmp",	L".\\image\\EnergyO_0.bmp",	L".\\image\\EnergyO_1.bmp",	L".\\image\\EnergyO_2.bmp",	L".\\image\\EnergyO_3.bmp",	L".\\image\\EnergyO_4.bmp",	L".\\image\\EnergyO_5.bmp",	L".\\image\\EnergyO_6.bmp",	L".\\image\\EnergyO_7.bmp",	L".\\image\\EnergyO_8.bmp",	L".\\image\\EnergyO_9.bmp",	L".\\image\\EnergyO_10.bmp",	L".\\image\\O_win.bmp",	L".\\image\\x_win.bmp",	L".\\image\\O-0.bmp",	L".\\image\\O-1.bmp",	L".\\image\\O-2.bmp",	L".\\image\\O-3.bmp",	L".\\image\\O-4.bmp",	L".\\image\\O-5.bmp",	L".\\image\\O-6.bmp",	L".\\image\\O-7.bmp",	L".\\image\\O-8.bmp",	L".\\image\\O-9.bmp",	L".\\image\\X-0.bmp",	L".\\image\\X-1.bmp",	L".\\image\\X-2.bmp",	L".\\image\\X-3.bmp",	L".\\image\\X-4.bmp",	L".\\image\\X-5.bmp",	L".\\image\\X-6.bmp",	L".\\image\\X-7.bmp",	L".\\image\\X-8.bmp",	L".\\image\\X-9.bmp",	L".\\image\\Time0.bmp",	L".\\image\\Time1.bmp",	L".\\image\\Time2.bmp",	L".\\image\\Time3.bmp",	L".\\image\\Time4.bmp",	L".\\image\\Time5.bmp",	L".\\image\\Time6.bmp",	L".\\image\\Time7.bmp",	L".\\image\\Time8.bmp",	L".\\image\\Time9.bmp",	L".\\image\\win_mens_lO.bmp",	L".\\image\\win_mens_PO.bmp",	L".\\image\\win_mens_lX.bmp",	L".\\image\\win_mens_PX.bmp",	L".\\image\\sound0.bmp",	L".\\image\\sound1.bmp",	L".\\image\\sound2.bmp",	L".\\image\\sound3.bmp",	L".\\image\\stop0.bmp",	L".\\image\\stop1.bmp",	L".\\image\\podskazka.bmp" };
 
 int changeDisplay() {
 
@@ -27,8 +26,8 @@ void addBeforeStartedvalue() {
     pX = L"x";
     pO = L"o";
    
-    StartGame = -1;
-    ForPodskazka = 0;
+    GameMod = -1;
+    ForTips = 0;
 
     speed = 0.24; // speed return energy
     speedBot = 1.8;
@@ -167,7 +166,7 @@ void drawAll(HDC hdc) {
     HBITMAP memBM = CreateCompatibleBitmap(hdc, rct.right - rct.left, rct.bottom - rct.top);
     SelectObject(memDC, memBM);
 
-    switchLight(&memDC);
+    drawhLight(&memDC);
    
     drawNumberWatch(&memDC);
   
@@ -195,8 +194,8 @@ void drawAll(HDC hdc) {
 
 void createTimer(HDC hdc) {
 
-    if (StartGame == -2) {
-        StartGame = 0;
+    if (GameMod == -2) {
+        GameMod = 0;
         SetTimer(hdc, ID_TIMER_BEFORE_START, 100, NULL);
     }
 
@@ -703,6 +702,9 @@ int convertPointInCoolO(HWND hwnd) {
 }
 
 int convertWatch(HWND hwnd) {
+    minutsLeft = floor(gameDuration / 60);
+    secondsLeft = gameDuration - (minutsLeft * 60);
+
     if (secondsLeft < 10) {
         secondsLeft1 = 0;
         secondsLeft2 = secondsLeft;
@@ -714,25 +716,11 @@ int convertWatch(HWND hwnd) {
             secondsLeft2 = secondsLeft - secondsLeft1 * 10;
         }
     }
-
-    if (countLine1_X < 10) {
-        numberX_1 = countLine1_X;
-    }
-    else {
-        if (countLine1_X < 100)
-        {
-            numberX_2 = floor(countLine1_X / 10);
-            numberX_1 = countLine1_X - numberX_2 * 10;
-        }
-    }
-
+    if (counter_start == -100) { gameDuration = gameDuration - 0.063; }
 }
 
-int Watch(HWND hwnd) {
-    minutsLeft = floor(gameDuration / 60);
-    secondsLeft = gameDuration - (minutsLeft * 60);
-
-    if (counter_start == -100 && energyX < 3 && energyX >= 2) {
+int addEnergy(HWND hwnd) {
+        if (counter_start == -100 && energyX < 3 && energyX >= 2) {
         energeXadd = 0.1 * speed;
         energyX = energyX + energeXadd;
 
@@ -768,15 +756,15 @@ int Watch(HWND hwnd) {
 
     //Проверка конца игры по времени
     if (counter_start < -1 && (gameDuration <= 0 || WinPoint <= countLine1_X - countLine1_O || WinPoint <= countLine1_O - countLine1_X || sums_Field >= 100)) {
-        StartGame = 4;
+        GameMod = 4;
         counter_start = 1;
-        if (StartGame == 4 && countLine1_X > countLine1_O) {
+        if (GameMod == 4 && countLine1_X > countLine1_O) {
             if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\X_Win2.wav"), NULL, SND_FILENAME | SND_ASYNC);
         }
-        if (StartGame == 4 && countLine1_O > countLine1_X) {
+        if (GameMod == 4 && countLine1_O > countLine1_X) {
             if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\O_Win.wav"), NULL, SND_FILENAME | SND_ASYNC);
         }
-        StartGame = 4;
+        GameMod = 4;
         counter_start = 1;
         sums_Field = 0;
         gameDuration = gameDurationBuf;
@@ -827,435 +815,29 @@ int Watch(HWND hwnd) {
 }
 
 int changeMenu(HWND hwnd) {
-    // botButton
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= botB.posX
-        && mouse_y >= botB.posY
-        && mouse_x <= botB.posX + botB.sizeX
-        && mouse_y <= botB.posY + botB.sizeY
-        && StartGame >= 0 && StartGame != 2)
-    {
-        if (botB.StasusModeGame == 0) {
-            if (SoundB.Status == 0 || SoundB.Status == 1)   PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
-            botB.StasusModeGame = 1;
-            Sleep(300);
-        }
-        else {
-            if (SoundB.Status == 0 || SoundB.Status == 1)    PlaySoundW(TEXT(".\\sounds\\delete.wav"), NULL, SND_FILENAME | SND_ASYNC);
-            botB.StasusModeGame = 0;
-            Sleep(300);
-        }
-    }
+    botButton();
 
-    if (mouse_x >= botB.posX
-        && mouse_y >= botB.posY
-        && mouse_x <= botB.posX + botB.sizeX
-        && mouse_y <= botB.posY + botB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 6 || StartGame == 5))
-    {
-        botB.Status = 1;
-    }
-    else { botB.Status = 0; }
-    // Podskazka
-    if (ForPodskazka == 1) {
-        if (podskazkaB.Status == 0 && podskazkaB.posX > 1080) {
+    StartGameButton();
 
-            podskazkaB.posX = podskazkaB.posX - 5;
-        }
-        if (podskazkaB.Status == 1 && podskazkaB.posX < 1260) {
+    RulesButton();
 
-            podskazkaB.posX = podskazkaB.posX + 5;
-        }
-    }
+    AuthorButton();
 
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= podskazkaB.posX
-        && mouse_y >= podskazkaB.posY
-        && mouse_x <= podskazkaB.posX + podskazkaB.sizeX
-        && mouse_y <= podskazkaB.posY + podskazkaB.sizeY
-        && podskazkaB.Status == 1 && ForPodskazka == 1)
-    {
-        podskazkaB.Status = 0;
-        Sleep(200);
-        if (podskazkaB.posX > 1080) {
+    LevelOpponentButton();
 
-            podskazkaB.posX = podskazkaB.posX - 5;
-        }
+    SpeedSovlanutButtons();
 
+    ExitButton();
 
-    }
-    else {
+    SoundButton();
 
-        if (GetKeyState(VK_LBUTTON) < 0
-            && mouse_x >= podskazkaB.posX
-            && mouse_y >= podskazkaB.posY
-            && mouse_x <= podskazkaB.posX + podskazkaB.sizeX
-            && mouse_y <= podskazkaB.posY + podskazkaB.sizeY
-            && podskazkaB.Status == 0 && ForPodskazka == 1)
-        {
-            podskazkaB.Status = 1;
-            Sleep(200);
-            if (counter_start == -100 && podskazkaB.posX > 1260) {
+    SwitchLight();
 
-                podskazkaB.posX = podskazkaB.posX + 5;
-            }
+    SwitchWatch();
 
+    StopButton();
 
-        }
-    }
-    // Start Game
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= StartB.posX
-        && mouse_y >= StartB.posY
-        && mouse_x <= StartB.posX + StartB.sizeX
-        && mouse_y <= StartB.posY + StartB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6))
-    {
-        if (SoundB.Status == 0 || SoundB.Status == 1)  PlaySoundW(TEXT(".\\sounds\\perelist.wav"), NULL, SND_FILENAME | SND_ASYNC);
-        StartGame = 2;
-        SetTimer(hwnd, ID_TIMER_START, 1000, NULL);
-        KillTimer(hwnd, ID_TIMER_BEFORE_START);
-        CreateGameField(hdc);
-        counter_start = 1;
-        energyX = 2;
-        energyO = 2;
-        gameDuration = gameDurationBuf;
-        countLine1_X = 0;
-        countLine1_O = 0;
-        ForPodskazka = 1;
-        posPancel = 45;
-    }
-
-    if (mouse_x >= StartB.posX
-        && mouse_y >= StartB.posY
-        && mouse_x <= StartB.posX + StartB.sizeX
-        && mouse_y <= StartB.posY + StartB.sizeY
-        && (StartGame != 2) && StartGame >= 0) {
-        StartB.Status = 2;
-
-    }
-    else { StartB.Status = 1; }
-
-    // button Rules
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= RulesB.posX
-        && mouse_y >= RulesB.posY
-        && mouse_x <= RulesB.posX + RulesB.sizeX
-        && mouse_y <= RulesB.posY + RulesB.sizeY
-        && StartGame >= 0 && StartGame != 2 && StartGame != 5)
-    {
-        if (SoundB.Status == 0 || SoundB.Status == 1)  PlaySoundW(TEXT(".\\sounds\\perelist.wav"), NULL, SND_FILENAME | SND_ASYNC);
-        StartGame = 5;
-
-    }
-    if ((mouse_x >= RulesB.posX
-        && mouse_y >= RulesB.posY
-        && mouse_x <= RulesB.posX + RulesB.sizeX
-        && mouse_y <= RulesB.posY + RulesB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 6)) || StartGame == 5)
-    {
-        RulesB.Status = 1;
-
-    }
-    else { RulesB.Status = 0; }
-
-    // button Author
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= AuthorB.posX
-        && mouse_y >= AuthorB.posY
-        && mouse_x <= AuthorB.posX + AuthorB.sizeX
-        && mouse_y <= AuthorB.posY + AuthorB.sizeY
-        && StartGame >= 0 && StartGame != 2 && StartGame != 6)
-    {
-        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\perelist.wav"), NULL, SND_FILENAME | SND_ASYNC);
-        StartGame = 6;
-    }
-
-    if ((mouse_x >= AuthorB.posX
-        && mouse_y >= AuthorB.posY
-        && mouse_x <= AuthorB.posX + AuthorB.sizeX
-        && mouse_y <= AuthorB.posY + AuthorB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5)) || StartGame == 6)
-    {
-        AuthorB.Status = 1;
-    }
-    else { AuthorB.Status = 0; }
-
-    // Button Level opponent Left
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= LeftOpB.posX
-        && mouse_y >= LeftOpB.posY
-        && mouse_x <= LeftOpB.posX + LeftOpB.sizeX
-        && mouse_y <= LeftOpB.posY + LeftOpB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && opponenLevelNumberB.Status > 1)
-    {
-        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris2.wav"), NULL, SND_FILENAME | SND_ASYNC);
-        speedBot = speedBot - 0.6;
-        opponenLevelNumberB.Status = opponenLevelNumberB.Status - 1;
-        Sleep(400);
-    }
-
-
-    if (mouse_x >= LeftOpB.posX
-        && mouse_y >= LeftOpB.posY
-        && mouse_x <= LeftOpB.posX + LeftOpB.sizeX
-        && mouse_y <= LeftOpB.posY + LeftOpB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && opponenLevelNumberB.Status > 1)
-    {
-
-        LeftOpB.Status = 1;
-
-    }
-    else { LeftOpB.Status = 0; }
-
-
-    // Button Level opponent Right
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= RightOpB.posX
-        && mouse_y >= RightOpB.posY
-        && mouse_x <= RightOpB.posX + RightB.sizeX
-        && mouse_y <= RightOpB.posY + RightB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && opponenLevelNumberB.Status < 3) {
-
-        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
-
-
-        speedBot = speedBot + 0.6;
-        opponenLevelNumberB.Status = opponenLevelNumberB.Status + 1;
-        Sleep(300);
-    }
-
-    if (mouse_x >= RightOpB.posX
-        && mouse_y >= RightOpB.posY
-        && mouse_x <= RightOpB.posX + RightOpB.sizeX
-        && mouse_y <= RightOpB.posY + RightOpB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && opponenLevelNumberB.Status < 3)
-    {
-        RightOpB.Status = 1;
-
-    }
-    else { RightOpB.Status = 0; }
-
-
-    // button Arrey Left
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= LeftB.posX
-        && mouse_y >= LeftB.posY
-        && mouse_x <= LeftB.posX + LeftB.sizeX
-        && mouse_y <= LeftB.posY + LeftB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed > 0.06 && TerpB.Status > 1)
-    {
-        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris2.wav"), NULL, SND_FILENAME | SND_ASYNC);
-        speed = speed - 0.06;
-        TerpB.Status = TerpB.Status - 1;
-        Sleep(400);
-    }
-
-
-    if (mouse_x >= LeftB.posX
-        && mouse_y >= LeftB.posY
-        && mouse_x <= LeftB.posX + LeftB.sizeX
-        && mouse_y <= LeftB.posY + LeftB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed > 0.06 && TerpB.Status > 1)
-    {
-        LeftB.Status = 1;
-
-    }
-    else { LeftB.Status = 0; }
-
-
-    // button Arrey Right
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= RightB.posX
-        && mouse_y >= RightB.posY
-        && mouse_x <= RightB.posX + RightB.sizeX
-        && mouse_y <= RightB.posY + RightB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed != 0.30 && TerpB.Status != 5) {
-
-        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
-
-
-        speed = speed + 0.06;
-        TerpB.Status = TerpB.Status + 1;
-        Sleep(300);
-    }
-
-    if (mouse_x >= RightB.posX
-        && mouse_y >= RightB.posY
-        && mouse_x <= RightB.posX + RightB.sizeX
-        && mouse_y <= RightB.posY + RightB.sizeY
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && speed != 0.30 && TerpB.Status != 5)
-    {
-        RightB.Status = 1;
-
-    }
-    else { RightB.Status = 0; }
-
-    //Button Lamp
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= 90
-        && mouse_y >= 26
-        && mouse_x <= 151
-        && mouse_y <= 90
-        && (StartGame == -1 || StartGame == 5 || StartGame == 6) && OnOffLeight == 0
-        )
-    {
-        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\onLamp.wav"), NULL, SND_FILENAME | SND_ASYNC);
-        Sleep(350);
-        StartGame = -2;
-        OnOffLeight = 1;
-    }
-
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= 90
-        && mouse_y >= 26
-        && mouse_x <= 151
-        && mouse_y <= 90
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && OnOffLeight == 1
-        )
-    {
-        if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\onLamp.wav"), NULL, SND_FILENAME | SND_ASYNC);
-        Sleep(350);
-        StartGame = -1;
-        OnOffLeight = 0;
-    }
-
-    // Button Stop
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= StopB.posX
-        && mouse_y >= StopB.posY
-        && mouse_x <= StopB.posX + StopB.sizeX
-        && mouse_y <= StopB.posY + StopB.sizeY
-        && (counter_start == -100)
-        )
-    {
-        if (SoundB.Status == 0 || SoundB.Status == 1)  PlaySoundW(TEXT(".\\sounds\\otriv.wav"), NULL, SND_FILENAME | SND_ASYNC);
-        /*CreateGameField(hwnd);*/
-        StartGame = 0;
-        counter_start = 1;
-        energyX = 2;
-        energyO = 2;
-        sums_Field = 0;
-        gameDuration = gameDurationBuf;
-
-
-    }
-
-    if (mouse_x >= StopB.posX
-        && mouse_y >= StopB.posY
-        && mouse_x <= StopB.posX + StopB.sizeX
-        && mouse_y <= StopB.posY + StopB.sizeY
-        && (counter_start == -100))
-    {
-        StopB.Status = 1;
-
-    }
-    else { StopB.Status = 0; }
-
-
-    // button Sound
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= SoundB.posX
-        && mouse_y >= SoundB.posY
-        && mouse_x <= SoundB.posX + SoundB.sizeX
-        && mouse_y <= SoundB.posY + SoundB.sizeY
-        )
-    {
-        if (SoundB.Status == 0 || SoundB.Status == 1)
-        {
-            PlaySoundW(TEXT(".\\sounds\\onOffSound.wav"), NULL, SND_FILENAME | SND_ASYNC);
-            SoundB.Status = 3;
-            Sleep(300);
-        }
-
-        else {
-            if (SoundB.Status == 2 || SoundB.Status == 3) {
-                PlaySoundW(TEXT(".\\sounds\\onOffSound.wav"), NULL, SND_FILENAME | SND_ASYNC);
-                SoundB.Status = 1;
-                Sleep(300);
-            }
-        }
-    }
-
-
-
-    if (mouse_x >= SoundB.posX
-        && mouse_y >= SoundB.posY
-        && mouse_x <= SoundB.posX + SoundB.sizeX
-        && mouse_y <= SoundB.posY + SoundB.sizeY
-        )
-    {
-        if (SoundB.Status == 0)
-            SoundB.Status = 1;
-        else {
-            if (SoundB.Status == 2) {
-                SoundB.Status = 3;
-            }
-        }
-
-    }
-    else {
-        if (SoundB.Status == 1) {
-            SoundB.Status = 0;
-        }
-        else  if (SoundB.Status == 3) {
-            SoundB.Status = 2;
-        }
-
-    }
-
-    // button Exit
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= ExitB.posX
-        && mouse_y >= ExitB.posY
-        && mouse_x <= ExitB.posX + ExitB.sizeX
-        && mouse_y <= ExitB.posY + ExitB.sizeY
-        )
-    {
-        PostQuitMessage(0);
-    }
-
-    if (mouse_x >= ExitB.posX
-        && mouse_y >= ExitB.posY
-        && mouse_x <= ExitB.posX + ExitB.sizeX
-        && mouse_y <= ExitB.posY + ExitB.sizeY
-        ) {
-        ExitB.Status = 1;
-
-    }
-    else { ExitB.Status = 0; }
-
-
-    // button watch
-    if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= 770
-        && mouse_y >= 10
-        && mouse_x <= 1000
-        && mouse_y <= 100
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6))
-
-    {
-        changeLeftClic[0] = 1;
-
-    }
-
-    if (GetKeyState(VK_LBUTTON) >= 0
-        && mouse_x >= 770
-        && mouse_y >= 10
-        && mouse_x <= 1000
-        && mouse_y <= 100
-        && (StartGame == 0 || StartGame == 4 || StartGame == 5 || StartGame == 6) && changeLeftClic[0] == 1)
-    {
-        if (SoundB.Status == 0 || SoundB.Status == 1)  PlaySoundW(TEXT(".\\sounds\\zavod.wav"), NULL, SND_FILENAME | SND_ASYNC);
-        changeLeftClic[0] = 0;
-
-        if (gameDurationBuf == 540) {
-            gameDurationBuf = 60;
-        }
-        else { gameDurationBuf = gameDurationBuf + 30; }
-
-        gameDuration = gameDurationBuf;
-    }
+    TipsClick();
 
 }
 

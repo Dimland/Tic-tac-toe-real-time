@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClCompile Include="functions.c" />
     <ClCompile Include="DrawFunction.c" />
+    <ClCompile Include="Menu.c" />
     <ClCompile Include="Tic-tac-toe real time.c" />
   </ItemGroup>
   <ItemGroup>

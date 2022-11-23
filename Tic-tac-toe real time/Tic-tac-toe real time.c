@@ -22,8 +22,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
     LPRECT rctt; // указатель на размер экрана
     rctt = malloc(sizeof(*pPnt));
 
-    gameDuration = gameDurationBuf;
-
     SetCursor(LoadCursorFromFile(TEXT(".\\image\\pen1.cur")));
 
     RegisterClassW(&wc);
@@ -33,15 +31,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
     SetWindowLongPtr(hwnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
     SetWindowPos(hwnd, HWND_TOP, 0, 0, 1280, 1024, SWP_SHOWWINDOW);
-
-    ShowWindow(hwnd,
-        SW_SHOWMAXIMIZED
-    );
+    ShowWindow(hwnd, SW_SHOWMAXIMIZED);
     changeDisplay();
 
     HDC hdc = GetDC(hwnd);
-
-   
 
     while (1) {
         if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE)) { // check the messages queue
@@ -56,11 +49,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
             ScreenToClient(hwnd, pPnt);
             mouse_x = pPnt[0].x;
             mouse_y = pPnt[0].y;
-            if (counter_start == -100) { gameDuration = gameDuration - 0.063; }
-            Watch(hwnd);
             MouseInput(hwnd);
             convertPointInCoolO(hwnd);
             convertWatch(hwnd);
+            addEnergy(hwnd);
             changeMenu(hwnd);
             SetCursor(LoadCursorFromFile(TEXT(".\\image\\pen1.cur")));
            if (botB.StasusModeGame ==1) KeyboardInput(hwnd);
@@ -68,10 +60,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
             Sleep(50);
         }
     }
-    return 0;
-
-
-    return (int)msg.wParam;
+       return (int)msg.wParam;
 }
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,WPARAM wParam, LPARAM lParam) {
@@ -79,14 +68,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,WPARAM wParam, LPARAM lParam) {
     case WM_SIZE:
         GetClientRect(hwnd, &rct); // размер экрана
     case WM_CREATE:
-
         PlaySoundW(TEXT(".\\sounds\\startSong.wav"), NULL, SND_FILENAME | SND_ASYNC);
         LoadImageDimaArr(path);
-            
-        if (hBitmap == NULL) {
-            MessageBoxW(hwnd, L"Failed to load image", L"Error", MB_OK);
+          if (hBitmap == NULL) {
+        MessageBoxW(hwnd, L"Failed to load image", L"Error", MB_OK);
         }
-
         ReleaseDC(hwnd, hdc);
 
     case WM_PAINT:
@@ -95,34 +81,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,WPARAM wParam, LPARAM lParam) {
         drawAll(hdc);
          EndPaint(hdc, &ps);
         return 0;
-
     case WM_TIMER:
 
-        if (counter_start != -100 && (StartGame == 2)) counter_start = counter_start - 1;
-
+        if (counter_start != -100 && (GameMod == 2)) counter_start = counter_start - 1;
         if (counter_start == 0) {
-
             KillTimer(hwnd, ID_TIMER_START);
             counter_start = -100;
-   /*         CreateGameField(hwnd);*/
-
-            // вставлять что обновить перед началом игры
-     
-
         }
-
-        if (StartGame == 4) {
+        if (GameMod == 4) {
             SetTimer(hwnd, ID_TIMER_BEFORE_START, 100, NULL);
             KillTimer(hwnd, ID_TIMER_energy1);
             energyX = 2;
             energyO = 2;
-            gameDuration = gameDurationBuf;
-            ForPodskazka = 1;
+            ForTips = 1;
         }
-
-        break;
-
-
+         break;
     case WM_DESTROY:
         DeleteObject(hBitmap);
         PostQuitMessage(0);

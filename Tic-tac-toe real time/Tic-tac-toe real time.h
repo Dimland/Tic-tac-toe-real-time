@@ -47,14 +47,7 @@ struct Field {
     int flag[100];
     int sizeX_big, sizeY_big;
     int sizeX_small, sizeY_small;
-
 } s_Field;
-
-
-//wchar_t* s_Field.field[380];
-//int s_Field.coordinataX[100];
-//int s_Field.coordinataY[100];
-//int s_Field.flag[100];
 
 int sums_Field;
 int countLine1_X; //point x
@@ -65,8 +58,8 @@ int changeLeftClic[100];
 wchar_t* pX;
 wchar_t* pO;
 
-int StartGame;
-int ForPodskazka;
+int GameMod;
+int ForTips;
 HBITMAP hBitmap;
 HDC hdc, hmdc, hdcMem;
 PAINTSTRUCT ps;
@@ -86,8 +79,6 @@ int posPancel;
 int winMensOpVarible;
 int tempm; // for dance animation
 
-
-
 // for watch
 double gameDuration;
 double gameDurationBuf ;
@@ -99,6 +90,15 @@ int tik_tak;
 int OnOffLeight ;
 
 wchar_t buferForInt[128];
+
+wchar_t* path[];
+HDC memBig[IMAGE_COUNTER];
+wchar_t name[];
+
+enum ImagesName {
+    memBitBlack, memBit3, memBitPole, memBitX1, memBitX2, memBitX3, memBitX4, memBitX5, memBitX6, memBitO1, memBitO2, memBitO3, memBitO4, memBitO5, memBitO6, memBitBot, memBitGameMod, memBitGameModV, memBitRules0, memBitRules1, memBitRuls, memBitAuthor0, memBitAuthor1, memBitAuthorPeople, memBitOpponentLevel, memBitLeftOpB_0, memBitRightOpB_0, memBitLeftOpB_1, memBitRightOpB_1, memBitLeft, memBitRight, memBitTerp1, memBitTerp2, memBitTerp3, memBitTerp4, memBitTerp5, memBitExit0, memBitExit1, memBitPancel, memBitEnergyX0, memBitEnergyX1, memBitEnergyX2, memBitEnergyX3, memBitEnergyX4, memBitEnergyX5, memBitEnergyX6, memBitEnergyX7, memBitEnergyX8, memBitEnergyX9, memBitEnergyX10, memBitEnergyO0, memBitEnergyO1, memBitEnergyO2, memBitEnergyO3, memBitEnergyO4, memBitEnergyO5, memBitEnergyO6, memBitEnergyO7, memBitEnergyO8, memBitEnergyO9, memBitEnergyO10, memBitO_Win, memBitX_Win, memBitNumbO_0, memBitNumbO_1, memBitNumbO_2, memBitNumbO_3, memBitNumbO_4, memBitNumbO_5, memBitNumbO_6, memBitNumbO_7, memBitNumbO_8, memBitNumbO_9, memBitNumbX_0, memBitNumbX_1, memBitNumbX_2, memBitNumbX_3, memBitNumbX_4, memBitNumbX_5, memBitNumbX_6, memBitNumbX_7, memBitNumbX_8, memBitNumbX_9, memBitT0, memBitT1, memBitT2, memBitT3, memBitT4, memBitT5, memBitT6, memBitT7, memBitT8, memBitT9, memBitO_WinMensLO, memBitO_WinMensPO, memBitO_WinMensLX, memBitO_WinMensPX, memBitSound0, memBitSound1, memBitSound2, memBitSound3, memBitStop0, memBitStop1, memBitPodskazka
+
+};
 
 void addBeforeStartedvalue();
 void drawAll(HDC hdc);
@@ -114,11 +114,11 @@ int compareArray(wchar_t* who, int* sum);
 int convertPointInCoolO(HWND hwnd);
 int Sum—ompletedFields();
 int changeMenu(HWND hwnd);
-int Watch(HWND hwnd);
+int addEnergy(HWND hwnd);
 int changeDisplay();
 int convertWatch(HWND hwnd);
 
-void switchLight(HDC* memDC);
+void drawhLight(HDC* memDC);
 void drawNumberWatch(HDC* memDC);
 void drawButton(HDC* memDC);
 void drawRightPageBackground(HDC* memDC);
@@ -129,14 +129,18 @@ void drawEnergy(HDC* memDC);
 void drawScore(HDC* memDC);
 void drawWin(HDC* memDC);
 
-wchar_t* path[];
-HDC memBig[IMAGE_COUNTER];
-wchar_t name[];
-
-enum ImagesName {
-    memBitBlack, memBit3, memBitPole,	memBitX1,	memBitX2,	memBitX3,	memBitX4,	memBitX5,	memBitX6,	memBitO1,	memBitO2,	memBitO3,	memBitO4,	memBitO5,	memBitO6,	memBitBot,	memBitStartGame,	memBitStartGameV,	memBitRules0,	memBitRules1,	memBitRuls,	memBitAuthor0,	memBitAuthor1,	memBitAuthorPeople,	memBitOpponentLevel,	memBitLeftOpB_0,	memBitRightOpB_0,	memBitLeftOpB_1,	memBitRightOpB_1,	memBitLeft,	memBitRight,	memBitTerp1,	memBitTerp2,	memBitTerp3,	memBitTerp4,	memBitTerp5,	memBitExit0,	memBitExit1,	memBitPancel,	memBitEnergyX0,	memBitEnergyX1,	memBitEnergyX2,	memBitEnergyX3,	memBitEnergyX4,	memBitEnergyX5,	memBitEnergyX6,	memBitEnergyX7,	memBitEnergyX8,	memBitEnergyX9,	memBitEnergyX10,	memBitEnergyO0,	memBitEnergyO1,	memBitEnergyO2,	memBitEnergyO3,	memBitEnergyO4,	memBitEnergyO5,	memBitEnergyO6,	memBitEnergyO7,	memBitEnergyO8,	memBitEnergyO9,	memBitEnergyO10,	memBitO_Win,	memBitX_Win,	memBitNumbO_0,	memBitNumbO_1,	memBitNumbO_2,	memBitNumbO_3,	memBitNumbO_4,	memBitNumbO_5,	memBitNumbO_6,	memBitNumbO_7,	memBitNumbO_8,	memBitNumbO_9,	memBitNumbX_0,	memBitNumbX_1,	memBitNumbX_2,	memBitNumbX_3,	memBitNumbX_4,	memBitNumbX_5,	memBitNumbX_6,	memBitNumbX_7,	memBitNumbX_8,	memBitNumbX_9,	memBitT0,	memBitT1,	memBitT2,	memBitT3,	memBitT4,	memBitT5,	memBitT6,	memBitT7,	memBitT8,	memBitT9,	memBitO_WinMensLO,	memBitO_WinMensPO,	memBitO_WinMensLX,	memBitO_WinMensPX,	memBitSound0,	memBitSound1,	memBitSound2,	memBitSound3,	memBitStop0,	memBitStop1,	memBitPodskazka
-
-};
+void botButton();
+void StartGameButton();
+void RulesButton();
+void AuthorButton();
+void LevelOpponentButton();
+void SpeedSovlanutButtons();
+void ExitButton();
+void SoundButton();
+void SwitchLight();
+void SwitchWatch();
+void StopButton();
+void TipsClick();
 
 struct sImage {
     wchar_t path;

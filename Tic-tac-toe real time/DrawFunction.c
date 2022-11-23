@@ -1,9 +1,9 @@
 #include "Tic-tac-toe real time.h";
 
-void switchLight(HDC* memDC) {
+void drawhLight(HDC* memDC) {
 
-    if (StartGame == -1) BitBlt(*memDC, 0, 0, 1280, 1024, memBig[memBitBlack], 0, 0, SRCCOPY);
-    if (StartGame != -1) BitBlt(*memDC, 0, 0, 1280, 1024, memBig[memBit3], 0, 0, SRCCOPY);
+    if (GameMod == -1) BitBlt(*memDC, 0, 0, 1280, 1024, memBig[memBitBlack], 0, 0, SRCCOPY);
+    if (GameMod != -1) BitBlt(*memDC, 0, 0, 1280, 1024, memBig[memBit3], 0, 0, SRCCOPY);
 };
 
 void drawNumberWatch(HDC* memDC) {
@@ -49,55 +49,55 @@ void drawNumberWatch(HDC* memDC) {
 
 void drawButton(HDC* memDC) {
     // ButtonBot
-    if (StartB.Status == 1 && StartGame != -1 && botB.Status == 1) { BitBlt(*memDC, botB.posX, botB.posY, botB.sizeX, botB.sizeY, memBig[memBitBot], 0, 0, SRCCOPY); }
-    if (botB.StasusModeGame == 1 && StartGame != -1) { BitBlt(*memDC, botB.posX + 10, botB.posY + 10, 28, 28, memBig[memBitX6], 0, 0, SRCCOPY); }
+    if (StartB.Status == 1 && GameMod != -1 && botB.Status == 1) { BitBlt(*memDC, botB.posX, botB.posY, botB.sizeX, botB.sizeY, memBig[memBitBot], 0, 0, SRCCOPY); }
+    if (botB.StasusModeGame == 1 && GameMod != -1) { BitBlt(*memDC, botB.posX + 10, botB.posY + 10, 28, 28, memBig[memBitX6], 0, 0, SRCCOPY); }
 
-    // ButtonStartGame
-    if (StartB.Status == 1 && StartGame != -1) { BitBlt(*memDC, StartB.posX, StartB.posY, StartB.sizeX, StartB.sizeY, memBig[memBitStartGame], 0, 0, SRCCOPY); }
-    if (StartB.Status == 2 && StartGame != -1) { BitBlt(*memDC, StartB.posX, StartB.posY, StartB.sizeX, StartB.sizeY, memBig[memBitStartGameV], 0, 0, SRCCOPY); }
+    // ButtonGameMod
+    if (StartB.Status == 1 && GameMod != -1) { BitBlt(*memDC, StartB.posX, StartB.posY, StartB.sizeX, StartB.sizeY, memBig[memBitGameMod], 0, 0, SRCCOPY); }
+    if (StartB.Status == 2 && GameMod != -1) { BitBlt(*memDC, StartB.posX, StartB.posY, StartB.sizeX, StartB.sizeY, memBig[memBitGameModV], 0, 0, SRCCOPY); }
 
     // ButtonRules 
-    if (RulesB.Status == 0 && StartGame != -1) { BitBlt(*memDC, RulesB.posX, RulesB.posY, RulesB.sizeX, RulesB.sizeY, memBig[memBitRules0], 0, 0, SRCCOPY); }
-    if (RulesB.Status == 1 && StartGame != -1) { BitBlt(*memDC, RulesB.posX, RulesB.posY, RulesB.sizeX, RulesB.sizeY, memBig[memBitRules1], 0, 0, SRCCOPY); }
+    if (RulesB.Status == 0 && GameMod != -1) { BitBlt(*memDC, RulesB.posX, RulesB.posY, RulesB.sizeX, RulesB.sizeY, memBig[memBitRules0], 0, 0, SRCCOPY); }
+    if (RulesB.Status == 1 && GameMod != -1) { BitBlt(*memDC, RulesB.posX, RulesB.posY, RulesB.sizeX, RulesB.sizeY, memBig[memBitRules1], 0, 0, SRCCOPY); }
 
     // ButtonAuthor 
-    if (AuthorB.Status == 0 && StartGame != -1) { BitBlt(*memDC, AuthorB.posX, AuthorB.posY, AuthorB.sizeX, AuthorB.sizeY, memBig[memBitAuthor0], 0, 0, SRCCOPY); }
-    if (AuthorB.Status == 1 && StartGame != -1) { BitBlt(*memDC, AuthorB.posX, AuthorB.posY, AuthorB.sizeX, AuthorB.sizeY, memBig[memBitAuthor1], 0, 0, SRCCOPY); }
+    if (AuthorB.Status == 0 && GameMod != -1) { BitBlt(*memDC, AuthorB.posX, AuthorB.posY, AuthorB.sizeX, AuthorB.sizeY, memBig[memBitAuthor0], 0, 0, SRCCOPY); }
+    if (AuthorB.Status == 1 && GameMod != -1) { BitBlt(*memDC, AuthorB.posX, AuthorB.posY, AuthorB.sizeX, AuthorB.sizeY, memBig[memBitAuthor1], 0, 0, SRCCOPY); }
 
 
     //opponent Level
-    if (opponenLevelB.Status == 0 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, opponenLevelB.posX, opponenLevelB.posY, opponenLevelB.sizeX, opponenLevelB.sizeY, memBig[memBitOpponentLevel], 0, 0, SRCCOPY); }
+    if (opponenLevelB.Status == 0 && GameMod != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, opponenLevelB.posX, opponenLevelB.posY, opponenLevelB.sizeX, opponenLevelB.sizeY, memBig[memBitOpponentLevel], 0, 0, SRCCOPY); }
 
-    if (LeftOpB.Status == 0 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, LeftOpB.posX, LeftOpB.posY, LeftOpB.sizeX, LeftOpB.sizeY, memBig[memBitLeftOpB_0], 0, 0, SRCCOPY); }
-    if (LeftOpB.Status == 1 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, LeftOpB.posX, LeftOpB.posY, LeftOpB.sizeX, LeftOpB.sizeY, memBig[memBitLeftOpB_1], 0, 0, SRCCOPY); }
+    if (LeftOpB.Status == 0 && GameMod != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, LeftOpB.posX, LeftOpB.posY, LeftOpB.sizeX, LeftOpB.sizeY, memBig[memBitLeftOpB_0], 0, 0, SRCCOPY); }
+    if (LeftOpB.Status == 1 && GameMod != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, LeftOpB.posX, LeftOpB.posY, LeftOpB.sizeX, LeftOpB.sizeY, memBig[memBitLeftOpB_1], 0, 0, SRCCOPY); }
 
-    if (RightOpB.Status == 0 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, RightOpB.posX, RightOpB.posY, RightOpB.sizeX, RightOpB.sizeY, memBig[memBitRightOpB_0], 0, 0, SRCCOPY); }
-    if (RightOpB.Status == 1 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, RightOpB.posX, RightOpB.posY, RightOpB.sizeX, RightOpB.sizeY, memBig[memBitRightOpB_1], 0, 0, SRCCOPY); }
+    if (RightOpB.Status == 0 && GameMod != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, RightOpB.posX, RightOpB.posY, RightOpB.sizeX, RightOpB.sizeY, memBig[memBitRightOpB_0], 0, 0, SRCCOPY); }
+    if (RightOpB.Status == 1 && GameMod != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, RightOpB.posX, RightOpB.posY, RightOpB.sizeX, RightOpB.sizeY, memBig[memBitRightOpB_1], 0, 0, SRCCOPY); }
 
-    if (opponenLevelNumberB.Status == 1 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, 452, 632, 28, 64, memBig[memBitNumbO_1], 0, 0, SRCCOPY); }
-    if (opponenLevelNumberB.Status == 2 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, 452, 632, 28, 64, memBig[memBitNumbO_2], 0, 0, SRCCOPY); }
-    if (opponenLevelNumberB.Status == 3 && StartGame != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, 452, 632, 28, 64, memBig[memBitNumbO_3], 0, 0, SRCCOPY); }
+    if (opponenLevelNumberB.Status == 1 && GameMod != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, 452, 632, 28, 64, memBig[memBitNumbO_1], 0, 0, SRCCOPY); }
+    if (opponenLevelNumberB.Status == 2 && GameMod != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, 452, 632, 28, 64, memBig[memBitNumbO_2], 0, 0, SRCCOPY); }
+    if (opponenLevelNumberB.Status == 3 && GameMod != -1 && botB.StasusModeGame == 0) { BitBlt(*memDC, 452, 632, 28, 64, memBig[memBitNumbO_3], 0, 0, SRCCOPY); }
 
 
     // Button Arrey Sovlanut
-    if (LeftB.Status == 1 && StartGame != -1) { BitBlt(*memDC, LeftB.posX, LeftB.posY, LeftB.sizeX, LeftB.sizeY, memBig[memBitLeft], 0, 0, SRCCOPY); }
-    if (RightB.Status == 1 && StartGame != -1) { BitBlt(*memDC, RightB.posX, RightB.posY, RightB.sizeX, RightB.sizeY, memBig[memBitRight], 0, 0, SRCCOPY); }
+    if (LeftB.Status == 1 && GameMod != -1) { BitBlt(*memDC, LeftB.posX, LeftB.posY, LeftB.sizeX, LeftB.sizeY, memBig[memBitLeft], 0, 0, SRCCOPY); }
+    if (RightB.Status == 1 && GameMod != -1) { BitBlt(*memDC, RightB.posX, RightB.posY, RightB.sizeX, RightB.sizeY, memBig[memBitRight], 0, 0, SRCCOPY); }
 
-    if (TerpB.Status == 1 && StartGame != -1) { BitBlt(*memDC, TerpB.posX, TerpB.posY, TerpB.sizeX, TerpB.sizeY, memBig[memBitTerp1], 0, 0, SRCCOPY); }
-    if (TerpB.Status == 2 && StartGame != -1) { BitBlt(*memDC, TerpB.posX, TerpB.posY, TerpB.sizeX, TerpB.sizeY, memBig[memBitTerp2], 0, 0, SRCCOPY); }
-    if (TerpB.Status == 3 && StartGame != -1) { BitBlt(*memDC, TerpB.posX, TerpB.posY, TerpB.sizeX, TerpB.sizeY, memBig[memBitTerp3], 0, 0, SRCCOPY); }
-    if (TerpB.Status == 4 && StartGame != -1) { BitBlt(*memDC, TerpB.posX, TerpB.posY, TerpB.sizeX, TerpB.sizeY, memBig[memBitTerp4], 0, 0, SRCCOPY); }
-    if (TerpB.Status == 5 && StartGame != -1) { BitBlt(*memDC, TerpB.posX, TerpB.posY, TerpB.sizeX, TerpB.sizeY, memBig[memBitTerp5], 0, 0, SRCCOPY); }
+    if (TerpB.Status == 1 && GameMod != -1) { BitBlt(*memDC, TerpB.posX, TerpB.posY, TerpB.sizeX, TerpB.sizeY, memBig[memBitTerp1], 0, 0, SRCCOPY); }
+    if (TerpB.Status == 2 && GameMod != -1) { BitBlt(*memDC, TerpB.posX, TerpB.posY, TerpB.sizeX, TerpB.sizeY, memBig[memBitTerp2], 0, 0, SRCCOPY); }
+    if (TerpB.Status == 3 && GameMod != -1) { BitBlt(*memDC, TerpB.posX, TerpB.posY, TerpB.sizeX, TerpB.sizeY, memBig[memBitTerp3], 0, 0, SRCCOPY); }
+    if (TerpB.Status == 4 && GameMod != -1) { BitBlt(*memDC, TerpB.posX, TerpB.posY, TerpB.sizeX, TerpB.sizeY, memBig[memBitTerp4], 0, 0, SRCCOPY); }
+    if (TerpB.Status == 5 && GameMod != -1) { BitBlt(*memDC, TerpB.posX, TerpB.posY, TerpB.sizeX, TerpB.sizeY, memBig[memBitTerp5], 0, 0, SRCCOPY); }
 
     // ButtonSound
-    if (SoundB.Status == 0 && StartGame != -1) { BitBlt(*memDC, SoundB.posX, SoundB.posY, SoundB.sizeX, SoundB.sizeY, memBig[memBitSound0], 0, 0, SRCCOPY); }
-    if (SoundB.Status == 1 && StartGame != -1) { BitBlt(*memDC, SoundB.posX, SoundB.posY, SoundB.sizeX, SoundB.sizeY, memBig[memBitSound1], 0, 0, SRCCOPY); }
-    if (SoundB.Status == 2 && StartGame != -1) { BitBlt(*memDC, SoundB.posX, SoundB.posY, SoundB.sizeX, SoundB.sizeY, memBig[memBitSound2], 0, 0, SRCCOPY); }
-    if (SoundB.Status == 3 && StartGame != -1) { BitBlt(*memDC, SoundB.posX, SoundB.posY, SoundB.sizeX, SoundB.sizeY, memBig[memBitSound3], 0, 0, SRCCOPY); }
+    if (SoundB.Status == 0 && GameMod != -1) { BitBlt(*memDC, SoundB.posX, SoundB.posY, SoundB.sizeX, SoundB.sizeY, memBig[memBitSound0], 0, 0, SRCCOPY); }
+    if (SoundB.Status == 1 && GameMod != -1) { BitBlt(*memDC, SoundB.posX, SoundB.posY, SoundB.sizeX, SoundB.sizeY, memBig[memBitSound1], 0, 0, SRCCOPY); }
+    if (SoundB.Status == 2 && GameMod != -1) { BitBlt(*memDC, SoundB.posX, SoundB.posY, SoundB.sizeX, SoundB.sizeY, memBig[memBitSound2], 0, 0, SRCCOPY); }
+    if (SoundB.Status == 3 && GameMod != -1) { BitBlt(*memDC, SoundB.posX, SoundB.posY, SoundB.sizeX, SoundB.sizeY, memBig[memBitSound3], 0, 0, SRCCOPY); }
 
     // ButtonExit
-    if (ExitB.Status == 0 && StartGame != -1) { BitBlt(*memDC, ExitB.posX, ExitB.posY, ExitB.sizeX, ExitB.sizeY, memBig[memBitExit0], 0, 0, SRCCOPY); }
-    if (ExitB.Status == 1 && StartGame != -1) { BitBlt(*memDC, ExitB.posX, ExitB.posY, ExitB.sizeX, ExitB.sizeY, memBig[memBitExit1], 0, 0, SRCCOPY); }
+    if (ExitB.Status == 0 && GameMod != -1) { BitBlt(*memDC, ExitB.posX, ExitB.posY, ExitB.sizeX, ExitB.sizeY, memBig[memBitExit0], 0, 0, SRCCOPY); }
+    if (ExitB.Status == 1 && GameMod != -1) { BitBlt(*memDC, ExitB.posX, ExitB.posY, ExitB.sizeX, ExitB.sizeY, memBig[memBitExit1], 0, 0, SRCCOPY); }
 
     // ButtonStop
     if (StopB.Status == 0 && counter_start == -100)  BitBlt(*memDC, StopB.posX, StopB.posY, StopB.sizeX, StopB.sizeY, memBig[memBitStop0], 0, 0, SRCCOPY);
@@ -107,19 +107,19 @@ void drawButton(HDC* memDC) {
 
 void drawRightPageBackground(HDC* memDC) {
 
-    if (StartGame == 4 || counter_start == -100) { BitBlt(*memDC, Field.posX, Field.posY, Field.sizeX, Field.sizeY, memBig[memBitPole], 0, 0, SRCCOPY); } // drawField
-    if (StartGame == 5) { BitBlt(*memDC, RulesI.posX, RulesI.posY, RulesI.sizeX, RulesI.sizeY, memBig[memBitRuls], 0, 0, SRCCOPY); }
-    if (StartGame == 6) { BitBlt(*memDC, AuthorI.posX, AuthorI.posY, AuthorI.sizeX, AuthorI.sizeY, memBig[memBitAuthorPeople], 0, 0, SRCCOPY); }
+    if (GameMod == 4 || counter_start == -100) { BitBlt(*memDC, Field.posX, Field.posY, Field.sizeX, Field.sizeY, memBig[memBitPole], 0, 0, SRCCOPY); } // drawField
+    if (GameMod == 5) { BitBlt(*memDC, RulesI.posX, RulesI.posY, RulesI.sizeX, RulesI.sizeY, memBig[memBitRuls], 0, 0, SRCCOPY); }
+    if (GameMod == 6) { BitBlt(*memDC, AuthorI.posX, AuthorI.posY, AuthorI.sizeX, AuthorI.sizeY, memBig[memBitAuthorPeople], 0, 0, SRCCOPY); }
 
 };
 
 void drawTips(HDC* memDC) {
-    if (StartGame != -1) { BitBlt(*memDC, podskazkaB.posX, podskazkaB.posY, podskazkaB.sizeX, podskazkaB.sizeY, memBig[memBitPodskazka], 0, 0, SRCCOPY); }
+    if (GameMod != -1) { BitBlt(*memDC, podskazkaB.posX, podskazkaB.posY, podskazkaB.sizeX, podskazkaB.sizeY, memBig[memBitPodskazka], 0, 0, SRCCOPY); }
 };
 
 void drawElementsXO(HDC* memDC) {
     for (int i = 1; i <= 100; i++) {
-        if (s_Field.field[i] == pO && StartGame != -1 && (StartGame == 2 || StartGame == 4)) {
+        if (s_Field.field[i] == pO && GameMod != -1 && (GameMod == 2 || GameMod == 4)) {
             BitBlt(*memDC, s_Field.coordinataX[i], s_Field.coordinataY[i], s_Field.sizeX_small, s_Field.sizeY_small, memBig[memBitO6], 0, 0, SRCCOPY);
 
         }
@@ -134,7 +134,7 @@ void drawElementsXO(HDC* memDC) {
         if (s_Field.field[i] == L"o2") { BitBlt(*memDC, s_Field.coordinataX[i], s_Field.coordinataY[i], s_Field.sizeX_small, s_Field.sizeY_small, memBig[memBitO2], 0, 0, SRCAND); s_Field.field[i] = L"o3"; }
         if (s_Field.field[i] == L"o1") { BitBlt(*memDC, s_Field.coordinataX[i], s_Field.coordinataY[i], s_Field.sizeX_small, s_Field.sizeY_small, memBig[memBitO1], 0, 0, SRCAND); s_Field.field[i] = L"o2";    if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris2.wav"), NULL, SND_FILENAME | SND_ASYNC); }
 
-        if (s_Field.field[i] == pX && StartGame != -1 && (StartGame == 2 || StartGame == 4)) {
+        if (s_Field.field[i] == pX && GameMod != -1 && (GameMod == 2 || GameMod == 4)) {
             BitBlt(*memDC, s_Field.coordinataX[i], s_Field.coordinataY[i], s_Field.sizeX_small, s_Field.sizeY_small, memBig[memBitX6], 0, 0, SRCCOPY);
 
         }
@@ -246,64 +246,64 @@ void drawScore(HDC* memDC) {
     int posNumber1_X = 767;
     int addPosNumber = 35;
 
-    if (numberX_1 == 0 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_0], 0, 0, SRCCOPY); }
-    if (numberX_1 == 1 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_1], 0, 0, SRCCOPY); }
-    if (numberX_1 == 2 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_2], 0, 0, SRCCOPY); }
-    if (numberX_1 == 3 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_3], 0, 0, SRCCOPY); }
-    if (numberX_1 == 4 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_4], 0, 0, SRCCOPY); }
-    if (numberX_1 == 5 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_5], 0, 0, SRCCOPY); }
-    if (numberX_1 == 6 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_6], 0, 0, SRCCOPY); }
-    if (numberX_1 == 7 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_7], 0, 0, SRCCOPY); }
-    if (numberX_1 == 8 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_8], 0, 0, SRCCOPY); }
-    if (numberX_1 == 9 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_9], 0, 0, SRCCOPY); }
+    if (numberX_1 == 0 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_0], 0, 0, SRCCOPY); }
+    if (numberX_1 == 1 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_1], 0, 0, SRCCOPY); }
+    if (numberX_1 == 2 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_2], 0, 0, SRCCOPY); }
+    if (numberX_1 == 3 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_3], 0, 0, SRCCOPY); }
+    if (numberX_1 == 4 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_4], 0, 0, SRCCOPY); }
+    if (numberX_1 == 5 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_5], 0, 0, SRCCOPY); }
+    if (numberX_1 == 6 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_6], 0, 0, SRCCOPY); }
+    if (numberX_1 == 7 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_7], 0, 0, SRCCOPY); }
+    if (numberX_1 == 8 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_8], 0, 0, SRCCOPY); }
+    if (numberX_1 == 9 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X, 598, 28, 64, memBig[memBitNumbX_9], 0, 0, SRCCOPY); }
 
-    if (numberX_2 == 0 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_0], 0, 0, SRCCOPY); }
-    if (numberX_2 == 1 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_1], 0, 0, SRCCOPY); }
-    if (numberX_2 == 2 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_2], 0, 0, SRCCOPY); }
-    if (numberX_2 == 3 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_3], 0, 0, SRCCOPY); }
-    if (numberX_2 == 4 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_4], 0, 0, SRCCOPY); }
-    if (numberX_2 == 5 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_5], 0, 0, SRCCOPY); }
-    if (numberX_2 == 6 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_6], 0, 0, SRCCOPY); }
-    if (numberX_2 == 7 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_7], 0, 0, SRCCOPY); }
-    if (numberX_2 == 8 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_8], 0, 0, SRCCOPY); }
-    if (numberX_2 == 9 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_9], 0, 0, SRCCOPY); }
+    if (numberX_2 == 0 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_0], 0, 0, SRCCOPY); }
+    if (numberX_2 == 1 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_1], 0, 0, SRCCOPY); }
+    if (numberX_2 == 2 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_2], 0, 0, SRCCOPY); }
+    if (numberX_2 == 3 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_3], 0, 0, SRCCOPY); }
+    if (numberX_2 == 4 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_4], 0, 0, SRCCOPY); }
+    if (numberX_2 == 5 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_5], 0, 0, SRCCOPY); }
+    if (numberX_2 == 6 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_6], 0, 0, SRCCOPY); }
+    if (numberX_2 == 7 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_7], 0, 0, SRCCOPY); }
+    if (numberX_2 == 8 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_8], 0, 0, SRCCOPY); }
+    if (numberX_2 == 9 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_X - addPosNumber, 598, 28, 64, memBig[memBitNumbX_9], 0, 0, SRCCOPY); }
 
     int posNumber1_O = 980;
 
-    if (numberO_1 == 0 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_0], 0, 0, SRCCOPY); }
-    if (numberO_1 == 1 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_1], 0, 0, SRCCOPY); }
-    if (numberO_1 == 2 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_2], 0, 0, SRCCOPY); }
-    if (numberO_1 == 3 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_3], 0, 0, SRCCOPY); }
-    if (numberO_1 == 4 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_4], 0, 0, SRCCOPY); }
-    if (numberO_1 == 5 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_5], 0, 0, SRCCOPY); }
-    if (numberO_1 == 6 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_6], 0, 0, SRCCOPY); }
-    if (numberO_1 == 7 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_7], 0, 0, SRCCOPY); }
-    if (numberO_1 == 8 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_8], 0, 0, SRCCOPY); }
-    if (numberO_1 == 9 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_9], 0, 0, SRCCOPY); }
+    if (numberO_1 == 0 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_0], 0, 0, SRCCOPY); }
+    if (numberO_1 == 1 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_1], 0, 0, SRCCOPY); }
+    if (numberO_1 == 2 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_2], 0, 0, SRCCOPY); }
+    if (numberO_1 == 3 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_3], 0, 0, SRCCOPY); }
+    if (numberO_1 == 4 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_4], 0, 0, SRCCOPY); }
+    if (numberO_1 == 5 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_5], 0, 0, SRCCOPY); }
+    if (numberO_1 == 6 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_6], 0, 0, SRCCOPY); }
+    if (numberO_1 == 7 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_7], 0, 0, SRCCOPY); }
+    if (numberO_1 == 8 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_8], 0, 0, SRCCOPY); }
+    if (numberO_1 == 9 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O, 598, 28, 64, memBig[memBitNumbO_9], 0, 0, SRCCOPY); }
 
-    if (numberO_2 == 0 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_0], 0, 0, SRCCOPY); }
-    if (numberO_2 == 1 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_1], 0, 0, SRCCOPY); }
-    if (numberO_2 == 2 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_2], 0, 0, SRCCOPY); }
-    if (numberO_2 == 3 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_3], 0, 0, SRCCOPY); }
-    if (numberO_2 == 4 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_4], 0, 0, SRCCOPY); }
-    if (numberO_2 == 5 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_5], 0, 0, SRCCOPY); }
-    if (numberO_2 == 6 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_6], 0, 0, SRCCOPY); }
-    if (numberO_2 == 7 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_7], 0, 0, SRCCOPY); }
-    if (numberO_2 == 8 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_8], 0, 0, SRCCOPY); }
-    if (numberO_2 == 9 && (counter_start == -100 || StartGame == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_9], 0, 0, SRCCOPY); }
+    if (numberO_2 == 0 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_0], 0, 0, SRCCOPY); }
+    if (numberO_2 == 1 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_1], 0, 0, SRCCOPY); }
+    if (numberO_2 == 2 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_2], 0, 0, SRCCOPY); }
+    if (numberO_2 == 3 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_3], 0, 0, SRCCOPY); }
+    if (numberO_2 == 4 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_4], 0, 0, SRCCOPY); }
+    if (numberO_2 == 5 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_5], 0, 0, SRCCOPY); }
+    if (numberO_2 == 6 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_6], 0, 0, SRCCOPY); }
+    if (numberO_2 == 7 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_7], 0, 0, SRCCOPY); }
+    if (numberO_2 == 8 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_8], 0, 0, SRCCOPY); }
+    if (numberO_2 == 9 && (counter_start == -100 || GameMod == 4)) { BitBlt(*memDC, posNumber1_O - addPosNumber, 598, 28, 64, memBig[memBitNumbO_9], 0, 0, SRCCOPY); }
 }
 
 void drawWin(HDC* memDC) {
     // Victory inscription
-    if (StartGame == 4 && countLine1_X > countLine1_O) {
+    if (GameMod == 4 && countLine1_X > countLine1_O) {
         BitBlt(*memDC, 686, 541, 328, 59, memBig[memBitX_Win], 0, 0, SRCCOPY);
     }
-    if (StartGame == 4 && countLine1_X > countLine1_O) {
+    if (GameMod == 4 && countLine1_X > countLine1_O) {
         BitBlt(*memDC, 686, 541, 328, 59, memBig[memBitO_Win], 0, 0, SRCCOPY);
     }
 
     // dance men red
-    if (StartGame == 4 && countLine1_O > countLine1_X) {
+    if (GameMod == 4 && countLine1_O > countLine1_X) {
         BitBlt(*memDC, 686, 541, 328, 59, memBig[memBitO_Win], 0, 0, SRCCOPY);
         if (tempm <= 4) {
             BitBlt(*memDC, 730, 801, 318, 69, memBig[memBitO_WinMensPO], 0, 0, SRCCOPY);
@@ -319,7 +319,7 @@ void drawWin(HDC* memDC) {
 
 
     // dance men blue
-    if (StartGame == 4 && countLine1_X > countLine1_O) {
+    if (GameMod == 4 && countLine1_X > countLine1_O) {
         BitBlt(*memDC, 686, 541, 328, 59, memBig[memBitX_Win], 0, 0, SRCCOPY);
         if (tempm <= 4) {
             BitBlt(*memDC, 730, 801, 318, 69, memBig[memBitO_WinMensPX], 0, 0, SRCCOPY);
