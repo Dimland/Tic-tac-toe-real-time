@@ -33,10 +33,7 @@ void botButton() {
 
 void StartGameButton() {
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= StartB.posX
-        && mouse_y >= StartB.posY
-        && mouse_x <= StartB.posX + StartB.sizeX
-        && mouse_y <= StartB.posY + StartB.sizeY
+        && placeClick(&StartB.posX, &StartB.posY, &StartB.sizeX, &StartB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6))
     {
         if (SoundB.Status == 0 || SoundB.Status == 1)  PlaySoundW(TEXT(".\\sounds\\perelist.wav"), NULL, SND_FILENAME | SND_ASYNC);
@@ -48,16 +45,13 @@ void StartGameButton() {
         energyX = 2;
         energyO = 2;
         gameDuration = gameDurationBuf;
-        countLine1_X = 0;
-        countLine1_O = 0;
+        sumPoint_X = sumPoint_O = 0;
+        NumberO2.Status = NumberX2.Status = 0;
         ForTips = 1;
         posPancel = 45;
     }
 
-    if (mouse_x >= StartB.posX
-        && mouse_y >= StartB.posY
-        && mouse_x <= StartB.posX + StartB.sizeX
-        && mouse_y <= StartB.posY + StartB.sizeY
+    if (placeClick(&StartB.posX, &StartB.posY, &StartB.sizeX, &StartB.sizeY) == 1
         && (GameMod != 2) && GameMod >= 0) {
         StartB.Status = 2;
 
@@ -68,24 +62,17 @@ void StartGameButton() {
 
 void RulesButton() {
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= RulesB.posX
-        && mouse_y >= RulesB.posY
-        && mouse_x <= RulesB.posX + RulesB.sizeX
-        && mouse_y <= RulesB.posY + RulesB.sizeY
+        && placeClick(&RulesB.posX,&RulesB.posY,&RulesB.sizeX, &RulesB.sizeY) == 1
         && GameMod >= 0 && GameMod != 2 && GameMod != 5)
     {
         if (SoundB.Status == 0 || SoundB.Status == 1)  PlaySoundW(TEXT(".\\sounds\\perelist.wav"), NULL, SND_FILENAME | SND_ASYNC);
         GameMod = 5;
 
     }
-    if ((mouse_x >= RulesB.posX
-        && mouse_y >= RulesB.posY
-        && mouse_x <= RulesB.posX + RulesB.sizeX
-        && mouse_y <= RulesB.posY + RulesB.sizeY
+    if ((placeClick(&RulesB.posX, &RulesB.posY, &RulesB.sizeX, &RulesB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 6)) || GameMod == 5)
     {
         RulesB.Status = 1;
-
     }
     else { RulesB.Status = 0; }
 
@@ -93,20 +80,14 @@ void RulesButton() {
 
 void AuthorButton() {
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= AuthorB.posX
-        && mouse_y >= AuthorB.posY
-        && mouse_x <= AuthorB.posX + AuthorB.sizeX
-        && mouse_y <= AuthorB.posY + AuthorB.sizeY
+        && placeClick(&AuthorB.posX, &AuthorB.posY, &AuthorB.sizeX, &AuthorB.sizeY) == 1
         && GameMod >= 0 && GameMod != 2 && GameMod != 6)
     {
         if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\perelist.wav"), NULL, SND_FILENAME | SND_ASYNC);
         GameMod = 6;
     }
 
-    if ((mouse_x >= AuthorB.posX
-        && mouse_y >= AuthorB.posY
-        && mouse_x <= AuthorB.posX + AuthorB.sizeX
-        && mouse_y <= AuthorB.posY + AuthorB.sizeY
+    if ((placeClick(&AuthorB.posX, &AuthorB.posY, &AuthorB.sizeX, &AuthorB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 5)) || GameMod == 6)
     {
         AuthorB.Status = 1;
@@ -117,10 +98,7 @@ void AuthorButton() {
 void LevelOpponentButton() {
     // Button Level opponent Left
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= LeftOpB.posX
-        && mouse_y >= LeftOpB.posY
-        && mouse_x <= LeftOpB.posX + LeftOpB.sizeX
-        && mouse_y <= LeftOpB.posY + LeftOpB.sizeY
+        && placeClick(&LeftOpB.posX, &LeftOpB.posY, &LeftOpB.sizeX, &LeftOpB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6) && opponenLevelNumberB.Status > 1)
     {
         if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris2.wav"), NULL, SND_FILENAME | SND_ASYNC);
@@ -130,10 +108,7 @@ void LevelOpponentButton() {
     }
 
 
-    if (mouse_x >= LeftOpB.posX
-        && mouse_y >= LeftOpB.posY
-        && mouse_x <= LeftOpB.posX + LeftOpB.sizeX
-        && mouse_y <= LeftOpB.posY + LeftOpB.sizeY
+    if (placeClick(&LeftOpB.posX, &LeftOpB.posY, &LeftOpB.sizeX, &LeftOpB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6) && opponenLevelNumberB.Status > 1)
     {
 
@@ -145,10 +120,7 @@ void LevelOpponentButton() {
 
     // Button Level opponent Right
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= RightOpB.posX
-        && mouse_y >= RightOpB.posY
-        && mouse_x <= RightOpB.posX + RightB.sizeX
-        && mouse_y <= RightOpB.posY + RightB.sizeY
+        && placeClick(&RightOpB.posX, &RightOpB.posY, &RightOpB.sizeX, &RightOpB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6) && opponenLevelNumberB.Status < 3) {
 
         if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
@@ -159,10 +131,7 @@ void LevelOpponentButton() {
         Sleep(300);
     }
 
-    if (mouse_x >= RightOpB.posX
-        && mouse_y >= RightOpB.posY
-        && mouse_x <= RightOpB.posX + RightOpB.sizeX
-        && mouse_y <= RightOpB.posY + RightOpB.sizeY
+    if (placeClick(&RightOpB.posX, &RightOpB.posY, &RightOpB.sizeX, &RightOpB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6) && opponenLevelNumberB.Status < 3)
     {
         RightOpB.Status = 1;
@@ -176,10 +145,7 @@ void SpeedSovlanutButtons() {
 
     // button Arrey Left
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= LeftB.posX
-        && mouse_y >= LeftB.posY
-        && mouse_x <= LeftB.posX + LeftB.sizeX
-        && mouse_y <= LeftB.posY + LeftB.sizeY
+        && placeClick(&LeftB.posX, &LeftB.posY, &LeftB.sizeX, &LeftB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6) && speed > 0.06 && TerpB.Status > 1)
     {
         if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris2.wav"), NULL, SND_FILENAME | SND_ASYNC);
@@ -187,10 +153,7 @@ void SpeedSovlanutButtons() {
         TerpB.Status = TerpB.Status - 1;
         Sleep(400);
     }
-        if (mouse_x >= LeftB.posX
-        && mouse_y >= LeftB.posY
-        && mouse_x <= LeftB.posX + LeftB.sizeX
-        && mouse_y <= LeftB.posY + LeftB.sizeY
+        if (placeClick(&LeftB.posX, &LeftB.posY, &LeftB.sizeX, &LeftB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6) && speed > 0.06 && TerpB.Status > 1)
     {
         LeftB.Status = 1;
@@ -200,10 +163,7 @@ void SpeedSovlanutButtons() {
 
     // button Arrey Right
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= RightB.posX
-        && mouse_y >= RightB.posY
-        && mouse_x <= RightB.posX + RightB.sizeX
-        && mouse_y <= RightB.posY + RightB.sizeY
+        && placeClick(&RightB.posX, &RightB.posY, &RightB.sizeX, &RightB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6) && speed != 0.30 && TerpB.Status != 5) {
 
         if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\ris.wav"), NULL, SND_FILENAME | SND_ASYNC);
@@ -214,10 +174,7 @@ void SpeedSovlanutButtons() {
         Sleep(300);
     }
 
-    if (mouse_x >= RightB.posX
-        && mouse_y >= RightB.posY
-        && mouse_x <= RightB.posX + RightB.sizeX
-        && mouse_y <= RightB.posY + RightB.sizeY
+    if (placeClick(&RightB.posX, &RightB.posY, &RightB.sizeX, &RightB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6) && speed != 0.30 && TerpB.Status != 5)
     {
         RightB.Status = 1;
@@ -230,32 +187,22 @@ void SpeedSovlanutButtons() {
 void ExitButton() {
     // button Exit
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= ExitB.posX
-        && mouse_y >= ExitB.posY
-        && mouse_x <= ExitB.posX + ExitB.sizeX
-        && mouse_y <= ExitB.posY + ExitB.sizeY
-        )
+        && placeClick(&ExitB.posX, &ExitB.posY, &ExitB.sizeX, &ExitB.sizeY) == 1
+         )
     {
         PostQuitMessage(0);
     }
 
-    if (mouse_x >= ExitB.posX
-        && mouse_y >= ExitB.posY
-        && mouse_x <= ExitB.posX + ExitB.sizeX
-        && mouse_y <= ExitB.posY + ExitB.sizeY
+    if (placeClick(&ExitB.posX, &ExitB.posY, &ExitB.sizeX, &ExitB.sizeY) == 1
         ) {
         ExitB.Status = 1;
-
     }
     else { ExitB.Status = 0; }
 };
 
 void SoundButton() {
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= SoundB.posX
-        && mouse_y >= SoundB.posY
-        && mouse_x <= SoundB.posX + SoundB.sizeX
-        && mouse_y <= SoundB.posY + SoundB.sizeY
+        && placeClick(&SoundB.posX, &SoundB.posY, &SoundB.sizeX, &SoundB.sizeY) == 1
         )
     {
         if (SoundB.Status == 0 || SoundB.Status == 1)
@@ -274,10 +221,7 @@ void SoundButton() {
         }
     }
 
-    if (mouse_x >= SoundB.posX
-        && mouse_y >= SoundB.posY
-        && mouse_x <= SoundB.posX + SoundB.sizeX
-        && mouse_y <= SoundB.posY + SoundB.sizeY
+    if (placeClick(&SoundB.posX, &SoundB.posY, &SoundB.sizeX, &SoundB.sizeY) == 1
         )
     {
         if (SoundB.Status == 0)
@@ -300,51 +244,39 @@ void SoundButton() {
 
 void SwitchLight() {
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= 90
-        && mouse_y >= 26
-        && mouse_x <= 151
-        && mouse_y <= 90
-        && (GameMod == -1 || GameMod == 5 || GameMod == 6) && OnOffLeight == 0
+        && placeClick(&LightB.posX, &LightB.posY, &LightB.sizeX, &LightB.sizeY) == 1
+        && (GameMod == -1 || GameMod == 5 || GameMod == 6) && LightB.Status == 0
         )
     {
         if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\onLamp.wav"), NULL, SND_FILENAME | SND_ASYNC);
         Sleep(350);
         GameMod = -2;
-        OnOffLeight = 1;
+        LightB.Status = 1;
     }
 
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= 90
-        && mouse_y >= 26
-        && mouse_x <= 151
-        && mouse_y <= 90
-        && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6) && OnOffLeight == 1
+        && placeClick(&LightB.posX, &LightB.posY, &LightB.sizeX, &LightB.sizeY) == 1
+        && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6) && LightB.Status == 1
         )
     {
         if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\onLamp.wav"), NULL, SND_FILENAME | SND_ASYNC);
         Sleep(350);
         GameMod = -1;
-        OnOffLeight = 0;
+        LightB.Status = 0;
     }
 
 };
 
 void SwitchWatch() {
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= 770
-        && mouse_y >= 10
-        && mouse_x <= 1000
-        && mouse_y <= 100
+        && placeClick(&WatchB.posX, &WatchB.posY, &WatchB.sizeX, &WatchB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6))
             {
         changeLeftClic[0] = 1;
             }
 
     if (GetKeyState(VK_LBUTTON) >= 0
-        && mouse_x >= 770
-        && mouse_y >= 10
-        && mouse_x <= 1000
-        && mouse_y <= 100
+        && placeClick(&WatchB.posX, &WatchB.posY, &WatchB.sizeX, &WatchB.sizeY) == 1
         && (GameMod == 0 || GameMod == 4 || GameMod == 5 || GameMod == 6) && changeLeftClic[0] == 1)
     {
         if (SoundB.Status == 0 || SoundB.Status == 1)  PlaySoundW(TEXT(".\\sounds\\zavod.wav"), NULL, SND_FILENAME | SND_ASYNC);
@@ -362,10 +294,7 @@ void SwitchWatch() {
 void StopButton() {
     // Button Stop
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= StopB.posX
-        && mouse_y >= StopB.posY
-        && mouse_x <= StopB.posX + StopB.sizeX
-        && mouse_y <= StopB.posY + StopB.sizeY
+        && placeClick(&StopB.posX, &StopB.posY, &StopB.sizeX, &StopB.sizeY) == 1
         && (counter_start == -100)
         )
     {
@@ -379,10 +308,7 @@ void StopButton() {
         gameDuration = gameDurationBuf;
     }
 
-    if (mouse_x >= StopB.posX
-        && mouse_y >= StopB.posY
-        && mouse_x <= StopB.posX + StopB.sizeX
-        && mouse_y <= StopB.posY + StopB.sizeY
+    if (placeClick(&StopB.posX, &StopB.posY, &StopB.sizeX, &StopB.sizeY) == 1
         && (counter_start == -100))
     {
         StopB.Status = 1;
@@ -405,10 +331,8 @@ void TipsClick() {
     }
 
     if (GetKeyState(VK_LBUTTON) < 0
-        && mouse_x >= podskazkaB.posX
-        && mouse_y >= podskazkaB.posY
-        && mouse_x <= podskazkaB.posX + podskazkaB.sizeX
-        && mouse_y <= podskazkaB.posY + podskazkaB.sizeY
+
+        && placeClick(&podskazkaB.posX, &podskazkaB.posY, &podskazkaB.sizeX, &podskazkaB.sizeY) == 1
         && podskazkaB.Status == 1 && ForTips == 1)
     {
         podskazkaB.Status = 0;
@@ -421,10 +345,7 @@ void TipsClick() {
     else {
 
         if (GetKeyState(VK_LBUTTON) < 0
-            && mouse_x >= podskazkaB.posX
-            && mouse_y >= podskazkaB.posY
-            && mouse_x <= podskazkaB.posX + podskazkaB.sizeX
-            && mouse_y <= podskazkaB.posY + podskazkaB.sizeY
+            && placeClick(&podskazkaB.posX, &podskazkaB.posY, &podskazkaB.sizeX, &podskazkaB.sizeY) == 1
             && podskazkaB.Status == 0 && ForTips == 1)
         {
             podskazkaB.Status = 1;
@@ -433,8 +354,6 @@ void TipsClick() {
 
                 podskazkaB.posX = podskazkaB.posX + 5;
             }
-
-
         }
     }
 };

@@ -6,6 +6,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 {  
     SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
     addBeforeStartedvalue();
+   
+
     MSG  msg;
     WNDCLASSEXW wc = { 0 };
     wc.lpszClassName = L"HHHH";
@@ -35,6 +37,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
     changeDisplay();
 
     HDC hdc = GetDC(hwnd);
+    
 
     while (1) {
         if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE)) { // check the messages queue
@@ -44,20 +47,22 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
         }
         else {
             drawAll(hdc);
+            changeMenu(hdc);
             createTimer(hdc);
             GetCursorPos(pPnt);
             ScreenToClient(hwnd, pPnt);
             mouse_x = pPnt[0].x;
             mouse_y = pPnt[0].y;
             MouseInput(hwnd);
-            convertPointInCoolO(hwnd);
-            convertWatch(hwnd);
-            addEnergy(hwnd);
-            changeMenu(hwnd);
-            SetCursor(LoadCursorFromFile(TEXT(".\\image\\pen1.cur")));
            if (botB.StasusModeGame ==1) KeyboardInput(hwnd);
            else {BotMoves(hwnd); };
-            Sleep(50);
+           
+           addEnergy(hwnd);
+           convertPointInCoolO(hwnd);
+           convertWatch(hwnd);
+           
+           SetCursor(LoadCursorFromFile(TEXT(".\\image\\pen1.cur")));
+           Sleep(50);
         }
     }
        return (int)msg.wParam;
@@ -66,10 +71,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,WPARAM wParam, LPARAM lParam) {
     switch (msg) {
     case WM_SIZE:
-        GetClientRect(hwnd, &rct); // размер экрана
+        GetClientRect(hwnd, &rct); // SizeWindow
     case WM_CREATE:
         PlaySoundW(TEXT(".\\sounds\\startSong.wav"), NULL, SND_FILENAME | SND_ASYNC);
-        LoadImageDimaArr(path);
+        LoadImageArr(path, memBig, IMAGE_COUNTER);
+        LoadImageArr(pathNumberWatch, MemWatchNumber.array, 10);
+        LoadImageArr(pathNumberX, MemXNumber.array, 10);
+        LoadImageArr(pathNumberO, MemONumber.array, 10);
+        LoadImageArr(pathEnergyX, MemEnergyX.array, 11);
+        LoadImageArr(pathEnergyO, MemEnergyO.array, 11);
+
           if (hBitmap == NULL) {
         MessageBoxW(hwnd, L"Failed to load image", L"Error", MB_OK);
         }

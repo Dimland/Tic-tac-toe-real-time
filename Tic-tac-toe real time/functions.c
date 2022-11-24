@@ -1,6 +1,14 @@
 #include "Tic-tac-toe real time.h";
 
-wchar_t* path[] = { L".\\image\\Backround_v0.7_black.bmp", L".\\image\\Backround_v0.11_whate.bmp", L".\\image\\pole1.bmp",	L".\\image\\X1.bmp",	L".\\image\\X2.bmp",	L".\\image\\X3.bmp",	L".\\image\\X4.bmp",	L".\\image\\X5.bmp",	L".\\image\\X6.bmp",	L".\\image\\O1.bmp",	L".\\image\\O2.bmp",	L".\\image\\O3.bmp",	L".\\image\\O4.bmp",	L".\\image\\O5.bmp",	L".\\image\\O.bmp",	L".\\image\\bot_1.bmp",	L".\\image\\startGame.bmp",	L".\\image\\StartGameV.bmp",	L".\\image\\Rules_0.bmp",	L".\\image\\Rules_1.bmp",	L".\\image\\Ruls.bmp",	L".\\image\\Author0.bmp",	L".\\image\\Author1.bmp",	L".\\image\\AuthorPeople.bmp",	L".\\image\\opponentLevel.bmp",	L".\\image\\leftOpB_0.bmp",	L".\\image\\RightOpB_0.bmp",	L".\\image\\leftOpB_1.bmp",	L".\\image\\RightOpB_1.bmp",	L".\\image\\LeftChange.bmp",	L".\\image\\RightChange.bmp",	L".\\image\\Terp1_1.bmp",	L".\\image\\Terp2.bmp",	L".\\image\\Terp3.bmp",	L".\\image\\Terp4.bmp",	L".\\image\\Terp5.bmp",	L".\\image\\exit_0.bmp",	L".\\image\\exit_1.bmp",	L".\\image\\pancel.bmp",	L".\\image\\EnergyX_0.bmp",	L".\\image\\EnergyX_1.bmp",	L".\\image\\EnergyX_2.bmp",	L".\\image\\EnergyX_3.bmp",	L".\\image\\EnergyX_4.bmp",	L".\\image\\EnergyX_5.bmp",	L".\\image\\EnergyX_6.bmp",	L".\\image\\EnergyX_7.bmp",	L".\\image\\EnergyX_8.bmp",	L".\\image\\EnergyX_9.bmp",	L".\\image\\EnergyX_10.bmp",	L".\\image\\EnergyO_0.bmp",	L".\\image\\EnergyO_1.bmp",	L".\\image\\EnergyO_2.bmp",	L".\\image\\EnergyO_3.bmp",	L".\\image\\EnergyO_4.bmp",	L".\\image\\EnergyO_5.bmp",	L".\\image\\EnergyO_6.bmp",	L".\\image\\EnergyO_7.bmp",	L".\\image\\EnergyO_8.bmp",	L".\\image\\EnergyO_9.bmp",	L".\\image\\EnergyO_10.bmp",	L".\\image\\O_win.bmp",	L".\\image\\x_win.bmp",	L".\\image\\O-0.bmp",	L".\\image\\O-1.bmp",	L".\\image\\O-2.bmp",	L".\\image\\O-3.bmp",	L".\\image\\O-4.bmp",	L".\\image\\O-5.bmp",	L".\\image\\O-6.bmp",	L".\\image\\O-7.bmp",	L".\\image\\O-8.bmp",	L".\\image\\O-9.bmp",	L".\\image\\X-0.bmp",	L".\\image\\X-1.bmp",	L".\\image\\X-2.bmp",	L".\\image\\X-3.bmp",	L".\\image\\X-4.bmp",	L".\\image\\X-5.bmp",	L".\\image\\X-6.bmp",	L".\\image\\X-7.bmp",	L".\\image\\X-8.bmp",	L".\\image\\X-9.bmp",	L".\\image\\Time0.bmp",	L".\\image\\Time1.bmp",	L".\\image\\Time2.bmp",	L".\\image\\Time3.bmp",	L".\\image\\Time4.bmp",	L".\\image\\Time5.bmp",	L".\\image\\Time6.bmp",	L".\\image\\Time7.bmp",	L".\\image\\Time8.bmp",	L".\\image\\Time9.bmp",	L".\\image\\win_mens_lO.bmp",	L".\\image\\win_mens_PO.bmp",	L".\\image\\win_mens_lX.bmp",	L".\\image\\win_mens_PX.bmp",	L".\\image\\sound0.bmp",	L".\\image\\sound1.bmp",	L".\\image\\sound2.bmp",	L".\\image\\sound3.bmp",	L".\\image\\stop0.bmp",	L".\\image\\stop1.bmp",	L".\\image\\podskazka.bmp" };
+wchar_t* path[] = { L".\\image\\Backround_v0.7_black.bmp", L".\\image\\Backround_v0.11_whate.bmp", L".\\image\\pole1.bmp",	L".\\image\\X1.bmp",	L".\\image\\X2.bmp",	L".\\image\\X3.bmp",	L".\\image\\X4.bmp",	L".\\image\\X5.bmp",	L".\\image\\X6.bmp",	L".\\image\\O1.bmp",	L".\\image\\O2.bmp",	L".\\image\\O3.bmp",	L".\\image\\O4.bmp",	L".\\image\\O5.bmp",	L".\\image\\O.bmp",	L".\\image\\bot_1.bmp",	L".\\image\\startGame.bmp",	L".\\image\\StartGameV.bmp",	L".\\image\\Rules_0.bmp",	L".\\image\\Rules_1.bmp",	L".\\image\\Ruls.bmp",	L".\\image\\Author0.bmp",	L".\\image\\Author1.bmp",	L".\\image\\AuthorPeople.bmp",	L".\\image\\opponentLevel.bmp",	L".\\image\\leftOpB_0.bmp",	L".\\image\\RightOpB_0.bmp",	L".\\image\\leftOpB_1.bmp",	L".\\image\\RightOpB_1.bmp",	L".\\image\\LeftChange.bmp",	L".\\image\\RightChange.bmp",	L".\\image\\Terp1_1.bmp",	L".\\image\\Terp2.bmp",	L".\\image\\Terp3.bmp",	L".\\image\\Terp4.bmp",	L".\\image\\Terp5.bmp",	L".\\image\\exit_0.bmp",	L".\\image\\exit_1.bmp",	L".\\image\\pancel.bmp",
+L".\\image\\O_win.bmp",	L".\\image\\x_win.bmp", L".\\image\\win_mens_lO.bmp",	L".\\image\\win_mens_PO.bmp",	L".\\image\\win_mens_lX.bmp",	L".\\image\\win_mens_PX.bmp",	L".\\image\\sound0.bmp",	L".\\image\\sound1.bmp",	L".\\image\\sound2.bmp",	L".\\image\\sound3.bmp",	L".\\image\\stop0.bmp",	L".\\image\\stop1.bmp",	L".\\image\\podskazka.bmp" };
+
+
+wchar_t* pathEnergyX[] = { L".\\image\\EnergyX_0.bmp",	L".\\image\\EnergyX_1.bmp",	L".\\image\\EnergyX_2.bmp",	L".\\image\\EnergyX_3.bmp",	L".\\image\\EnergyX_4.bmp",	L".\\image\\EnergyX_5.bmp",	L".\\image\\EnergyX_6.bmp",	L".\\image\\EnergyX_7.bmp",	L".\\image\\EnergyX_8.bmp",	L".\\image\\EnergyX_9.bmp",	L".\\image\\EnergyX_10.bmp" };
+wchar_t* pathEnergyO[] = { L".\\image\\EnergyO_0.bmp",	L".\\image\\EnergyO_1.bmp",	L".\\image\\EnergyO_2.bmp",	L".\\image\\EnergyO_3.bmp",	L".\\image\\EnergyO_4.bmp",	L".\\image\\EnergyO_5.bmp",	L".\\image\\EnergyO_6.bmp",	L".\\image\\EnergyO_7.bmp",	L".\\image\\EnergyO_8.bmp",	L".\\image\\EnergyO_9.bmp",	L".\\image\\EnergyO_10.bmp" };
+wchar_t* pathNumberWatch[] = { L".\\image\\Time0.bmp", L".\\image\\Time1.bmp", L".\\image\\Time2.bmp", L".\\image\\Time3.bmp", L".\\image\\Time4.bmp", L".\\image\\Time5.bmp", L".\\image\\Time6.bmp", L".\\image\\Time7.bmp", L".\\image\\Time8.bmp", L".\\image\\Time9.bmp" };
+wchar_t* pathNumberX[] = { L".\\image\\X-0.bmp", L".\\image\\X-1.bmp",	L".\\image\\X-2.bmp",	L".\\image\\X-3.bmp",	L".\\image\\X-4.bmp",	L".\\image\\X-5.bmp",	L".\\image\\X-6.bmp",	L".\\image\\X-7.bmp",	L".\\image\\X-8.bmp",	L".\\image\\X-9.bmp" };
+wchar_t* pathNumberO[] = { L".\\image\\O-0.bmp", L".\\image\\O-1.bmp",	L".\\image\\O-2.bmp",	L".\\image\\O-3.bmp",	L".\\image\\O-4.bmp",	L".\\image\\O-5.bmp",	L".\\image\\O-6.bmp",	L".\\image\\O-7.bmp",	L".\\image\\O-8.bmp",	L".\\image\\O-9.bmp" };
 
 int changeDisplay() {
 
@@ -18,34 +26,109 @@ void addBeforeStartedvalue() {
   
     // Начальные значения
     sums_Field = 0;
-    countLine1_X = 0; //point x
-    countLine1_O = 0; // point O
+    sumPoint_X = 0; //point x
+    sumPoint_O = 0; // point O
 
     WinPoint = 40; // Разница point при которой победит одна из сторон
     changeLeftClic[99];
     pX = L"x";
     pO = L"o";
-   
     GameMod = -1;
     ForTips = 0;
-
     speed = 0.24; // speed return energy
     speedBot = 1.8;
     counter_start = 1;
-
-    winMensOpVarible = 1;
-
     tempm = 0;
-
-    // for watch
-    gameDuration = 150;
-    gameDurationBuf = 150;
-
+    gameDuration = gameDurationBuf = 150;    // for watch
     tik_tak = 0;
-    OnOffLeight = 0;
+  
+    // assign positions to structures
 
-    // назначаю структурам позиции
-   
+    NumberX1.posX = 767;
+    NumberX1.posY = 598;
+    NumberX1.sizeX = 28;
+    NumberX1.sizeY = 64;
+
+    NumberX2.posX = 732;
+    NumberX2.posY = 598;
+    NumberX2.sizeX = 28;
+    NumberX2.sizeY = 64;
+
+    NumberO1.posX = 980;
+    NumberO1.posY = 598;
+    NumberO1.sizeX = 28;
+    NumberO1.sizeY = 64;
+
+    NumberO2.posX = 945;
+    NumberO2.posY = 598;
+    NumberO2.sizeX = 28;
+    NumberO2.sizeY = 64;
+
+    EnergyX1.posX = 698;
+    EnergyX1.posY = 667;
+    EnergyX1.sizeX = 30;
+    EnergyX1.sizeY = 64;
+
+    EnergyX2.posX = 733;
+    EnergyX2.posY = 667;
+    EnergyX2.sizeX = 30;
+    EnergyX2.sizeY = 64;
+
+    EnergyX3.posX = 768;
+    EnergyX3.posY = 667;
+    EnergyX3.sizeX = 30;
+    EnergyX3.sizeY = 64;
+
+    EnergyO1.posX = 979;
+    EnergyO1.posY = 667;
+    EnergyO1.sizeX = 30;
+    EnergyO1.sizeY = 64;
+
+    EnergyO2.posX = 944;
+    EnergyO2.posY = 667;
+    EnergyO2.sizeX = 30;
+    EnergyO2.sizeY = 64;
+
+    EnergyO3.posX = 909;
+    EnergyO3.posY = 667;
+    EnergyO3.sizeX = 30;
+    EnergyO3.sizeY = 64;
+
+    WatchB.posX = 770;
+    WatchB.posY = 10;
+    WatchB.sizeX = 230;
+    WatchB.sizeY = 90;
+
+    SecondL.Status = 0;
+    SecondL.posX = 905;
+    SecondL.posY = 18;
+    SecondL.sizeX = 37;
+    SecondL.sizeY = 73;
+
+    SecondR.Status = 0;
+    SecondR.posX = 949;
+    SecondR.posY = 18;
+    SecondR.sizeX = 37;
+    SecondR.sizeY = 73;
+
+    MinutL.Status = 0;
+    MinutL.posX = 791;
+    MinutL.posY = 18;
+    MinutL.sizeX = 37;
+    MinutL.sizeY = 73;
+
+    MinutR.Status = 0;
+    MinutR.posX = 835;
+    MinutR.posY = 18;
+    MinutR.sizeX = 37;
+    MinutR.sizeY = 73;
+
+    LightB.Status = 0;
+    LightB.posX = 90;
+    LightB.posY = 26;
+    LightB.sizeX = 61;
+    LightB.sizeY = 64;
+
     s_Field.sizeX_big = 35;
     s_Field.sizeY_big = 34;
     s_Field.sizeX_small = 28;
@@ -119,8 +202,8 @@ void addBeforeStartedvalue() {
     opponenLevelB.sizeY = 45;
 
     opponenLevelNumberB.Status = 1;
-    opponenLevelNumberB.posX = 450;
-    opponenLevelNumberB.posY = 628;
+    opponenLevelNumberB.posX = 452;
+    opponenLevelNumberB.posY = 632;
     opponenLevelNumberB.sizeX = 28;
     opponenLevelNumberB.sizeY = 64;
 
@@ -506,7 +589,7 @@ int BotMoves(HWND hwnd) {
     }
 }
 
-int compareArray(wchar_t* who, int* sum) {
+int sumPoint(wchar_t* who, int* sum) {
     int  X5 = 0;
     int tempX = 0;
 
@@ -678,96 +761,98 @@ int compareArray(wchar_t* who, int* sum) {
 }
 
 int convertPointInCoolO(HWND hwnd) {
-    if (countLine1_O < 10) {
-        numberO_1 = countLine1_O;
+    if (sumPoint_O < 10) {
+        NumberO1.Status = sumPoint_O;
     }
     else {
-        if (countLine1_O < 100)
+        if (sumPoint_O < 100)
         {
-            numberO_2 = floor(countLine1_O / 10);
-            numberO_1 = countLine1_O - numberO_2 * 10;
+            NumberO2.Status = floor(sumPoint_O / 10);
+            NumberO1.Status = sumPoint_O - NumberO2.Status * 10;
         }
     }
-    if (countLine1_X < 10) {
-        numberX_1 = countLine1_X;
+    if (sumPoint_X < 10) {
+        NumberX1.Status = sumPoint_X;
     }
     else {
-        if (countLine1_X < 100)
+        if (sumPoint_X < 100)
         {
-            numberX_2 = floor(countLine1_X / 10);
-            numberX_1 = countLine1_X - numberX_2 * 10;
+            NumberX2.Status = floor(sumPoint_X / 10);
+            NumberX1.Status = sumPoint_X - NumberX2.Status * 10;
         }
     }
 
 }
 
 int convertWatch(HWND hwnd) {
-    minutsLeft = floor(gameDuration / 60);
-    secondsLeft = gameDuration - (minutsLeft * 60);
+    MinutR.Status = floor(gameDuration / 60);
+    int allSecond = gameDuration - (MinutR.Status * 60);
 
-    if (secondsLeft < 10) {
-        secondsLeft1 = 0;
-        secondsLeft2 = secondsLeft;
+    if (allSecond < 10) {
+        SecondL.Status = 0;
+        SecondR.Status = allSecond;
     }
     else {
-        if (secondsLeft < 61)
+        if (allSecond < 61)
         {
-            secondsLeft1 = floor(secondsLeft / 10);
-            secondsLeft2 = secondsLeft - secondsLeft1 * 10;
+            SecondL.Status = floor(allSecond / 10);
+            SecondR.Status = allSecond - SecondL.Status * 10;
         }
     }
     if (counter_start == -100) { gameDuration = gameDuration - 0.063; }
 }
 
 int addEnergy(HWND hwnd) {
+    double energyAdd;
         if (counter_start == -100 && energyX < 3 && energyX >= 2) {
-        energeXadd = 0.1 * speed;
-        energyX = energyX + energeXadd;
+            energyAdd = 0.1 * speed;
+        energyX = energyX + energyAdd;
 
     }
 
     if (counter_start == -100 && energyO < 3 && energyO >= 2) {
-        energeOadd = 0.1 * speed;
-        energyO = energyO + energeOadd;
+        energyAdd = 0.1 * speed;
+        energyO = energyO + energyAdd;
     }
 
     if (counter_start == -100 && energyX < 2 && energyX >= 1) {
-        energeXadd = 0.066 * speed;
-        energyX = energyX + energeXadd;
+        energyAdd = 0.066 * speed;
+        energyX = energyX + energyAdd;
 
     }
 
     if (counter_start == -100 && energyO < 2 && energyO >= 1) {
-        energeOadd = 0.066 * speed;
-        energyO = energyO + energeOadd;
+        energyAdd = 0.066 * speed;
+        energyO = energyO + energyAdd;
     }
 
     if (counter_start == -100 && energyX < 1) {
-        energeXadd = 0.044 * speed;
-        energyX = energyX + energeXadd;
+        energyAdd = 0.044 * speed;
+        energyX = energyX + energyAdd;
 
     }
     if (counter_start == -100 && energyO < 1) {
-        energeOadd = 0.044 * speed;
-        energyO = energyO + energeOadd;
+        energyAdd = 0.044 * speed;
+        energyO = energyO + energyAdd;
     }
 
 
 
-    //Проверка конца игры по времени
-    if (counter_start < -1 && (gameDuration <= 0 || WinPoint <= countLine1_X - countLine1_O || WinPoint <= countLine1_O - countLine1_X || sums_Field >= 100)) {
-        GameMod = 4;
-        counter_start = 1;
-        if (GameMod == 4 && countLine1_X > countLine1_O) {
-            if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\X_Win2.wav"), NULL, SND_FILENAME | SND_ASYNC);
-        }
-        if (GameMod == 4 && countLine1_O > countLine1_X) {
-            if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\O_Win.wav"), NULL, SND_FILENAME | SND_ASYNC);
-        }
+    //Проверка конца игры
+    if ((gameDuration <= 0 || WinPoint <= sumPoint_X - sumPoint_O || WinPoint <= sumPoint_O - sumPoint_X || sums_Field == 100)) {
+        
         GameMod = 4;
         counter_start = 1;
         sums_Field = 0;
         gameDuration = gameDurationBuf;
+       
+        if (GameMod == 4 && sumPoint_X > sumPoint_O) {
+            if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\X_Win2.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        }
+        if (GameMod == 4 && sumPoint_O > sumPoint_X) {
+            if (SoundB.Status == 0 || SoundB.Status == 1) PlaySoundW(TEXT(".\\sounds\\O_Win.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        }
+       
 
     }
 
@@ -781,35 +866,34 @@ int addEnergy(HWND hwnd) {
         else { tik_tak--; }
     }
 
-
-    // draw eneggy
-    if (energyX >= 1) { energyX1 = 10; }
+        // draw eneggy
+    if (energyX >= 1) { EnergyX1.Status = 10; }
     else {
-        energyX1 = floor(energyX * 10);
+        EnergyX1.Status = floor(energyX * 10);
     }
-    if (energyX >= 2) { energyX2 = 10; }
+    if (energyX >= 2) { EnergyX2.Status = 10; }
     else {
-        energyX2 = floor((energyX - 1) * 10);
-    }
-
-    if (energyX >= 3) { energyX3 = 10; }
-    else {
-        energyX3 = floor((energyX - 2) * 10);
-    }
-    if (energyO >= 1) { energyO1 = 10; }
-    else {
-        energyO1 = floor(energyO * 10);
-    }
-    if (energyO >= 2) { energyO2 = 10; }
-
-    else {
-        energyO2 = floor((energyO - 1) * 10);
+        EnergyX2.Status = floor((energyX - 1) * 10);
     }
 
-    if (energyO >= 3) { energyO3 = 10; }
+    if (energyX >= 3) { EnergyX3.Status = 10; }
+    else {
+        EnergyX3.Status = floor((energyX - 2) * 10);
+    }
+    if (energyO >= 1) { EnergyO1.Status = 10; }
+    else {
+        EnergyO1.Status = floor(energyO * 10);
+    }
+    if (energyO >= 2) { EnergyO2.Status = 10; }
 
     else {
-        energyO3 = floor((energyO - 2) * 10);
+        EnergyO2.Status = floor((energyO - 1) * 10);
+    }
+
+    if (energyO >= 3) { EnergyO3.Status = 10; }
+
+    else {
+        EnergyO3.Status = floor((energyO - 2) * 10);
     }
 
 }
@@ -852,16 +936,16 @@ int SumСompletedFields() {
     tempV = 0;
 }
 
-void LoadImageDimaArr(wchar_t* path[]) {
+void LoadImageArr(wchar_t* path[], HDC* arrayVarieble[], int sizeArray) {
 
-      for (int i = 0; i < IMAGE_COUNTER; i++) {
+      for (int i = 0; i < sizeArray; i++) {
 
        
         hBitmap = (HBITMAP)LoadImage(NULL, path[i], IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
         HDC mem = CreateCompatibleDC(hdc);
         SelectObject(mem, hBitmap);
         DeleteObject(hBitmap);
-        memBig[i] = mem;
+        arrayVarieble[i] = mem;
         
     }
  
@@ -879,4 +963,13 @@ int CreateGameField(HWND hdc) {
         }
     }
 
+}
+
+
+int placeClick(int* posX, int* posY, int* sizeX, int* sizeY) {
+    if (mouse_x >= *posX
+        && mouse_y >= *posY
+        && mouse_x <= *posX + *sizeX
+        && mouse_y <= *posY + *sizeY)
+    return 1;
 }
